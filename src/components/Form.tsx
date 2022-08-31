@@ -1,0 +1,262 @@
+import React, { useState } from 'react';
+import { navigate } from 'gatsby';
+import styled from 'styled-components';
+import StyleBackgroundImage from '../styles/StyleBackgroundImage';
+import { convertToBgImage } from 'gbimage-bridge';
+import { getImage } from 'gatsby-plugin-image';
+
+const StyledForm = styled.div`
+  background-color: var(--blue);
+  border-left: var(--border-left);
+  padding: 1rem;
+  h2 {
+    font-size: 2.35rem;
+    padding: 0 2rem;
+    @media only screen and (max-width: 800px) {
+      padding: 0.375rem;
+    }
+  }
+  label {
+    display: none;
+  }
+`;
+function encode(data) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
+}
+
+function FormBody({ name, id, sectionHeading, boxLocation }) {
+  const [state, setState] = useState({});
+
+  const handleChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        ...state,
+      }),
+    })
+      .then(() => navigate(form.getAttribute('action')))
+      .catch((error) => console.log(error));
+  };
+
+  let message = '';
+  if (name === 'Assessment Request') {
+    message =
+      'Summary of proposed project, including technologies and preferred financing structure';
+  } else if (name === 'Project Submission') {
+    message = 'Technologies or financial focus';
+  }
+  let boxAlign = boxLocation || 'left';
+  return (
+    <div className={boxAlign}>
+      <StyledForm>
+        <h2>{name || sectionHeading}</h2>
+        <form
+          name={name && 'generic'}
+          action="/thankyou"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onSubmit={handleSubmit}
+        >
+          <p>
+            <label htmlFor="name">Name:</label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Name"
+              onBlur={handleChange}
+            />
+          </p>
+          <p>
+            <label htmlFor="company">Company:</label>
+            <input
+              id="company"
+              type="text"
+              name="company"
+              placeholder="Company"
+            />
+          </p>
+          <p>
+            <label htmlFor="position">Position:</label>
+            <input
+              id="position"
+              type="text"
+              name="position"
+              placeholder="Position"
+              onBlur={handleChange}
+            />
+          </p>
+          <p>
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Email"
+              onBlur={handleChange}
+            />
+          </p>
+          <p>
+            <label htmlFor="phone">Enter your phone number:</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              placeholder="Phone"
+              onBlur={handleChange}
+            ></input>
+          </p>
+          <p>
+            <label htmlFor="state">State</label>
+            <select id="state" name="state" onBlur={handleChange}>
+              <option value="">STATE</option>
+              <option value="Alabama">Alabama</option>
+              <option value="Alaska">Alaska</option>
+              <option value="Arizona">Arizona</option>
+              <option value="Arkansas">Arkansas</option>
+              <option value="California">California</option>
+              <option value="Colorado">Colorado</option>
+              <option value="Connecticut">Connecticut</option>
+              <option value="Delaware">Delaware</option>
+              <option value="District of Columbia">District of Columbia</option>
+              <option value="Florida">Florida</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Guam">Guam</option>
+              <option value="Hawaii">Hawaii</option>
+              <option value="Idaho">Idaho</option>
+              <option value="Illinois">Illinois</option>
+              <option value="Indiana">Indiana</option>
+              <option value="Iowa">Iowa</option>
+              <option value="Kansas">Kansas</option>
+              <option value="Kentucky">Kentucky</option>
+              <option value="Louisiana">Louisiana</option>
+              <option value="Maine">Maine</option>
+              <option value="Maryland">Maryland</option>
+              <option value="Massachusetts">Massachusetts</option>
+              <option value="Michigan">Michigan</option>
+              <option value="Minnesota">Minnesota</option>
+              <option value="Mississippi">Mississippi</option>
+              <option value="Missouri">Missouri</option>
+              <option value="Montana">Montana</option>
+              <option value="Nebraska">Nebraska</option>
+              <option value="Nevada">Nevada</option>
+              <option value="New Hampshire">New Hampshire</option>
+              <option value="New Jersey">New Jersey</option>
+              <option value="New Mexico">New Mexico</option>
+              <option value="New York">New York</option>
+              <option value="North Carolina">North Carolina</option>
+              <option value="North Dakota">North Dakota</option>
+              <option value="Northern Marianas Islands">
+                Northern Marianas Islands
+              </option>
+              <option value="Ohio">Ohio</option>
+              <option value="Oklahoma">Oklahoma</option>
+              <option value="Oregon">Oregon</option>
+              <option value="Pennsylvania">Pennsylvania</option>
+              <option value="Puerto Rico">Puerto Rico</option>
+              <option value="Rhode Island">Rhode Island</option>
+              <option value="South Carolina">South Carolina</option>
+              <option value="South Dakota">South Dakota</option>
+              <option value="Tennessee">Tennessee</option>
+              <option value="Texas">Texas</option>
+              <option value="Utah">Utah</option>
+              <option value="Vermont">Vermont</option>
+              <option value="Virginia">Virginia</option>
+              <option value="Virgin Islands">Virgin Islands</option>
+              <option value="Washington">Washington</option>
+              <option value="West Virginia">West Virginia</option>
+              <option value="Wisconsin">Wisconsin</option>
+              <option value="Wyoming">Wyoming</option>
+            </select>
+          </p>
+          <p>
+            <label htmlFor="message">Message:</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder={message}
+              rows="5"
+              cols="33"
+              onBlur={handleChange}
+            ></textarea>
+          </p>
+          <p>
+            <button type="submit">Send</button>
+          </p>
+        </form>
+      </StyledForm>
+    </div>
+  );
+}
+function Form({
+  content: {
+    id,
+    anchorId,
+    name,
+    sectionContent,
+    sectionContentCTAjumpId,
+    sectionContentCTApageLink,
+    sectionContentCTAtext,
+    sectionHeadingPosition,
+    background,
+    backgroundColor,
+    sectionHeading,
+    boxLocation,
+  },
+}) {
+  const bgColor = backgroundColor ? backgroundColor.hex : '#fff';
+  let boxAlign = 'left';
+  if (boxLocation) {
+    boxAlign = boxLocation;
+  }
+  const image = getImage(background?.asset?.gatsbyImageData);
+  const bgImage = convertToBgImage(image);
+  return (
+    <>
+      {background ? (
+        <div className={boxAlign}>
+          <StyleBackgroundImage
+            id={id}
+            Tag="section"
+            backgroundColor={bgColor}
+            {...bgImage}
+          >
+            <div>
+              <FormBody
+                id={id}
+                name={name}
+                sectionHeading={sectionHeading}
+              ></FormBody>
+            </div>
+          </StyleBackgroundImage>
+        </div>
+      ) : (
+        <div className={boxAlign}>
+          <section id={id}>
+            <div>
+              <FormBody
+                id={id}
+                name={name}
+                sectionHeading={sectionHeading}
+              ></FormBody>
+            </div>
+          </section>
+        </div>
+      )}
+    </>
+  );
+}
+
+export default Form;
