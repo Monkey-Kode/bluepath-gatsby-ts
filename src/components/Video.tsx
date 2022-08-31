@@ -79,7 +79,7 @@ function Video({ content: { anchorId } }) {
   const {
     videos: { nodes },
   } = useStaticQuery(graphql`
-    query {
+    query Video {
       videos: allSanityHomevideo {
         nodes {
           id

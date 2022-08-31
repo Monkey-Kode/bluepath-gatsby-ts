@@ -149,7 +149,7 @@ function Impact({
   const {
     impactThumbnails: { nodes },
   } = useStaticQuery(graphql`
-    query {
+    query Impact {
       impactThumbnails: allSanityImpact {
         nodes {
           content1

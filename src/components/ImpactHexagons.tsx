@@ -269,7 +269,7 @@ function ImpactHexagons() {
     '-6d3e02d6-0741-51cd-8588-f975c6e94978'
   );
   const { content } = useStaticQuery(graphql`
-    query MyQuery {
+    query ImpactHexagons {
       content: allSanityCarbonoffsets {
         nodes {
           _key

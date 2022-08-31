@@ -49,7 +49,7 @@ const StyledHeaderWrapper = styled.div`
 `;
 // markup
 const IndexPage = ({ location }: PageProps) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -58,14 +58,14 @@ const IndexPage = ({ location }: PageProps) => {
   }, []);
 
   const handleScroll = () => {
-    const header = ref.current.querySelector('header');
+    const header = ref?.current?.querySelector('header');
     if (window.scrollY > 0) {
-      header.classList.remove('hide');
-      header.classList.add('show');
+      header?.classList.remove('hide');
+      header?.classList.add('show');
       // console.log(window.scrollY);
     } else {
-      header.classList.remove('show');
-      header.classList.add('hide');
+      header?.classList.remove('show');
+      header?.classList.add('hide');
     }
   };
   return (

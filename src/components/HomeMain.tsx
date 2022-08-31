@@ -7,7 +7,7 @@ function HomeMain() {
   const {
     sections: { nodes },
   } = useStaticQuery(graphql`
-    query {
+    query HomeMain {
       sections: allSanityHomesections {
         nodes {
           id

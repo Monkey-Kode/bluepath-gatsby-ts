@@ -4,7 +4,7 @@ import Map from './Map';
 
 const ProjectsMap = () => {
   const { origins } = useStaticQuery(graphql`
-    query {
+    query ProjectsMap {
       origins: allSanityCasestudies {
         nodes {
           id

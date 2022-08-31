@@ -4,14 +4,14 @@ const useRichPageData = function (_id) {
   const [remoteRichContent, setrichContent] = useState({});
 
   useEffect(() => {
-    fetch(process.env.GATSBY_GRAPHQL_ENDPOINT, {
+    fetch(process.env.GATSBY_GRAPHQL_ENDPOINT as string, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         query: gql`
-          query {
+          query UseRichPageData {
             Page(id: "${_id}") {
               richcontentRaw
             }

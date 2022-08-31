@@ -96,7 +96,7 @@ const FooterStyles = styled.footer`
 `;
 function Footer({ location }) {
   const { addresses } = useStaticQuery(graphql`
-    query {
+    query Footer {
       settings: sanitySiteSettings {
         logoDark {
           asset {

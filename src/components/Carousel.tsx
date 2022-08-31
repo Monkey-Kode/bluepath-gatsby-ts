@@ -28,7 +28,7 @@ const StyledBackgroundImage = styled(BackgroundImage)`
 
 function Carousel({ content: { anchorId } }) {
   const { backgrounds } = useStaticQuery(graphql`
-    query {
+    query Carousel {
       backgrounds: allSanityCarousel {
         nodes {
           image {

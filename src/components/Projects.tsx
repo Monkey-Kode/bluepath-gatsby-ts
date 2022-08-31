@@ -9,7 +9,7 @@ function Projects({ content: { anchorId } }) {
   const {
     caseStudies: { nodes: projects },
   } = useStaticQuery(graphql`
-    query {
+    query Projects {
       caseStudies: allSanityCasestudies {
         nodes {
           id

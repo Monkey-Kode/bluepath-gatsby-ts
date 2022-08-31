@@ -6,7 +6,7 @@ import { SanityEventResponse, SanityPageResponse } from './src/types';
 const getPages = async ({ graphql, actions }: BuildArgs) => {
   const pageTemplate = resolve('./src/templates/Page.tsx');
   const { data } = (await graphql(`
-    query {
+    query GetPages {
       allSanityPage {
         nodes {
           description
@@ -61,7 +61,7 @@ const getPages = async ({ graphql, actions }: BuildArgs) => {
 async function getEvents({ graphql, actions }: BuildArgs) {
   const pageTemplate = resolve('./src/templates/Event.tsx');
   const { data } = (await graphql(`
-    query {
+    query GetEvents {
       allSanityEvent {
         nodes {
           name

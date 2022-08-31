@@ -49,7 +49,7 @@ const LogoWrap = styled.div`
 `;
 function Header({ location }) {
   const { settings } = useStaticQuery(graphql`
-    query {
+    query Header {
       settings: sanitySiteSettings {
         logoDark {
           asset {

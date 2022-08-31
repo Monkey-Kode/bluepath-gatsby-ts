@@ -106,7 +106,7 @@ function Menu({ open, location, siteLocation, setOpen }) {
   const {
     navigation: { nodes },
   } = useStaticQuery(graphql`
-    query {
+    query Menu {
       navigation: allSanityNavigation {
         nodes {
           name

@@ -134,7 +134,7 @@ function Team({
   const {
     leadership: { nodes: team },
   } = useStaticQuery(graphql`
-    query {
+    query Team {
       leadership: allSanityTeam {
         nodes {
           bio

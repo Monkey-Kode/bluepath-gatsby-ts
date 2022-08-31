@@ -121,7 +121,7 @@ export function ContactBody({
   const {
     addresses: { nodes },
   } = useStaticQuery(graphql`
-    query {
+    query ContactBody {
       addresses: allSanityAddress {
         nodes {
           _id
