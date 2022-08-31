@@ -43,3 +43,81 @@ export interface Event {
     };
   };
 }
+
+export interface SanityContentType {
+  name: string;
+  id: number;
+}
+export interface SanityImageAsset {
+  gatsbyImageData: any;
+}
+export interface SanityImage {
+  asset: SanityImageAsset;
+}
+export interface SanityColor {
+  hex: string;
+}
+export interface SanitySlug {
+  current: string;
+}
+export interface SanitySpan {
+  marks: string[];
+  text: string;
+}
+export interface SanityBlock {
+  _type: string;
+  children: SanitySpan[];
+  style: string;
+  list: string;
+}
+export interface SanityPageContent {
+  _id: string;
+  contentType: SanityContentType;
+  Heading: string;
+  background: SanityImage;
+  mobilebackground: SanityImage;
+  backgroundColor: SanityColor;
+  content: string;
+  description: string;
+  hidetitle: boolean;
+  id: number;
+  name: string;
+  sectionContentCTAjumpId: string;
+  sectionContentCTApageLink: SanityPage;
+  sectionContentCTAtext: string;
+  sectionContentCTAurl: string;
+  sectionHeadingPosition: boolean;
+  seotitle: string;
+  slug: SanitySlug;
+  boxLocation: string;
+  richcontent: SanityBlock[];
+}
+export interface SanityPage {
+  content: SanityPageContent;
+}
+export interface SanityEventContent {
+  id: number;
+  name: string;
+  slug: SanitySlug;
+  image: SanityImage;
+  description: string;
+  content: SanityBlock[];
+  eventAt: string;
+}
+export interface SanityEvent {
+  content: SanityEventContent;
+}
+export interface SanityPageResponse {
+  data: {
+    allSanityPage: {
+      nodes: SanityPageContent[];
+    };
+  };
+}
+export interface SanityEventResponse {
+  data: {
+    allSanityEvent: {
+      nodes: SanityEventContent[];
+    };
+  };
+}

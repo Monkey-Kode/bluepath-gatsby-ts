@@ -9,6 +9,7 @@ import ImpactThumb from './ImpactThumb';
 import classNames from 'classnames';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { convertToBgImage } from 'gbimage-bridge';
+import { SanityPage } from '../types';
 
 const StyledImpactWrapper = styled.div`
   width: 100%;
@@ -126,7 +127,7 @@ function Impact({
     seotitle,
     slug,
   },
-}) {
+}: SanityPage) {
   let sectionBg = background || '';
   if (typeof window !== 'undefined') {
     let mql = window.matchMedia('(max-width: 600px)');

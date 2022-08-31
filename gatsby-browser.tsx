@@ -17,7 +17,7 @@ export const onClientEntry = async () => {
     typeof testImg.style.objectFit === `undefined` ||
     typeof testImg.style.objectPosition === `undefined`
   ) {
-    await import(`object-fit-images`)();
+    await import(`object-fit-images`);
     console.log(`👍 Object-fit/Object-position are polyfilled`);
   }
 };

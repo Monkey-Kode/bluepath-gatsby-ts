@@ -1,13 +1,13 @@
 import type { BuildArgs, GatsbyNode, ParentSpanPluginArgs } from 'gatsby';
 // const path = require('path');
 import { resolve } from 'path';
-import { Event, Page } from './src/types';
+import { SanityEventResponse, SanityPageResponse } from './src/types';
 
 const getPages = async ({ graphql, actions }: BuildArgs) => {
   const pageTemplate = resolve('./src/templates/Page.tsx');
-  const { data } = await graphql(`
+  const { data } = (await graphql(`
     query {
-      pages: allSanityPage {
+      allSanityPage {
         nodes {
           description
           hidetitle
@@ -46,8 +46,8 @@ const getPages = async ({ graphql, actions }: BuildArgs) => {
         }
       }
     }
-  `);
-  data?.pages.nodes.forEach((page: Page) => {
+  `)) as SanityPageResponse;
+  data?.allSanityPage.nodes.forEach((page) => {
     actions.createPage({
       path: `${page.slug.current}`,
       component: pageTemplate,
@@ -60,16 +60,18 @@ const getPages = async ({ graphql, actions }: BuildArgs) => {
 
 async function getEvents({ graphql, actions }: BuildArgs) {
   const pageTemplate = resolve('./src/templates/Event.tsx');
-  const { data } = await graphql(`
+  const { data } = (await graphql(`
     query {
-      events: allSanityEvent {
+      allSanityEvent {
         nodes {
           name
           slug {
             current
           }
           content {
+            _type
             children {
+              _type
               text
             }
           }
@@ -87,9 +89,9 @@ async function getEvents({ graphql, actions }: BuildArgs) {
         }
       }
     }
-  `);
+  `)) as SanityEventResponse;
   console.log('event', data);
-  data?.events.nodes.forEach((event: Event) => {
+  data?.allSanityEvent.nodes.forEach((event) => {
     actions.createPage({
       path: `event/${event.slug.current}`,
       component: pageTemplate,

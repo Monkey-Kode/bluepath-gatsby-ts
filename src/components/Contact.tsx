@@ -6,6 +6,7 @@ import useRichPageData from '../utils/useRichPageData';
 import { ContactBody } from './ContactBody';
 import SEO from './SEO';
 import { convertToBgImage } from 'gbimage-bridge';
+import { SanityPage } from '../types';
 
 function Contact({
   content: {
@@ -17,7 +18,7 @@ function Contact({
     backgroundColor,
     content,
     description,
-    hideTitle,
+    hidetitle,
     id,
     name,
     sectionContentCTAjumpId,
@@ -30,7 +31,7 @@ function Contact({
     boxLocation,
     richcontent,
   },
-}) {
+}: SanityPage) {
   let sectionBg = background || '';
   if (typeof window !== 'undefined') {
     let mql = window.matchMedia('(max-width: 600px)');
@@ -80,7 +81,7 @@ function Contact({
             />
           </StyleBackgroundImage>
         ) : (
-          <section id={id} style={{ backgroundColor: bgColor }}>
+          <section id={String(id)} style={{ backgroundColor: bgColor }}>
             <ContactBody
               id={id}
               content={content}
