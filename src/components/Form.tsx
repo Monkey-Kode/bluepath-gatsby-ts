@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { navigate } from 'gatsby';
+import { navigate, PageProps } from 'gatsby';
 import styled from 'styled-components';
 import StyleBackgroundImage from '../styles/StyleBackgroundImage';
 import { convertToBgImage } from 'gbimage-bridge';
@@ -55,7 +55,7 @@ function FormBody({ name, id, sectionHeading, boxLocation }) {
   } else if (name === 'Project Submission') {
     message = 'Technologies or financial focus';
   }
-  let boxAlign = boxLocation || 'left';
+  const boxAlign = boxLocation || 'left';
   return (
     <div className={boxAlign}>
       <StyledForm>
@@ -200,22 +200,16 @@ function FormBody({ name, id, sectionHeading, boxLocation }) {
     </div>
   );
 }
-function Form({
+const Form = ({
   content: {
     id,
-    anchorId,
     name,
-    sectionContent,
-    sectionContentCTAjumpId,
-    sectionContentCTApageLink,
-    sectionContentCTAtext,
-    sectionHeadingPosition,
     background,
     backgroundColor,
     sectionHeading,
     boxLocation,
   },
-}) {
+}) => {
   const bgColor = backgroundColor ? backgroundColor.hex : '#fff';
   let boxAlign = 'left';
   if (boxLocation) {
@@ -257,6 +251,6 @@ function Form({
       )}
     </>
   );
-}
+};
 
 export default Form;

@@ -111,16 +111,14 @@ const StyledMap = styled.div`
 //   );
 // }
 export function ContactBody({
-  content,
   id,
   heading,
   name,
-  remoteContent,
   richcontent,
-}) {
+}: Queries.PageQuery['content']) {
   const {
     addresses: { nodes },
-  } = useStaticQuery(graphql`
+  }: Queries.ContactBodyQuery = useStaticQuery(graphql`
     query ContactBody {
       addresses: allSanityAddress {
         nodes {
@@ -137,7 +135,9 @@ export function ContactBody({
       }
     }
   `);
-  const addresses = sortObject(nodes);
+  const addresses = sortObject(
+    nodes
+  ) as Queries.ContactBodyQuery['addresses']['nodes'];
   const [showInfo, setShowInfo] = useState(false);
   // const { data } = remoteContent;
   // console.log('rich content graphql', richcontent);
@@ -145,9 +145,9 @@ export function ContactBody({
   useEffect(() => {
     loader.load().then(() => {
       const googleMaps = window.google.maps;
-      let map = [];
+      const map: any[] = [];
 
-      addresses.map(({ _id, name, location: center, address, details }) => {
+      addresses.map(({ _id, location: center, address, details }) => {
         if (googleMaps) {
           // console.log('google', googleMaps);
           return (map[_id] = new window.google.maps.Map(

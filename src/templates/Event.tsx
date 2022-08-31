@@ -1,11 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import SEO from '../components/SEO';
 import styled from 'styled-components';
 import { PortableText } from '@portabletext/react';
-import { SanityEvent } from '../types';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 const StyledMain = styled.main`
@@ -30,28 +29,31 @@ const StyledMain = styled.main`
     }
   }
 `;
+
 function Event({
   data: { content },
   location,
-}: {
-  data: SanityEvent;
-  location: string;
-}) {
+}: PageProps<Queries.EventQuery> & { location: Location }) {
+  const richText = content?.content ?? null;
   return (
     <div className="event">
-      <SEO title={content.description} />
+      <SEO title={content?.description ?? 'Event Page'} />
       <Header location={location}></Header>
       <StyledMain>
         <div className="wrap event-content">
-          <div>
-            <GatsbyImage
-              image={content?.image?.asset?.gatsbyImageData}
-              alt="Event Image"
-            />
-          </div>
-          <div>
-            <PortableText value={content.content} />
-          </div>
+          {content?.image?.asset?.gatsbyImageData && (
+            <div>
+              <GatsbyImage
+                image={content?.image?.asset?.gatsbyImageData}
+                alt="Event Image"
+              />
+            </div>
+          )}
+          {richText && richText !== null && (
+            <div>
+              <PortableText value={richText} />
+            </div>
+          )}
         </div>
       </StyledMain>
       <Footer location={location}></Footer>
@@ -60,7 +62,7 @@ function Event({
 }
 
 export const query = graphql`
-  query ($slug: String!) {
+  query Event($slug: String!) {
     content: sanityEvent(slug: { current: { eq: $slug } }) {
       content {
         _key

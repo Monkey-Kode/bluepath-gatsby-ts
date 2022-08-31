@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import IndividualPageContent from '../components/IndividualPageContent';
@@ -9,34 +9,42 @@ import Form from '../components/Form';
 import Contact from '../components/Contact';
 import Projects from '../components/Projects';
 import Team from '../components/Team';
-function innerContent(contentType, content) {
-  if (contentType === 'Form') {
-    return <Form content={content} />;
-  } else if (contentType === 'Connect') {
-    return <Contact content={content} />;
-  } else if (contentType === 'Impact') {
-    return <Impact content={content} />;
-  } else if (contentType === 'Projects') {
-    return <Projects content={content} />;
-  } else if (contentType === 'Team') {
-    return <Team content={content} />;
-  } else {
-    return <IndividualPageContent content={content} />;
+function innerContent(
+  contentType: string | null | undefined,
+  content: Queries.PageQuery['content']
+) {
+  if (contentType && content) {
+    if (contentType === 'Form') {
+      return <Form content={content} />;
+    } else if (contentType === 'Connect') {
+      return <Contact content={content} />;
+    } else if (contentType === 'Impact') {
+      return <Impact content={content} />;
+    } else if (contentType === 'Projects') {
+      return <Projects content={content} />;
+    } else if (contentType === 'Team') {
+      return <Team content={content} />;
+    } else {
+      return <IndividualPageContent content={content} />;
+    }
   }
 }
-function Page({ data: { content }, location }) {
+const Page = ({
+  data: { content },
+  location,
+}: PageProps<Queries.PageQuery>) => {
   const contentType = content?.contentType?.name;
   return (
     <div className="page">
-      <SEO title={content.seotitle} />
-      <Header location={location}></Header>
+      <SEO title={content?.seotitle ?? 'Page'} />
+      <Header location={location} />
       {innerContent(contentType, content)}
-      <Footer location={location}></Footer>
+      <Footer location={location} />
     </div>
   );
-}
+};
 export const query = graphql`
-  query ($slug: String!) {
+  query Page($slug: String!) {
     content: sanityPage(slug: { current: { eq: $slug } }) {
       _id
       contentType {

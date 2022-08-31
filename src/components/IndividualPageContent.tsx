@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import StyleBackgroundImage from '../styles/StyleBackgroundImage';
 import ContentBox from './ContentBox';
 import { convertToBgImage } from 'gbimage-bridge';
+import { PageProps } from 'gatsby';
 
 // import classNames from 'classnames';
 const StyledContent = styled.div`
@@ -20,33 +21,27 @@ const StyledContent = styled.div`
     }
   }
 `;
-function IndividualPageContent({
+const IndividualPageContent = ({
   content: {
-    contentType,
     Heading = '',
-    sectionHeadingPosition,
-    description,
-    hidetitle,
+    sectionHeadingPosition = false,
+    hidetitle = '',
     content = '',
-    id,
-    backgroundColor,
+    id = null,
+    backgroundColor: { hex = '#fff' },
     background,
     mobilebackground,
-    name,
     sectionContentCTAtext,
     sectionContentCTAjumpId,
     sectionContentCTApageLink,
-    sectionContentCTAurl,
-    seotitle,
-    slug,
     boxLocation,
   },
-}) {
+}: Queries.PageQuery) => {
   // console.log(contentType);
   // console.log('box location', boxLocation);
   let sectionBg = background || '';
   if (typeof window !== 'undefined') {
-    let mql = window.matchMedia('(max-width: 600px)');
+    const mql = window.matchMedia('(max-width: 600px)');
     if (!mql.matches && background) {
       sectionBg = background;
     } else if (mql.matches && mobilebackground) {
@@ -56,7 +51,7 @@ function IndividualPageContent({
     }
   }
 
-  const bgColor = backgroundColor ? backgroundColor.hex : '#fff';
+  const bgColor = hex;
   let boxAlign = 'left';
   if (boxLocation) {
     boxAlign = boxLocation;
@@ -94,6 +89,6 @@ function IndividualPageContent({
     );
   }
   return <section id={id}></section>;
-}
+};
 
 export default IndividualPageContent;

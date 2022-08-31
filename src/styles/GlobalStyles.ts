@@ -23,6 +23,7 @@ const GlobalStyles = createGlobalStyle`
         --big-heading-size: 3rem;
         --big-heading-padding: .5em ;
         --box-width: 725px;
+        --white: #fff;
     }
 
     html , body{

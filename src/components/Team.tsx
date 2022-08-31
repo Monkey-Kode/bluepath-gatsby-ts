@@ -119,7 +119,7 @@ function Team({
 }) {
   let sectionBg = background || '';
   if (typeof window !== 'undefined') {
-    let mql = window.matchMedia('(max-width: 600px)');
+    const mql = window.matchMedia('(max-width: 600px)');
     if (!mql.matches && background) {
       sectionBg = background;
     } else if (mql.matches && mobilebackground) {

@@ -8,30 +8,23 @@ import SEO from './SEO';
 import { convertToBgImage } from 'gbimage-bridge';
 import { SanityPage } from '../types';
 
-function Contact({
-  content: {
+function Contact({ content: allContent }: Queries.PageQuery) {
+  const {
     _id,
     Heading,
-    contentType,
     background,
     mobilebackground,
     backgroundColor,
     content,
     description,
-    hidetitle,
     id,
     name,
-    sectionContentCTAjumpId,
-    sectionContentCTApageLink,
-    sectionContentCTAtext,
-    sectionContentCTAurl,
-    sectionHeadingPosition,
     seotitle,
-    slug,
     boxLocation,
     richcontent,
-  },
-}: SanityPage) {
+  } = allContent as Queries.PageQuery['content'];
+  console.log(content);
+
   let sectionBg = background || '';
   if (typeof window !== 'undefined') {
     let mql = window.matchMedia('(max-width: 600px)');
