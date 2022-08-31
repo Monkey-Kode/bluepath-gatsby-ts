@@ -52,15 +52,14 @@ const EventsPreview = ({
         </div>
         <div className="card-content">
           <small>
-            {new Date(String(sanityEvent?.eventAt)).toLocaleDateString(
-              'en-us',
-              {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-              }
-            )}
+            {new Date(
+              String(sanityEvent?.eventAt?.split('-'))
+            ).toLocaleDateString('en-us', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            })}
           </small>
           <h2>{sanityEvent?.name}</h2>
           <p>{sanityEvent.description}</p>
