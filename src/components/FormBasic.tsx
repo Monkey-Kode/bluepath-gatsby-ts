@@ -1,10 +1,26 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { encode } from '../utils/encode';
 import { navigate } from 'gatsby';
+interface FormEventState {
+  [`form-name`]: string;
+  [`event-name`]: string;
+  name: string;
+  company: string;
+  title: string;
+  email: string;
+  details: string;
+}
 const FormBasic = ({ name }: { name: string | null | undefined }) => {
-  const [state, setState] = useState<{
-    [key: string]: string;
-  }>();
+  const intialFormState = {
+    [`form-name`]: 'events',
+    [`event-name`]: name ?? '',
+    name: '',
+    company: '',
+    title: '',
+    email: '',
+    details: '',
+  };
+  const [state, setState] = useState<FormEventState>(intialFormState);
   const handleChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setState({ ...state, [target.name]: target.value });
@@ -15,7 +31,6 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
-        'form-name': form.getAttribute('name'),
         ...state,
       }),
     })
@@ -31,19 +46,15 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
       data-netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
     >
-      <input
-        type="hidden"
-        name="event-name"
-        value={name ?? 'Missing event title'}
-        onChange={handleChange}
-      />
+      <input type="hidden" name="event-name" value={state['event-name']} />
       <label htmlFor="name">Name:</label>
       <input
         id="name"
         type="text"
         name="name"
         placeholder="Name"
-        onBlur={handleChange}
+        value={state.name}
+        onChange={handleChange}
       />
       <label htmlFor="company">Company:</label>
       <input
@@ -51,6 +62,7 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
         type="text"
         name="company"
         placeholder="Company"
+        value={state.company}
         onChange={handleChange}
       />
       <label htmlFor="title">Title:</label>
@@ -59,7 +71,8 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
         type="text"
         name="title"
         placeholder="Title"
-        onBlur={handleChange}
+        value={state.title}
+        onChange={handleChange}
       />
       <label htmlFor="email">Email:</label>
       <input
@@ -67,7 +80,8 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
         type="email"
         name="email"
         placeholder="Email"
-        onBlur={handleChange}
+        value={state.email}
+        onChange={handleChange}
       />
 
       <label htmlFor="details">Details:</label>
@@ -76,7 +90,8 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
         type="text"
         name="details"
         placeholder="Details"
-        onBlur={handleChange}
+        value={state.details}
+        onChange={handleChange}
       />
       <button type="submit">Submit</button>
     </form>
