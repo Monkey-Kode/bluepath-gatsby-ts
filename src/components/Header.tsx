@@ -47,10 +47,10 @@ const LogoWrap = styled.div`
     }
   }
 `;
-function Header({ location }) {
-  const { settings } = useStaticQuery(graphql`
+function Header({ location }: { location: Location }) {
+  const { sanitySiteSettings } = useStaticQuery(graphql`
     query Header {
-      settings: sanitySiteSettings {
+      sanitySiteSettings {
         logoDark {
           asset {
             gatsbyImageData(
@@ -81,10 +81,10 @@ function Header({ location }) {
     <StyledHeader>
       <div className="wrap">
         <LogoWrap>
-          <Logo className="dark-logo" image={settings.logoDark} />
-          <Logo className="light-logo" image={settings.logoLight} />
+          <Logo className="dark-logo" image={sanitySiteSettings.logoDark} />
+          <Logo className="light-logo" image={sanitySiteSettings.logoLight} />
         </LogoWrap>
-        <Nav location={location}></Nav>
+        <Nav location={location} />
       </div>
     </StyledHeader>
   );

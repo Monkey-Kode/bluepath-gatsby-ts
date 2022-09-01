@@ -122,13 +122,13 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
       sectionBg = background;
     }
   }
-  const [currentThumb, setCurrentThumb] = useState(
+  const [currentThumb, setCurrentThumb] = useState<string>(
     '-99c5c5d6-76bc-5870-8067-abc53e38ca86'
   );
-  const [activeBtn, setActiveBtn] = useState(
+  const [activeBtn, setActiveBtn] = useState<string>(
     '-99c5c5d6-76bc-5870-8067-abc53e38ca86'
   );
-  const [firstClick, setFirstClick] = useState(true);
+  const [firstClick, setFirstClick] = useState<boolean>(true);
   const {
     allSanityImpact: { nodes },
   }: Queries.ImpactQuery = useStaticQuery(graphql`
@@ -214,14 +214,12 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
                         className={classNames({
                           'btn-active': currentThumb === thumb.id,
                         })}
-                        activeBtn={activeBtn}
                         setActiveBtn={setActiveBtn}
                         id={`${index}_impact_thumb`}
                         key={thumb.id}
                         content={thumb}
                         setCurrentThumb={setCurrentThumb}
                         currentThumb={currentThumb}
-                        firstClick={firstClick}
                         setFirstClick={setFirstClick}
                       />
                     );

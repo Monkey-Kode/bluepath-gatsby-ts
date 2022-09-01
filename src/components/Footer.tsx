@@ -126,7 +126,7 @@ function Footer({ location }: { location: Location }) {
         {addressesOrdered.map(({ name, address, id, order, details }) => {
           return (
             <div className="address" key={id}>
-              <address>{splitByNewLines(details)}</address>
+              <address>{splitByNewLines(String(details))}</address>
             </div>
           );
         })}

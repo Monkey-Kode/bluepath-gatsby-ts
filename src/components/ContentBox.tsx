@@ -61,7 +61,7 @@ function ContentBox({
           <h2 className="hide-for-desktop">{sectionHeading}</h2>
         )}
         <div className="wrap">
-          <p>{splitByNewLines(sectionContent)}</p>
+          <p>{splitByNewLines(String(sectionContent))}</p>
 
           {ctaLink && sectionContentCTAtext && sectionContentCTAjumpId && (
             <a

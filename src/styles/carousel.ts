@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { createGlobalStyle } from 'styled-components';
 const CarouselStyles = createGlobalStyle`
 

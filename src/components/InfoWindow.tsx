@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Housing from '../images/housing.svg';
 import Industrial from '../images/industrial.svg';
@@ -8,6 +9,7 @@ import Government from '../images/government.svg';
 import Hospital from '../images/hospital.svg';
 import formatNumber from '../utils/formatNumber';
 import { GatsbyImage } from 'gatsby-plugin-image';
+
 function FeaturedImage({ image, title, entity }) {
   if (image) {
     return (

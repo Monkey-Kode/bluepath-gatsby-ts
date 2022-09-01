@@ -1,3 +1,3 @@
-export default (object) => {
-  return object.sort((a, b) => a.order - b.order);
+export default (object: any) => {
+  return object.sort((a: any, b: any) => a.order - b.order);
 };

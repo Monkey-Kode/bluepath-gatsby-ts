@@ -83,7 +83,7 @@ function Carousel({
           return (
             <StyledBackgroundImage key={`${content._id}_carousel`} {...bgImage}>
               <div className={boxAlign}>
-                <CarouselSlide content={content} />
+                <CarouselSlide allContent={content} />
               </div>
             </StyledBackgroundImage>
           );

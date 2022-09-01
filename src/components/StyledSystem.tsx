@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styled, { css } from 'styled-components';
 import {
   flex,
@@ -15,10 +16,10 @@ import {
   justifyItems,
   justifyContent,
 } from 'styled-system';
-import propTypes, { createPropTypes } from '@styled-system/prop-types';
+// import propTypes, { createPropTypes } from '@styled-system/prop-types';
 import { SPACE } from './Theme';
 
-const gutter = ({ gutterX, gutterY }) =>
+const gutter = ({ gutterX, gutterY }: { gutterX: any; gutterY: any }) =>
   css`
     ${gutterX && `> * + * { margin-left: ${SPACE[gutterX] || gutterX}};`}
     ${gutterY && `> * + * { margin-top: ${SPACE[gutterY] || gutterY}};`}
@@ -37,24 +38,24 @@ const commonPropFunctions = [
   typography,
 ];
 
-const commonPropTypes = {
-  ...propTypes.space,
-  ...propTypes.color,
-  ...propTypes.layout,
-  ...propTypes.position,
-  ...propTypes.typography,
-  ...propTypes.background,
-  ...createPropTypes(['gutter']),
-  ...createPropTypes(flex.propNames),
-  ...createPropTypes(order.propNames),
-  ...createPropTypes(gridArea.propNames),
-};
+// const commonPropTypes = {
+//   ...propTypes.space,
+//   ...propTypes.color,
+//   ...propTypes.layout,
+//   ...propTypes.position,
+//   ...propTypes.typography,
+//   ...propTypes.background,
+//   ...createPropTypes(['gutter']),
+//   ...createPropTypes(flex.propNames),
+//   ...createPropTypes(order.propNames),
+//   ...createPropTypes(gridArea.propNames),
+// };
 
 const Box = styled('div')`
   ${commonPropFunctions}
 `;
 
-Box.propTypes = commonPropTypes;
+// Box.propTypes = commonPropTypes;
 
 const Flex = styled('div')`
   display: flex;
@@ -62,10 +63,10 @@ const Flex = styled('div')`
   ${flexbox}
 `;
 
-Flex.propTypes = {
-  ...commonPropTypes,
-  ...propTypes.flexbox,
-};
+// Flex.propTypes = {
+//   ...commonPropTypes,
+//   ...propTypes.flexbox,
+// };
 
 const Grid = styled('div')`
   display: grid;
@@ -76,12 +77,12 @@ const Grid = styled('div')`
   ${justifyItems}
 `;
 
-Grid.propTypes = {
-  ...commonPropTypes,
-  ...propTypes.grid,
-  ...createPropTypes(alignItems.propNames),
-  ...createPropTypes(justifyContent.propNames),
-  ...createPropTypes(justifyItems.propNames),
-};
+// Grid.propTypes = {
+//   ...commonPropTypes,
+//   ...propTypes.grid,
+//   ...createPropTypes(alignItems.propNames),
+//   ...createPropTypes(justifyContent.propNames),
+//   ...createPropTypes(justifyItems.propNames),
+// };
 
 export { Box, Flex, Grid };

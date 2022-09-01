@@ -1,4 +1,4 @@
-const isEmptyObject = function (obj) {
+const isEmptyObject = function (obj: any) {
   console.log(obj);
   if (obj) {
     console.log('not empty');

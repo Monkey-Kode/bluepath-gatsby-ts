@@ -7,7 +7,12 @@
  * @return string - Template literal containing CSS
  */
 
-function fluidType(minScreen, maxScreen, minFont, maxFont) {
+function fluidType(
+  minScreen: string,
+  maxScreen: string,
+  minFont: string,
+  maxFont: string
+) {
   return `
       font-size: calc(${minFont} + (${
     parseInt(maxFont) - parseInt(minFont)

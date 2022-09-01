@@ -1,4 +1,4 @@
-export const hexagonGridItem = (rows, amount) => {
+export const hexagonGridItem = (rows: number, amount: number) => {
   let styles = '';
   for (let i = 1; i <= amount; i++) {
     // console.log(i + i - i);

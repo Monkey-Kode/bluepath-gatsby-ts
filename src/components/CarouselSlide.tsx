@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 import splitByNewLines from '../utils/splitByNewLines';
 import { Link } from 'gatsby';
+import { ArrElement } from '../types';
 
 const StyledSlideContent = styled.div`
   min-height: 100vh;
@@ -59,7 +60,11 @@ const StyledLinks = styled.div`
   }
 `;
 export default function CarouselSlide({
-  content: {
+  allContent,
+}: {
+  allContent: ArrElement<Queries.CarouselQuery['allSanityCarousel']['nodes']>;
+}) {
+  const {
     heading,
     image,
     content,
@@ -71,8 +76,7 @@ export default function CarouselSlide({
     secondLinkId,
     secondLinkURL,
     _id,
-  },
-}) {
+  } = allContent;
   const { ref, inView } = useInView(intersectionObserverOptions);
   let linkOne = '';
   let linkTwo = '';
@@ -103,7 +107,7 @@ export default function CarouselSlide({
           <StyledBox className="box">
             <h2>{heading}</h2>
             <div className="wrap">
-              <p>{splitByNewLines(content)}</p>
+              <p>{splitByNewLines(String(content))}</p>
               <StyledLinks className="links">
                 {firstLinkId === null ? (
                   <Link to={linkOne}>{firstLink}</Link>

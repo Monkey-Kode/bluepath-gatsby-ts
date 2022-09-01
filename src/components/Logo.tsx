@@ -2,7 +2,13 @@ import { Link } from 'gatsby';
 import React from 'react';
 import DarkLogo from '../images/dark-logo336.svg';
 import LightLogo from '../images/light-logo.svg';
-function Logo({ image, className }) {
+function Logo({
+  image,
+  className,
+}: {
+  image: Queries.SanityImage;
+  className: string;
+}) {
   // console.log(image);
   if (!image) {
     return null;
@@ -21,6 +27,7 @@ function Logo({ image, className }) {
       </Link>
     );
   }
+  return null;
 }
 
 export default Logo;

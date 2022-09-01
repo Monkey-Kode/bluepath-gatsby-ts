@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { css, createGlobalStyle } from 'styled-components';
 import { fluidRange, math, rem } from 'polished';
 
@@ -77,7 +78,7 @@ const mediaQuery = ({ mobileFirst = true }) =>
   Object.entries(DEVICE).reduce(
     (deviceMediaQueries, [label, breakpoint]) => ({
       ...deviceMediaQueries,
-      [label]: (...args) => css`
+      [label]: (...args: any) => css`
         @media screen and (${mobileFirst ? 'min-width' : 'max-width'}: ${math(
             `${breakpoint} - 0.1px`
           )}) {

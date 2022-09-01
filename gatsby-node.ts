@@ -1,11 +1,11 @@
-import type { BuildArgs, GatsbyNode, ParentSpanPluginArgs } from 'gatsby';
+import type { BuildArgs, GatsbyNode, PageProps } from 'gatsby';
 // const path = require('path');
 import { resolve } from 'path';
-import { SanityEventResponse, SanityPageResponse } from './src/types';
+import { ArrElement } from './src/types';
 
 const getPages = async ({ graphql, actions }: BuildArgs) => {
   const pageTemplate = resolve('./src/templates/Page.tsx');
-  const { data } = (await graphql(`
+  const { data }: any = await graphql(`
     query GetPages {
       allSanityPage {
         nodes {
@@ -46,21 +46,25 @@ const getPages = async ({ graphql, actions }: BuildArgs) => {
         }
       }
     }
-  `)) as SanityPageResponse;
-  data?.allSanityPage.nodes.forEach((page) => {
-    actions.createPage({
-      path: `${page.slug.current}`,
-      component: pageTemplate,
-      context: {
-        slug: page.slug.current,
-      },
-    });
-  });
+  `);
+  data?.allSanityPage.nodes.forEach(
+    (page: ArrElement<Queries.GetPagesQuery['allSanityPage']['nodes']>) => {
+      if (page?.slug?.current) {
+        actions.createPage({
+          path: `${page.slug.current}`,
+          component: pageTemplate,
+          context: {
+            slug: page.slug.current,
+          },
+        });
+      }
+    }
+  );
 };
 
 async function getEvents({ graphql, actions }: BuildArgs) {
   const pageTemplate = resolve('./src/templates/Event.tsx');
-  const { data } = (await graphql(`
+  const { data }: any = await graphql(`
     query GetEvents {
       allSanityEvent {
         nodes {
@@ -89,17 +93,22 @@ async function getEvents({ graphql, actions }: BuildArgs) {
         }
       }
     }
-  `)) as SanityEventResponse;
+  `);
   console.log('event', data);
-  data?.allSanityEvent.nodes.forEach((event) => {
-    actions.createPage({
-      path: `event/${event.slug.current}`,
-      component: pageTemplate,
-      context: {
-        slug: event.slug.current,
-      },
-    });
-  });
+  data?.allSanityEvent.nodes.forEach(
+    (event: ArrElement<Queries.GetEventsQuery['allSanityEvent']['nodes']>) => {
+      if (!event?.slug?.current) {
+        return null;
+      }
+      actions.createPage({
+        path: `event/${event.slug.current}`,
+        component: pageTemplate,
+        context: {
+          slug: event.slug.current,
+        },
+      });
+    }
+  );
 }
 export const createPages: GatsbyNode['createPages'] = async (params) => {
   await Promise.all([getPages(params), getEvents(params)]);

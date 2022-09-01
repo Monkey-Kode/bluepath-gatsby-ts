@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import styled from 'styled-components';
+import { ArrElement } from '../types';
 import formatNumber from '../utils/formatNumber';
 const StyledContentBoxes = styled.div`
   background: var(--blue);
@@ -61,16 +62,20 @@ const StyledContentBoxes = styled.div`
   }
 `;
 
-function boxHeading(heading) {
-  if (heading && Number(heading)) {
-    return <h3>{formatNumber(heading)}</h3>;
+function boxHeading(heading: string) {
+  if (heading) {
+    return <h3>{formatNumber(Number(heading))}</h3>;
   } else if (heading) {
     return <h3>{heading}</h3>;
   }
   return null;
 }
 function ImpactContent({
-  content: {
+  content,
+}: {
+  content: ArrElement<Queries.ImpactQuery['allSanityImpact']['nodes']>;
+}) {
+  const {
     content1,
     contentheading1,
     content2,
@@ -79,8 +84,7 @@ function ImpactContent({
     contentheading3,
     content4,
     contentheading4,
-  },
-}) {
+  } = content;
   return (
     <motion.div
       initial={{
@@ -96,24 +100,24 @@ function ImpactContent({
       }}
     >
       <StyledContentBoxes id="impact-boxes">
-        <div css={{ textTransform: 'capitalize' }}>
-          {boxHeading(contentheading1)}
+        <div style={{ textTransform: 'capitalize' }}>
+          {boxHeading(String(contentheading1))}
           {content1 && (
-            <p css={{ fontWeight: '800 !important', textAlign: 'right' }}>
+            <p style={{ fontWeight: '800 !important', textAlign: 'right' }}>
               {content1}
             </p>
           )}
         </div>
         <div>
-          {boxHeading(contentheading2)}
+          {boxHeading(String(contentheading2))}
           {content2 && <p>{content2}</p>}
         </div>
         <div>
-          {boxHeading(contentheading3)}
+          {boxHeading(String(contentheading3))}
           {content2 && <p>{content3}</p>}
         </div>
         <div>
-          {boxHeading(contentheading4)}
+          {boxHeading(String(contentheading4))}
           {content4 && <p>{content4}</p>}
         </div>
       </StyledContentBoxes>

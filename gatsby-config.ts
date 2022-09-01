@@ -34,12 +34,7 @@ const config: GatsbyConfig = {
         icon: 'src/images/favicon.png',
       },
     },
-    {
-      resolve: 'gatsby-plugin-sharp',
-      options: {
-        icon: './src/images/favicon.png',
-      },
-    },
+    'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-source-filesystem',

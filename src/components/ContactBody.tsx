@@ -200,14 +200,14 @@ export const ContactBody = ({
             onMouseEnter={() => setShowInfo(Boolean(_id))}
             onMouseLeave={() => setShowInfo(false)}
           >
-            <h3>{splitByNewLines(address)}</h3>
+            <h3>{splitByNewLines(String(address))}</h3>
             <StyledMap id={_id}></StyledMap>
             <div
               className={classNames('details', {
                 active: showInfo === Boolean(_id),
               })}
             >
-              <p>{splitByNewLines(details)}</p>
+              <p>{splitByNewLines(String(details))}</p>
             </div>
           </StyledColumns>
         );

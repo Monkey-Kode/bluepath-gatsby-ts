@@ -4,6 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { hexagonGridItem } from '../styles/mixins';
+import { ArrElement } from '../types';
 import formatNumber from '../utils/formatNumber';
 import isNumeric from '../utils/isNumber';
 import sortObject from '../utils/sortObject';
@@ -235,17 +236,25 @@ const StyledTabs = styled.ul`
     }
   }
 `;
-function getHexagonContent(hexagon) {
-  if (hexagon.icon) {
+function getHexagonContent(
+  hexagon: ArrElement<
+    ArrElement<
+      Queries.ImpactHexagonsQuery['allSanityCarbonoffsets']['nodes']
+    >['hexagons']
+  >
+) {
+  if (hexagon?.icon) {
     return (
-      <figure>
-        <GatsbyImage
-          image={hexagon.icon.asset.gatsbyImageData}
-          alt={hexagon.heading}
-        />
-      </figure>
+      hexagon?.icon?.asset?.gatsbyImageData && (
+        <figure>
+          <GatsbyImage
+            image={hexagon.icon.asset.gatsbyImageData}
+            alt={hexagon.heading || 'carbon offset'}
+          />
+        </figure>
+      )
     );
-  } else if (hexagon.content) {
+  } else if (hexagon?.content) {
     return (
       <div
         style={{
@@ -256,7 +265,7 @@ function getHexagonContent(hexagon) {
       >
         <h3>
           {isNumeric(hexagon.heading)
-            ? formatNumber(hexagon.heading)
+            ? formatNumber(Number(hexagon.heading))
             : hexagon.heading}
         </h3>
         <p>{hexagon.content}</p>
@@ -268,39 +277,42 @@ function ImpactHexagons() {
   const [currentTab, setcurrentTab] = useState(
     '-6d3e02d6-0741-51cd-8588-f975c6e94978'
   );
-  const { content } = useStaticQuery(graphql`
-    query ImpactHexagons {
-      content: allSanityCarbonoffsets {
-        nodes {
-          _key
-          id
-          name
-          order
-          hexagons {
-            _id
+  const { allSanityCarbonoffsets }: Queries.ImpactHexagonsQuery =
+    useStaticQuery(graphql`
+      query ImpactHexagons {
+        allSanityCarbonoffsets {
+          nodes {
             _key
-            heading
-            order
+            id
             name
-            icon {
-              asset {
-                gatsbyImageData(
-                  width: 200
-                  placeholder: BLURRED
-                  layout: CONSTRAINED
-                )
+            order
+            hexagons {
+              _id
+              _key
+              heading
+              order
+              name
+              icon {
+                asset {
+                  gatsbyImageData(
+                    width: 200
+                    placeholder: BLURRED
+                    layout: CONSTRAINED
+                  )
+                }
               }
-            }
-            content
-            backgroundColor {
-              hex
+              content
+              backgroundColor {
+                hex
+              }
             }
           }
         }
       }
-    }
-  `);
-  const tabs = sortObject(content.nodes);
+    `);
+  const tabs = sortObject(
+    allSanityCarbonoffsets.nodes
+  ) as Queries.ImpactHexagonsQuery['allSanityCarbonoffsets']['nodes'];
 
   return (
     <div>
@@ -322,23 +334,33 @@ function ImpactHexagons() {
         {tabs
           .filter((t) => t.id === currentTab)
           .map((tab) => {
-            const hexagons = sortObject(tab.hexagons);
+            const hexagons = sortObject(tab.hexagons) as ArrElement<
+              Queries.ImpactHexagonsQuery['allSanityCarbonoffsets']['nodes']
+            >['hexagons'];
             return (
               <StyledHexWrapper key={tab.id}>
-                {hexagons.map((hexagon) => {
-                  const bgColor = hexagon.backgroundColor
-                    ? hexagon.backgroundColor.hex
-                    : '#ffffff';
-                  return (
-                    <StyledHexItem key={hexagon._key}>
-                      <StyledHexContent
-                        style={bgColor && { background: bgColor }}
-                      >
-                        {getHexagonContent(hexagon)}
-                      </StyledHexContent>
-                    </StyledHexItem>
-                  );
-                })}
+                {hexagons?.map(
+                  (
+                    hexagon: ArrElement<
+                      ArrElement<
+                        Queries.ImpactHexagonsQuery['allSanityCarbonoffsets']['nodes']
+                      >['hexagons']
+                    >
+                  ) => {
+                    const bgColor = hexagon?.backgroundColor
+                      ? hexagon?.backgroundColor.hex
+                      : '#ffffff';
+                    return (
+                      <StyledHexItem key={hexagon?._key ?? tab.id}>
+                        <StyledHexContent
+                          style={bgColor && { background: bgColor }}
+                        >
+                          {getHexagonContent(hexagon)}
+                        </StyledHexContent>
+                      </StyledHexItem>
+                    );
+                  }
+                )}
               </StyledHexWrapper>
             );
           })}

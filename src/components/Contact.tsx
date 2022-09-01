@@ -2,7 +2,6 @@ import { getImage, GatsbyImage } from 'gatsby-plugin-image';
 import React from 'react';
 // import styled from 'styled-components';
 import StyleBackgroundImage from '../styles/StyleBackgroundImage';
-import useRichPageData from '../utils/useRichPageData';
 import { ContactBody } from './ContactBody';
 import SEO from './SEO';
 import { convertToBgImage } from 'gbimage-bridge';
@@ -34,7 +33,7 @@ function Contact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
       sectionBg = background;
     }
   }
-  const { remoteRichContent } = useRichPageData(_id);
+  // const { remoteRichContent } = useRichPageData(_id);
   const bgColor = backgroundColor ? backgroundColor.hex : '#fff';
 
   let boxAlign = 'left';

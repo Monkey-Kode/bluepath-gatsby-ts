@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-const splitByNewLines = function (content) {
+const splitByNewLines = function (content: string) {
   if (content) {
     return content.split('\n').map((item, idx) => {
       return (
