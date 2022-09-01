@@ -62,7 +62,7 @@ function Event({
                 <PortableText value={richText as any} />
               </div>
             )}
-            <FormBasic />
+            <FormBasic name={content?.name} />
           </div>
         </div>
       </StyledMain>

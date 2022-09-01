@@ -1,7 +1,27 @@
-import React from 'react';
-const FormBasic = () => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+import React, { SyntheticEvent, useState } from 'react';
+import { encode } from '../utils/encode';
+import { navigate } from 'gatsby';
+const FormBasic = ({ name }: { name: string | null | undefined }) => {
+  const [state, setState] = useState<{
+    [key: string]: string;
+  }>();
+  const handleChange = (e: SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    setState({ ...state, [target.name]: target.value });
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const form = e.target as HTMLFormElement;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        ...state,
+      }),
+    })
+      .then(() => navigate(form.getAttribute('action') as string))
+      .catch((error) => console.log(error));
+  };
   return (
     <form
       name="events"
@@ -11,6 +31,11 @@ const FormBasic = () => {
       data-netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
     >
+      <input
+        type="hidden"
+        name="event-name"
+        value={name ?? 'Missing event title'}
+      />
       <label htmlFor="name">Name:</label>
       <input
         id="name"
