@@ -5,12 +5,13 @@ import InfoWindow from './InfoWindow';
 import { renderToString } from 'react-dom/server';
 import { loader } from '../utils/loader';
 
-function Projects({ content: { anchorId } }) {
+function Projects({ sanityPage }: { sanityPage: Queries.SanityPage }) {
+  const { id } = sanityPage;
   const {
-    caseStudies: { nodes: projects },
-  } = useStaticQuery(graphql`
+    allSanityCasestudies: { nodes: projects },
+  }: Queries.ProjectsQuery = useStaticQuery(graphql`
     query Projects {
-      caseStudies: allSanityCasestudies {
+      allSanityCasestudies {
         nodes {
           id
           financing
@@ -42,7 +43,7 @@ function Projects({ content: { anchorId } }) {
       }
     }
   `);
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const mql = window.matchMedia('(max-width: 600px)');
@@ -60,11 +61,12 @@ function Projects({ content: { anchorId } }) {
     }
 
     loader.load().then(() => {
-      let activeInfoWindow;
+      let activeInfoWindow: any;
       const allMarkers = [];
       // let currentMark;
       // const bounds = new window.google.maps.LatLngBounds();
-      const map = new window.google.maps.Map(ref.current, mapOptions);
+      const map =
+        ref.current && new window.google.maps.Map(ref.current, mapOptions);
 
       projects.map((project) => {
         const infowindow = new window.google.maps.InfoWindow({
@@ -86,7 +88,7 @@ function Projects({ content: { anchorId } }) {
           optimized: false,
         };
         const marker = new window.google.maps.Marker({
-          position: project.location,
+          position: project.location as any,
           map,
           title: allMarkers.length.toString(),
           icon,
@@ -95,12 +97,15 @@ function Projects({ content: { anchorId } }) {
         allMarkers.push(marker);
 
         const myoverlay = new window.google.maps.OverlayView();
-        myoverlay.draw = function () {
-          this.getPanes().markerLayer.id = 'markerLayer';
+        myoverlay.draw = function (this: google.maps.OverlayView) {
+          const panes = this.getPanes();
+          if (panes) {
+            panes.markerLayer.id = 'markerLayer';
+          }
         };
         myoverlay.setMap(map);
 
-        marker.addListener('click', function () {
+        marker.addListener('click', function (this: google.maps.MarkerOptions) {
           const thisTitle = Number(this.title);
           const index = thisTitle + 2;
           // currentMark = this;
@@ -115,42 +120,49 @@ function Projects({ content: { anchorId } }) {
           infowindow.open(map, marker);
           activeInfoWindow = infowindow;
 
-          document
-            .querySelector(`#markerLayer div:nth-child(${index}) img`)
-            .classList.add('grow');
+          const markerElement = document.querySelector(
+            `#markerLayer div:nth-child(${index}) img`
+          ) as HTMLElement;
+          markerElement.classList.add('grow');
         });
 
-        marker.addListener('mouseover', function () {
-          const thisTitle = Number(this.title);
-          const index = thisTitle + 2;
-          // document.querySelectorAll(`#markerLayer div img`).forEach((img) => {
-          //   img.classList.remove('grow');
-          //   img.classList.remove('shrink');
-          // });
-          // console.log('mouseover', index);
-          // console.log('activeInfoWindow', activeInfoWindow);
-          if (!activeInfoWindow) {
-            const image = document.querySelector(
-              `#markerLayer div:nth-child(${index}) img`
-            );
+        marker.addListener(
+          'mouseover',
+          function (this: google.maps.MarkerOptions) {
+            const thisTitle = Number(this.title);
+            const index = thisTitle + 2;
+            // document.querySelectorAll(`#markerLayer div img`).forEach((img) => {
+            //   img.classList.remove('grow');
+            //   img.classList.remove('shrink');
+            // });
+            // console.log('mouseover', index);
+            // console.log('activeInfoWindow', activeInfoWindow);
+            if (!activeInfoWindow) {
+              const image = document.querySelector(
+                `#markerLayer div:nth-child(${index}) img`
+              );
 
-            image.classList.remove('shrink');
-            image.classList.add('grow');
+              image?.classList.remove('shrink');
+              image?.classList.add('grow');
+            }
           }
-        });
+        );
 
-        marker.addListener('mouseout', function () {
-          const thisTitle = Number(this.title);
-          const index = thisTitle + 2;
-          if (!activeInfoWindow) {
-            const image = document.querySelector(
-              `#markerLayer div:nth-child(${index}) img`
-            );
-            image.classList.remove('grow');
-            image.classList.add('shrink');
-            image.classList.remove('shrink');
+        marker.addListener(
+          'mouseout',
+          function (this: google.maps.MarkerOptions) {
+            const thisTitle = Number(this.title);
+            const index = thisTitle + 2;
+            if (!activeInfoWindow) {
+              const image = document.querySelector(
+                `#markerLayer div:nth-child(${index}) img`
+              );
+              image?.classList.remove('grow');
+              image?.classList.add('shrink');
+              image?.classList.remove('shrink');
+            }
           }
-        });
+        );
 
         infowindow.addListener('closeclick', function () {
           // console.log(currentMark.title);
@@ -169,7 +181,7 @@ function Projects({ content: { anchorId } }) {
     });
   }, [projects]);
 
-  return <section id={anchorId} ref={ref}></section>;
+  return <section id={id} ref={ref}></section>;
 }
 
 export default Projects;

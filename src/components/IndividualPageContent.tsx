@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import StyleBackgroundImage from '../styles/StyleBackgroundImage';
 import ContentBox from './ContentBox';
 import { convertToBgImage } from 'gbimage-bridge';
-import { PageProps } from 'gatsby';
 
 // import classNames from 'classnames';
 const StyledContent = styled.div`
@@ -22,24 +21,31 @@ const StyledContent = styled.div`
   }
 `;
 const IndividualPageContent = ({
-  content: {
-    Heading = '',
-    sectionHeadingPosition = false,
-    hidetitle = '',
-    content = '',
-    id = null,
-    backgroundColor: { hex = '#fff' },
+  sanityPage,
+}: {
+  sanityPage: Queries.SanityPage;
+}) => {
+  const {
     background,
+    backgroundColor,
     mobilebackground,
-    sectionContentCTAtext,
+    boxLocation,
+    id,
+    hidetitle,
+    content,
+    Heading,
     sectionContentCTAjumpId,
     sectionContentCTApageLink,
-    boxLocation,
-  },
-}: Queries.PageQuery) => {
+    sectionHeadingPosition,
+    sectionContentCTAtext,
+  } = sanityPage;
+
+  // const { background, mobilebackground } = content;
+  // console.log('IndividualPageContent props', props);
+
   // console.log(contentType);
   // console.log('box location', boxLocation);
-  let sectionBg = background || '';
+  let sectionBg = background;
   if (typeof window !== 'undefined') {
     const mql = window.matchMedia('(max-width: 600px)');
     if (!mql.matches && background) {
@@ -51,23 +57,27 @@ const IndividualPageContent = ({
     }
   }
 
-  const bgColor = hex;
+  const bgColor = backgroundColor?.hex ?? 'var(--blue)';
   let boxAlign = 'left';
   if (boxLocation) {
     boxAlign = boxLocation;
   }
-  const image = getImage(sectionBg?.asset?.gatsbyImageData);
-  const bgImage = convertToBgImage(image);
+  const image = sectionBg?.asset?.gatsbyImageData
+    ? getImage(sectionBg?.asset?.gatsbyImageData)
+    : null;
+  const bgImage = image ? convertToBgImage(image) : null;
   if (background) {
     return (
       <StyledContent className={boxAlign}>
-        <GatsbyImage
-          id=""
-          alt="Background scenery"
-          className={`hide-for-desktop ${id || 'section'}`}
-          image={background?.asset?.gatsbyImageData?.src}
-          style={{ marginBottom: '0', display: 'block' }}
-        />
+        {background?.asset?.gatsbyImageData && (
+          <GatsbyImage
+            id=""
+            alt="Background scenery"
+            className={`hide-for-desktop ${id || 'section'}`}
+            image={background?.asset?.gatsbyImageData}
+            style={{ marginBottom: '0', display: 'block' }}
+          />
+        )}
         <StyleBackgroundImage
           id={id}
           Tag="section"

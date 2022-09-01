@@ -101,23 +101,9 @@ const StyledInfos = styled.div`
     margin-bottom: 0;
   }
 `;
-function Team({
-  content: {
-    // id,
-    anchorId,
-    name,
-    // sectionContent,
-    // sectionContentCTAjumpId,
-    // sectionContentCTApageLink,
-    // sectionContentCTAtext,
-    // sectionHeadingPosition,
-    background,
-    backgroundColor,
-    // sectionHeading,
-    mobilebackground,
-  },
-}) {
-  let sectionBg = background || '';
+function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
+  const { name, background, backgroundColor, mobilebackground } = sanityPage;
+  let sectionBg = background;
   if (typeof window !== 'undefined') {
     const mql = window.matchMedia('(max-width: 600px)');
     if (!mql.matches && background) {
@@ -132,10 +118,10 @@ function Team({
   const bgColor = backgroundColor ? backgroundColor.hex : 'transparent';
   const [currentSlide, setcurrentSlide] = useState('');
   const {
-    leadership: { nodes: team },
-  } = useStaticQuery(graphql`
+    allSanityTeam: { nodes: team },
+  }: Queries.TeamQuery = useStaticQuery(graphql`
     query Team {
-      leadership: allSanityTeam {
+      allSanityTeam {
         nodes {
           bio
           id
@@ -155,7 +141,9 @@ function Team({
       }
     }
   `);
-  const members = sortObject(team);
+  const members = sortObject(
+    team
+  ) as Queries.TeamQuery['allSanityTeam']['nodes'];
 
   useEffect(() => {
     const slider = document.getElementById('team-carousel');
@@ -187,11 +175,13 @@ function Team({
     }
   }, []);
 
-  const image = getImage(sectionBg?.asset?.gatsbyImageData);
-  const bgImage = convertToBgImage(image);
+  const image = sectionBg?.asset?.gatsbyImageData
+    ? getImage(sectionBg?.asset?.gatsbyImageData)
+    : null;
+  const bgImage = image ? convertToBgImage(image) : null;
   return (
     <StyledTeamSection
-      id={anchorId}
+      id={name}
       Tag="section"
       backgroundColor={bgColor}
       onClick={(e) => {
@@ -206,7 +196,7 @@ function Team({
             if (currentSlide === id) {
               return (
                 <TeamCard
-                  currentSlide={currentSlide}
+                  // currentSlide={currentSlide}
                   key={id}
                   id={id}
                   name={name}

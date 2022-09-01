@@ -29,13 +29,21 @@ function ContentBox({
   sectionContentCTAtext,
   sectionHeadingPosition,
   hidetitle,
+}: {
+  sectionHeading: Queries.SanityPage['Heading'];
+  sectionContent: Queries.SanityPage['content'];
+  sectionContentCTAjumpId: Queries.SanityPage['sectionContentCTAjumpId'];
+  sectionContentCTApageLink: Queries.SanityPage['sectionContentCTApageLink'];
+  sectionContentCTAtext: Queries.SanityPage['sectionContentCTAtext'];
+  sectionHeadingPosition: Queries.SanityPage['sectionHeadingPosition'];
+  hidetitle: Queries.SanityPage['hidetitle'];
 }) {
   const { ref, inView } = useInView(intersectionObserverOptions);
   let ctaLink = '';
   if (sectionContentCTAjumpId) {
     ctaLink = `#${sectionContentCTAjumpId}`;
   } else if (sectionContentCTApageLink) {
-    ctaLink = `/${sectionContentCTApageLink.slug.current}`;
+    ctaLink = `/${sectionContentCTApageLink?.slug?.current ?? ''}`;
   }
   // console.log('hide title ', hidetitle);
   // console.log(`content box '${sectionHeading}' inview`, inView);

@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 // import splitText from '../utils/splitText';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ArrElement } from '../types';
 const StyledCard = styled.div`
   background: var(--blue);
   /* position: absolute;
@@ -98,13 +99,17 @@ function TeamCard({
   // order,
   name,
   role,
-  image: {
-    asset: { gatsbyImageData },
-  },
+  image,
   bio,
+}: {
+  id: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['id'];
+  name: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['name'];
+  role: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['role'];
+  image: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['image'];
+  bio: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['bio'];
 }) {
   // const [firstColumn, secondColumn] = splitText(bio);
-  const text = bio.split('\n').filter((x) => x);
+  const text = bio?.split('\n').filter((x) => x);
   return (
     <AnimatePresence key={id}>
       <motion.div
@@ -123,16 +128,23 @@ function TeamCard({
         // transition={{ duration: 0.5 }}
       >
         <StyledCard id={id} key={id}>
-          <GatsbyImage image={gatsbyImageData} />
+          {image?.asset?.gatsbyImageData && (
+            <GatsbyImage
+              image={image.asset.gatsbyImageData}
+              alt={`Team ${name}`}
+            />
+          )}
           <h3>
             {name}
             <span className="role"> {role}</span>
           </h3>
-          <div className="content">
-            {text.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
+          {text && (
+            <div className="content">
+              {text.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+          )}
 
           {/* <p>{firstColumn.join('\n')}</p>
             <p>{secondColumn.join('\n')}</p> */}

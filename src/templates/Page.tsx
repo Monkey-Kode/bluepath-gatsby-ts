@@ -11,41 +11,41 @@ import Projects from '../components/Projects';
 import Team from '../components/Team';
 function innerContent(
   contentType: string | null | undefined,
-  content: Queries.PageQuery['content']
+  sanityPage: Queries.SanityPage
 ) {
-  if (contentType && content) {
+  if (contentType && sanityPage) {
     if (contentType === 'Form') {
-      return <Form content={content} />;
+      return <Form content={sanityPage} />;
     } else if (contentType === 'Connect') {
-      return <Contact content={content} />;
+      return <Contact content={sanityPage} />;
     } else if (contentType === 'Impact') {
-      return <Impact content={content} />;
+      return <Impact content={sanityPage} />;
     } else if (contentType === 'Projects') {
-      return <Projects content={content} />;
+      return <Projects sanityPage={sanityPage} />;
     } else if (contentType === 'Team') {
-      return <Team content={content} />;
+      return <Team sanityPage={sanityPage} />;
     } else {
-      return <IndividualPageContent content={content} />;
+      return <IndividualPageContent sanityPage={sanityPage} />;
     }
   }
 }
 const Page = ({
-  data: { content },
+  data: { sanityPage },
   location,
 }: PageProps<Queries.PageQuery>) => {
-  const contentType = content?.contentType?.name;
+  const contentType = sanityPage?.contentType?.name;
   return (
     <div className="page">
-      <SEO title={content?.seotitle ?? 'Page'} />
+      <SEO title={sanityPage?.seotitle ?? 'Page'} />
       <Header location={location} />
-      {innerContent(contentType, content)}
+      {innerContent(contentType, sanityPage as Queries.SanityPage)}
       <Footer location={location} />
     </div>
   );
 };
 export const query = graphql`
   query Page($slug: String!) {
-    content: sanityPage(slug: { current: { eq: $slug } }) {
+    sanityPage(slug: { current: { eq: $slug } }) {
       _id
       contentType {
         name
