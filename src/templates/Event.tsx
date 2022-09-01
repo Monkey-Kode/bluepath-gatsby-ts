@@ -6,6 +6,7 @@ import SEO from '../components/SEO';
 import styled from 'styled-components';
 import { PortableText } from '@portabletext/react';
 import { GatsbyImage } from 'gatsby-plugin-image';
+import FormBasic from '../components/FormBasic';
 
 const StyledMain = styled.main`
   background: rgb(57, 105, 170);
@@ -28,6 +29,12 @@ const StyledMain = styled.main`
       padding: 0 2em 2em 2em;
     }
   }
+  label {
+    display: none;
+  }
+  input {
+    margin-bottom: 0.35em;
+  }
 `;
 
 function Event({
@@ -49,14 +56,17 @@ function Event({
               />
             </div>
           )}
-          {richText && richText !== null && (
-            <div>
-              <PortableText value={richText as any} />
-            </div>
-          )}
+          <div>
+            {richText && richText !== null && (
+              <div>
+                <PortableText value={richText as any} />
+              </div>
+            )}
+            <FormBasic />
+          </div>
         </div>
       </StyledMain>
-      <Footer location={location}></Footer>
+      <Footer location={location} />
     </div>
   );
 }

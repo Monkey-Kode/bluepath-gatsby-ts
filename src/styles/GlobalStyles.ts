@@ -26,6 +26,7 @@ const GlobalStyles = createGlobalStyle`
         --white: #fff;
     }
 
+
     html , body{
         overflow-x: hidden;
         width: 100%;
@@ -351,6 +352,10 @@ const GlobalStyles = createGlobalStyle`
         margin: 32px calc(50% - 50vw);
         max-width: 100vw;
         width: 100vw;
+    }
+
+    .hidden {
+        display: none;
     }
 
 `;

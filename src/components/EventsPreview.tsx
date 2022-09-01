@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ArrElement } from '../types';
 const StyledEventsPreview = styled.div`
+  margin-top: 2em;
   .card {
     display: flex;
     align-items: center;
