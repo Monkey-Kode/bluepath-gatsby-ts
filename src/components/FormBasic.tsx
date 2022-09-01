@@ -35,6 +35,7 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
         type="hidden"
         name="event-name"
         value={name ?? 'Missing event title'}
+        onChange={handleChange}
       />
       <label htmlFor="name">Name:</label>
       <input
@@ -45,7 +46,13 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
         onBlur={handleChange}
       />
       <label htmlFor="company">Company:</label>
-      <input id="company" type="text" name="company" placeholder="Company" />
+      <input
+        id="company"
+        type="text"
+        name="company"
+        placeholder="Company"
+        onChange={handleChange}
+      />
       <label htmlFor="title">Title:</label>
       <input
         id="title"
