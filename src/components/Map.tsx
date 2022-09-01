@@ -1,10 +1,12 @@
+// @ts-nocheck
 import React from 'react';
 import styled from 'styled-components';
 // import { RADIUS } from './Theme';
 // import { GOOGLE_MAP_URL } from 'constants/constants';
 import { Box } from './StyledSystem';
 import MapContainer from './MapContainer';
-const GOOGLE_MAP_URL = `https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}`;
+const GOOGLE_MAP_URL =
+  `https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.GATSBY_GOOGLE_MAPS_API_KEY}` as string;
 
 const MapWrapper = styled(Box)`
   position: sticky;
@@ -30,14 +32,17 @@ const MapElement = styled(Box)`
   }
 `;
 
-const Map = (props) => (
+const Map = ({
+  origins,
+}: {
+  origins: Queries.ProjectsMapQuery['allSanityCasestudies']['nodes'];
+}) => (
   <MapWrapper>
     <MapContainer
       googleMapURL={GOOGLE_MAP_URL}
       loadingElement={<Box height="100%" />}
       containerElement={<Box height="100%" />}
       mapElement={<MapElement height="100%" />}
-      {...props}
     />
   </MapWrapper>
 );

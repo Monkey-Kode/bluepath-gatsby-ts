@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
 const StyledBurger = styled.button`
@@ -50,10 +50,16 @@ const StyledBurger = styled.button`
   }
 `;
 
-function BurgerMenu({ open, setOpen }) {
+function BurgerMenu({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) {
   return (
     <StyledBurger
-      className={classNames({ open: open }, 'burger-menu')}
+      className={classNames({ open }, 'burger-menu')}
       open={open}
       onClick={() => setOpen(!open)}
     >

@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
 import fluidType from '../utils/fluidTypography';
 import scrollTo from 'gatsby-plugin-smoothscroll';
+import { ArrElement } from '../types';
 const StyledThumb = styled.a`
   background: var(--blue);
   display: grid;
@@ -55,20 +56,36 @@ const StyledThumb = styled.a`
     justify-content: center;
   }
 `;
-function TeamThumbnail({ id, name, role, image, setcurrentSlide }) {
+function TeamThumbnail({
+  id,
+  name,
+  role,
+  image,
+  setcurrentSlide,
+}: {
+  id: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['id'];
+  name: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['name'];
+  role: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['role'];
+  image: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['image'];
+  setcurrentSlide: (
+    id: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['id']
+  ) => void;
+}) {
   return (
     <motion.div>
       <StyledThumb
         key={id}
         href={`#${id}`}
-        onClick={(event) => {
+        onClick={(event: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
           event.stopPropagation();
           event.preventDefault();
           scrollTo('body');
           setcurrentSlide(id);
         }}
       >
-        <GatsbyImage image={image.asset.gatsbyImageData} />
+        {image?.asset?.gatsbyImageData && (
+          <GatsbyImage image={image.asset.gatsbyImageData} alt={`${name}`} />
+        )}
 
         <div className="content">
           <h3>{name}</h3>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useRef, useEffect } from 'react';
 import { MAP_SETTINGS } from '../utils/MAP_SETTINGS';
 // import { graphql, useStaticQuery } from 'gatsby';
@@ -15,7 +16,11 @@ const {
   // DIRECTIONS_OPTIONS,
 } = MAP_SETTINGS;
 
-const MapContainer = ({ origins }) => {
+const MapContainer = ({
+  origins,
+}: {
+  origins: Queries.ProjectsMapQuery['allSanityCasestudies']['nodes'];
+}) => {
   const mapRef = useRef(null);
   const iconSize = 15;
   const locationIconActive = `https://cdn.sanity.io/images/qwwmf79r/production/92e3b97802b396d49b4afba22a2226ce29e20f1b-54x54.png?h=${iconSize}&fit=max`;
@@ -35,7 +40,7 @@ const MapContainer = ({ origins }) => {
       defaultOptions={{ ...DEFAULT_MAP_OPTIONS }}
     >
       {window !== undefined &&
-        origins.map(({ location: { lat, lon: lng }, id }) => (
+        origins.map(({ location: { lat, lng }, id }) => (
           <Marker
             key={id}
             position={{ lat, lng }}
@@ -49,6 +54,12 @@ const MapContainer = ({ origins }) => {
   );
 };
 
-export default withGoogleMap((props) => {
-  return <MapContainer {...props} />;
-});
+export default withGoogleMap(
+  ({
+    origins,
+  }: {
+    origins: Queries.ProjectsMapQuery['allSanityCasestudies']['nodes'];
+  }) => {
+    return <MapContainer origins={origins} />;
+  }
+);

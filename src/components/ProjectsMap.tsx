@@ -3,42 +3,43 @@ import React from 'react';
 import Map from './Map';
 
 const ProjectsMap = () => {
-  const { origins } = useStaticQuery(graphql`
-    query ProjectsMap {
-      origins: allSanityCasestudies {
-        nodes {
-          id
-          financing
-          entity
-          content
-          address
-          image {
-            asset {
-              gatsbyImageData(
-                width: 300
-                layout: CONSTRAINED
-                placeholder: BLURRED
-              )
-              metadata {
-                lqip
+  const { allSanityCasestudies }: Queries.ProjectsMapQuery =
+    useStaticQuery(graphql`
+      query ProjectsMap {
+        allSanityCasestudies {
+          nodes {
+            id
+            financing
+            entity
+            content
+            address
+            image {
+              asset {
+                gatsbyImageData(
+                  width: 300
+                  layout: CONSTRAINED
+                  placeholder: BLURRED
+                )
+                metadata {
+                  lqip
+                }
               }
             }
-          }
-          technologies
-          title
-          size
-          location {
-            lat
-            lng
-            alt
-            _key
+            technologies
+            title
+            size
+            location {
+              lat
+              lng
+              alt
+              _key
+            }
           }
         }
       }
-    }
-  `);
+    `);
 
-  return <Map origins={origins.nodes} />;
+  return <Map origins={allSanityCasestudies.nodes} />;
 };
 
 export default ProjectsMap;

@@ -4,8 +4,15 @@ import mapMarker from '../images/marker.png';
 import InfoWindow from './InfoWindow';
 import { renderToString } from 'react-dom/server';
 import { loader } from '../utils/loader';
+import { ArrElement } from '../types';
 
-function Projects({ sanityPage }: { sanityPage: Queries.SanityPage }) {
+function Projects({
+  sanityPage,
+}: {
+  sanityPage:
+    | Queries.SanityPage
+    | ArrElement<Queries.HomeMainQuery['allSanityHomesections']['nodes']>;
+}) {
   const { id } = sanityPage;
   const {
     allSanityCasestudies: { nodes: projects },

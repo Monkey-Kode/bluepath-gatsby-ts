@@ -22,7 +22,6 @@ function Contact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
     boxLocation,
     richcontent,
   } = sanityPage;
-  console.log(content);
 
   let sectionBg = background;
   if (typeof window !== 'undefined') {
@@ -67,22 +66,18 @@ function Contact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
           >
             <ContactBody
               id={id}
-              content={content}
-              richcontent={richcontent}
-              remoteContent={remoteRichContent}
-              heading={Heading}
+              Heading={Heading}
               name={name}
+              richcontent={richcontent}
             />
           </StyleBackgroundImage>
         ) : (
           <section id={String(id)} style={{ backgroundColor: String(bgColor) }}>
             <ContactBody
               id={id}
-              content={content}
-              richcontent={richcontent}
-              remoteContent={remoteRichContent}
-              heading={Heading}
+              Heading={Heading}
               name={name}
+              richcontent={richcontent}
             />
           </section>
         )}

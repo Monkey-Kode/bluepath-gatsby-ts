@@ -94,24 +94,10 @@ const FooterStyles = styled.footer`
     }
   }
 `;
-function Footer({ location }) {
-  const { addresses } = useStaticQuery(graphql`
+function Footer({ location }: { location: Location }) {
+  const { allSanityAddress }: Queries.FooterQuery = useStaticQuery(graphql`
     query Footer {
-      settings: sanitySiteSettings {
-        logoDark {
-          asset {
-            gatsbyImageData(
-              width: 400
-              fit: FILLMAX
-              placeholder: BLURRED
-              layout: CONSTRAINED
-            )
-            label
-            url
-          }
-        }
-      }
-      addresses: allSanityAddress {
+      allSanityAddress {
         nodes {
           name
           address
@@ -128,7 +114,9 @@ function Footer({ location }) {
     }
   `);
 
-  const addressesOrdered = sortObject(addresses.nodes);
+  const addressesOrdered = sortObject(
+    allSanityAddress.nodes
+  ) as Queries.FooterQuery['allSanityAddress']['nodes'];
   return (
     <FooterStyles>
       <div className="footer-logo">

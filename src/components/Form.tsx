@@ -32,8 +32,9 @@ function FormBody({
 }) {
   const [state, setState] = useState({});
 
-  const handleChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
+  const handleChange = (e: SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    setState({ ...state, [target.name]: target.value });
   };
 
   const handleSubmit = (e: SyntheticEvent) => {

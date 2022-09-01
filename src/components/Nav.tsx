@@ -4,12 +4,12 @@ import { useOnClickOutside } from '../utils/useOnClickOutside';
 import BurgerMenu from './BurgerMenu';
 import Menu from './Menu';
 
-function Nav({ location }) {
+function Nav({ location }: { location: Location }) {
   const [open, setOpen] = React.useState(false);
-  const node = React.useRef();
+  const node = React.useRef<HTMLElement>(null);
   useOnClickOutside(node, () => setOpen(false));
   return (
-    <motion.div ref={node}>
+    <motion.div ref={node as any}>
       <BurgerMenu open={open} setOpen={setOpen} />
       <Menu
         location={location}

@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import sortObject from '../utils/sortObject';
 import TeamCard from './TeamCard';
@@ -184,7 +184,7 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
       id={name}
       Tag="section"
       backgroundColor={bgColor}
-      onClick={(e) => {
+      onClick={(e: SyntheticEvent) => {
         setcurrentSlide('');
       }}
       {...bgImage}
@@ -203,7 +203,6 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
                   image={image}
                   role={role}
                   bio={bio}
-                  order={order}
                 />
               );
             } else {
@@ -220,7 +219,6 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
                 name={name}
                 image={image}
                 role={role}
-                order={order}
                 setcurrentSlide={setcurrentSlide}
               />
             );

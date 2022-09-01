@@ -92,35 +92,40 @@ const StyledMap = styled.div`
   }
 `;
 
-// function generateRichContent(data, heading, name) {
+// function generateRichContent(data, Heading, name) {
 //   return (
 //     <>
-//       <h1>{heading || name}</h1>
+//       <h1>{Heading || name}</h1>
 //       <BlockContent blocks={data.Page.richcontentRaw} />
 //     </>
 //   );
 // }
 
-// function generateContent(content, heading, name) {
+// function generateContent(content, Heading, name) {
 //   console.log('content', content);
 //   return (
 //     <>
-//       <h1>{heading || name}</h1>
+//       <h1>{Heading || name}</h1>
 //       <p>{content && splitByNewLines(content)}</p>
 //     </>
 //   );
 // }
-export function ContactBody({
+export const ContactBody = ({
   id,
-  heading,
+  Heading,
   name,
   richcontent,
-}: Queries.PageQuery['content']) {
+}: {
+  id: Queries.SanityPage['id'];
+  Heading: Queries.SanityPage['Heading'];
+  name: Queries.SanityPage['name'];
+  richcontent: Queries.SanityPage['richcontent'];
+}) => {
   const {
-    addresses: { nodes },
+    allSanityAddress: { nodes },
   }: Queries.ContactBodyQuery = useStaticQuery(graphql`
     query ContactBody {
-      addresses: allSanityAddress {
+      allSanityAddress {
         nodes {
           _id
           name
@@ -137,7 +142,7 @@ export function ContactBody({
   `);
   const addresses = sortObject(
     nodes
-  ) as Queries.ContactBodyQuery['addresses']['nodes'];
+  ) as Queries.ContactBodyQuery['allSanityAddress']['nodes'];
   const [showInfo, setShowInfo] = useState(false);
   // const { data } = remoteContent;
   // console.log('rich content graphql', richcontent);
@@ -148,12 +153,12 @@ export function ContactBody({
       const map: any[] = [];
 
       addresses.map(({ _id, location: center, address, details }) => {
-        if (googleMaps) {
+        if (googleMaps && document.getElementById(String(_id)) !== null) {
           // console.log('google', googleMaps);
-          return (map[_id] = new window.google.maps.Map(
-            document.getElementById(_id),
+          return (map[Number(_id)] = new window.google.maps.Map(
+            document.getElementById(String(_id)) as HTMLElement,
             {
-              center,
+              center: center as any,
               zoom: 12,
             }
           ));
@@ -165,20 +170,19 @@ export function ContactBody({
   }, [addresses]);
   return (
     <StyledContentArea>
-      <div css={{ minWidth: '255px' }}>
-        {/* {data && generateRichContent(data, heading, name)} */}
-        <h1>{heading || name}</h1>
-        {richcontent.map((content) =>
-          content.children.map((c) => <p key={id}>{c.text}</p>)
+      <div style={{ minWidth: '255px' }}>
+        {/* {data && generateRichContent(data, Heading, name)} */}
+        <h1>{Heading || name}</h1>
+        {richcontent?.map((content) =>
+          content?.children?.map((c) => <p key={id}>{c?.text}</p>)
         )}
 
         <button
-          href="#"
           onClick={(e) => {
             e.preventDefault();
             window.open('mailto:info@bluepathfinance.com');
           }}
-          css={{
+          style={{
             transform: 'translate(-13px, -30px)',
             cursor: 'pointer',
             padding: '0',
@@ -188,26 +192,26 @@ export function ContactBody({
           <img src={emailLink} alt="Bluepath contact email" />
         </button>
       </div>
-      {addresses.map(
-        ({ name, _id, location: { lat, lng }, details, address }) => {
-          return (
-            <StyledColumns
-              key={_id}
-              onClick={() => setShowInfo(_id)}
-              onMouseEnter={() => setShowInfo(_id)}
-              onMouseLeave={() => setShowInfo(false)}
+      {addresses.map(({ name, _id, details, address }) => {
+        return (
+          <StyledColumns
+            key={_id}
+            onClick={() => setShowInfo(Boolean(_id))}
+            onMouseEnter={() => setShowInfo(Boolean(_id))}
+            onMouseLeave={() => setShowInfo(false)}
+          >
+            <h3>{splitByNewLines(address)}</h3>
+            <StyledMap id={_id}></StyledMap>
+            <div
+              className={classNames('details', {
+                active: showInfo === Boolean(_id),
+              })}
             >
-              <h3>{splitByNewLines(address)}</h3>
-              <StyledMap id={_id}></StyledMap>
-              <div
-                className={classNames('details', { active: showInfo === _id })}
-              >
-                <p>{splitByNewLines(details)}</p>
-              </div>
-            </StyledColumns>
-          );
-        }
-      )}
+              <p>{splitByNewLines(details)}</p>
+            </div>
+          </StyledColumns>
+        );
+      })}
     </StyledContentArea>
   );
-}
+};

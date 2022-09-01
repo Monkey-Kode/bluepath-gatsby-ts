@@ -1,15 +1,12 @@
 import { useStaticQuery } from 'gatsby';
-import React, { useEffect, useRef } from 'react';
+import React, { MouseEvent, useEffect, useRef } from 'react';
 import getytid from 'get-youtube-id';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
-// import Sound from '../images/sound.svg';
-// import Mute from '../images/mute.svg';
-// import { BiDownArrow } from 'react-icons/bi';
-// import TriangleFull from '../images/triangle-full.svg';
 import TriangleOutline from '../images/triangle-outline.svg';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 import { GatsbyImage } from 'gatsby-plugin-image';
+import { ArrElement } from '../types';
 const StyledVideo = styled.video`
   max-width: 100vw;
   margin-bottom: -4px;
@@ -73,14 +70,24 @@ function Sound() {
 function Mute() {
   return <span id="mute-icon">MUTE</span>;
 }
-function Video({ content: { anchorId } }) {
-  const videoRef = useRef(null);
-  const videoSrcRef = useRef(null);
+
+type Video = HTMLSourceElement & {
+  play: () => void;
+  pause: () => void;
+  muted: boolean;
+};
+function Video({
+  content,
+}: {
+  content: ArrElement<Queries.HomeMainQuery['allSanityHomesections']['nodes']>;
+}) {
+  const videoRef = useRef<Video>(null);
+  const videoSrcRef = useRef<Video>(null);
   const {
-    videos: { nodes },
-  } = useStaticQuery(graphql`
+    allSanityHomevideo: { nodes },
+  }: Queries.VideoQuery = useStaticQuery(graphql`
     query Video {
-      videos: allSanityHomevideo {
+      allSanityHomevideo {
         nodes {
           id
           name
@@ -119,31 +126,34 @@ function Video({ content: { anchorId } }) {
     const videoElement = videoRef.current;
     const videoSrcElement = videoSrcRef.current;
     // console.log('video src element', videoSrcElement);
-    if (videoSrcElement !== undefined) {
+    if (videoSrcElement && videoElement) {
       const desktopMq = window.matchMedia('(min-width: 800px)');
       // console.log('videoElement', videoElement);
       if (desktopMq.matches) {
-        videoSrcElement.type = videoElement.dataset.type;
-        videoSrcElement.src = videoElement.dataset.src;
+        videoSrcElement.type = videoElement.dataset.type || 'video/mp4';
+        videoSrcElement.src = videoElement.dataset.src || '';
         // console.log(videoElement.dataset.src);
         // videoDesktopSource.play();
       } else {
-        videoSrcElement.type = videoElement.dataset.mobiletype;
-        videoSrcElement.src = videoElement.dataset.mobilesrc;
+        videoSrcElement.type = videoElement.dataset.mobiletype || 'video/mp4';
+        videoSrcElement.src = videoElement.dataset.mobilesrc || '';
         // console.log('video src', videoSrcElement);
       }
+      videoElement.play();
     }
-    videoElement.play();
   }, [videoRef]);
 
-  const setSound = (e) => {
+  const setSound = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const target = e.target as HTMLButtonElement;
     if (videoRef) {
       const video = videoRef.current;
       // console.log(video);
       // console.log(video.muted);
 
-      video.muted = !video.muted;
-      e.target.setAttribute('data-state', video.muted ? 'mute' : 'unmute');
+      if (video) {
+        video.muted = !video.muted;
+        target.setAttribute('data-state', video.muted ? 'mute' : 'unmute');
+      }
     }
   };
 
@@ -151,10 +161,10 @@ function Video({ content: { anchorId } }) {
 
   if (video.video || video.mobileVideo) {
     // const name = video.name;
-    const url = video.video.asset.url;
-    const mobileUrl = video.mobileVideo.asset.url;
-    const mimeType = video.video.asset.mimeType;
-    const mobileMimeType = video.mobileVideo.asset.mimeType;
+    const url = video?.video?.asset?.url;
+    const mobileUrl = video?.mobileVideo?.asset?.url;
+    const mimeType = video?.video?.asset?.mimeType;
+    const mobileMimeType = video?.mobileVideo?.asset?.mimeType;
     return (
       <>
         <StyledButtonsWrapper className="sound-button">
@@ -164,7 +174,7 @@ function Video({ content: { anchorId } }) {
           </StyledSoundButton>
           <StyledSoundButton
             className="jump-button"
-            onClick={(e) => {
+            onClick={(e: MouseEvent) => {
               e.preventDefault();
               // const video = videoRef.current;
               // video.pause();
@@ -198,10 +208,12 @@ function Video({ content: { anchorId } }) {
         >
           <source ref={videoSrcRef}></source>
           Sorry, your browser doesn't support embedded videos.
-          <GatsbyImage
-            alt="Windows of a building"
-            image={video.videoPoster?.asset?.gatsbyImageData}
-          />
+          {video.videoPoster?.asset?.gatsbyImageData && (
+            <GatsbyImage
+              alt="Windows of a building"
+              image={video.videoPoster?.asset?.gatsbyImageData}
+            />
+          )}
         </StyledVideo>
         <div id="bottom-video"></div>
       </>
@@ -209,27 +221,25 @@ function Video({ content: { anchorId } }) {
   } else if (video.youtubeLink) {
     const videos = nodes.flatMap((video) => ({
       name: video.name,
-      url: video.youtubeLink[0].url,
+      url: video.youtubeLink?.[0]?.url,
     }));
-    const { name, url } = videos[0];
-    const id = getytid(url);
+    const { name, url } = videos?.[0];
+    const id = url && getytid(url);
     return (
-      <section id={`#${anchorId}`}>
+      <section id={`#${content.anchorId}`}>
         <iframe
           src={`https://www.youtube.com/embed/${id}`}
-          title={name}
+          title={name ?? 'Main Video'}
           width="100%"
           height="100%"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           frameBorder="0"
-          webkitallowfullscreen="true"
-          mozallowfullscreen="true"
           allowFullScreen
         />
       </section>
     );
   }
-  return 'Missing Video';
+  return null;
 }
 
 export default Video;

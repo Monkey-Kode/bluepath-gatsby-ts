@@ -6,6 +6,7 @@ import { convertToBgImage } from 'gbimage-bridge';
 import sortObject from '../utils/sortObject';
 import CarouselSlide from './CarouselSlide';
 import { getImage } from 'gatsby-plugin-image';
+import { ArrElement } from '../types';
 const StyledBackgroundImage = styled(BackgroundImage)`
   height: 100%;
   background-attachment: fixed !important;
@@ -26,10 +27,14 @@ const StyledBackgroundImage = styled(BackgroundImage)`
   }
 `;
 
-function Carousel({ content: { anchorId } }) {
-  const { backgrounds } = useStaticQuery(graphql`
+function Carousel({
+  content,
+}: {
+  content: ArrElement<Queries.HomeMainQuery['allSanityHomesections']['nodes']>;
+}) {
+  const { allSanityCarousel }: Queries.CarouselQuery = useStaticQuery(graphql`
     query Carousel {
-      backgrounds: allSanityCarousel {
+      allSanityCarousel {
         nodes {
           image {
             asset {
@@ -58,17 +63,22 @@ function Carousel({ content: { anchorId } }) {
     }
   `);
 
-  const slides = sortObject(backgrounds.nodes);
+  const slides = sortObject(
+    allSanityCarousel.nodes
+  ) as Queries.CarouselQuery['allSanityCarousel']['nodes'];
   let boxAlign = 'left';
-  if (slides.boxLocation) {
-    boxAlign = slides.boxLocation;
-  }
+
   return (
-    <div id={`${anchorId}`}>
+    <div id={`${content.anchorId}`}>
       {slides &&
         slides.map((content) => {
-          const image = getImage(content.image.asset.gatsbyImageData);
-          const bgImage = convertToBgImage(image);
+          if (content.boxLocation) {
+            boxAlign = content.boxLocation;
+          }
+          const image = content?.image?.asset?.gatsbyImageData
+            ? getImage(content.image.asset.gatsbyImageData)
+            : null;
+          const bgImage = image ? convertToBgImage(image) : null;
 
           return (
             <StyledBackgroundImage key={`${content._id}_carousel`} {...bgImage}>

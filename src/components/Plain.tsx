@@ -5,9 +5,14 @@ import { useInView } from 'react-intersection-observer';
 import intersectionObserverOptions from '../utils/intersectionObserverOptions';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { convertToBgImage } from 'gbimage-bridge';
+import { ArrElement } from '../types';
 
 function Plain({
-  content: {
+  content,
+}: {
+  content: ArrElement<Queries.HomeMainQuery['allSanityHomesections']['nodes']>;
+}) {
+  const {
     id,
     anchorId,
     name,
@@ -17,13 +22,11 @@ function Plain({
     sectionContentCTAtext,
     sectionHeadingPosition,
     background,
-    mobilebackground,
     backgroundColor,
     sectionHeading,
     boxLocation,
     hidetitle,
-  },
-}) {
+  } = content;
   const { ref } = useInView(intersectionObserverOptions);
   // console.log('inview no bg section', inView);
   // console.log(boxLocation);
@@ -31,19 +34,23 @@ function Plain({
   const bgColor = backgroundColor ? backgroundColor.hex : '#fff';
   let boxAlign = boxLocation || 'left';
 
-  const image = getImage(background?.asset?.gatsbyImageData);
-  const bgImage = convertToBgImage(image);
+  const image = background?.asset?.gatsbyImageData
+    ? getImage(background?.asset?.gatsbyImageData)
+    : null;
+  const bgImage = image ? convertToBgImage(image) : null;
 
   if (background) {
     return (
       <>
-        <GatsbyImage
-          id=""
-          alt="Background scenery"
-          className={`hide-for-desktop ${anchorId || 'section'}`}
-          image={background?.asset?.gatsbyImageData.src}
-          style={{ marginBottom: '0', display: 'block' }}
-        />
+        {background?.asset?.gatsbyImageData && (
+          <GatsbyImage
+            id=""
+            alt="Background scenery"
+            className={`hide-for-desktop ${anchorId || 'section'}`}
+            image={background?.asset?.gatsbyImageData}
+            style={{ marginBottom: '0', display: 'block' }}
+          />
+        )}
         <StyleBackgroundImage
           id={anchorId}
           Tag="section"
@@ -57,7 +64,9 @@ function Plain({
               sectionContent={sectionContent}
               sectionHeading={sectionHeading}
               sectionContentCTAjumpId={sectionContentCTAjumpId}
-              sectionContentCTApageLink={sectionContentCTApageLink}
+              sectionContentCTApageLink={
+                sectionContentCTApageLink as Queries.SanityPage['sectionContentCTApageLink']
+              }
               sectionHeadingPosition={sectionHeadingPosition}
               sectionContentCTAtext={sectionContentCTAtext}
             ></ContentBox>
@@ -68,10 +77,10 @@ function Plain({
   } else {
     return (
       <section
-        className={name}
+        className={name ?? 'section'}
         ref={ref}
         id={id}
-        style={{ backgroundColor: bgColor }}
+        style={{ backgroundColor: String(bgColor) }}
       >
         <div className={boxAlign}>
           <ContentBox
@@ -79,7 +88,9 @@ function Plain({
             sectionContent={sectionContent}
             sectionHeading={sectionHeading}
             sectionContentCTAjumpId={sectionContentCTAjumpId}
-            sectionContentCTApageLink={sectionContentCTApageLink}
+            sectionContentCTApageLink={
+              sectionContentCTApageLink as Queries.SanityPage['sectionContentCTApageLink']
+            }
             sectionHeadingPosition={sectionHeadingPosition}
             sectionContentCTAtext={sectionContentCTAtext}
           ></ContentBox>

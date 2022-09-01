@@ -1,5 +1,5 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import sortObject from '../utils/sortObject';
 import styled from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
@@ -102,12 +102,22 @@ const StyledMenuUl = styled.ul`
     }
   }
 `;
-function Menu({ open, location, siteLocation, setOpen }) {
+function Menu({
+  open,
+  location,
+  siteLocation,
+  setOpen,
+}: {
+  open: boolean;
+  location: Location;
+  siteLocation: string;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
+}) {
   const {
-    navigation: { nodes },
-  } = useStaticQuery(graphql`
+    allSanityNavigation: { nodes },
+  }: Queries.MenuQuery = useStaticQuery(graphql`
     query Menu {
-      navigation: allSanityNavigation {
+      allSanityNavigation {
         nodes {
           name
           order
@@ -128,7 +138,9 @@ function Menu({ open, location, siteLocation, setOpen }) {
     }
   `);
   //   console.log('location', location);
-  const navigation = sortObject(nodes);
+  const navigation = sortObject(
+    nodes
+  ) as Queries.MenuQuery['allSanityNavigation']['nodes'];
   return (
     <StyledMenu className={siteLocation} open={open}>
       <StyledMenuUl>
@@ -144,12 +156,12 @@ function Menu({ open, location, siteLocation, setOpen }) {
             let pageLink = '';
 
             if (page !== null && linkType === false) {
-              pageLink = page.slug.current;
+              pageLink = page?.slug?.current ?? '';
             } else {
               if (location?.pathname !== '/') {
                 pageLink = `/${jumpLinkId}`;
               } else {
-                pageLink = jumpLinkId;
+                pageLink = jumpLinkId ?? '';
               }
             }
 
@@ -163,7 +175,9 @@ function Menu({ open, location, siteLocation, setOpen }) {
                     onClick={(e) => {
                       if (location.pathname === '/') {
                         e.preventDefault();
-                        setOpen(false);
+                        if (setOpen) {
+                          setOpen(false);
+                        }
                         scrollTo(pageLink);
                       }
                     }}

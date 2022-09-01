@@ -5,10 +5,10 @@ import PageContent from './PageContent';
 
 function HomeMain() {
   const {
-    sections: { nodes },
-  } = useStaticQuery(graphql`
+    allSanityHomesections: { nodes },
+  }: Queries.HomeMainQuery = useStaticQuery(graphql`
     query HomeMain {
-      sections: allSanityHomesections {
+      allSanityHomesections {
         nodes {
           id
           anchorId
@@ -21,6 +21,7 @@ function HomeMain() {
               current
             }
           }
+          hidetitle
           sectionContentCTAtext
           sectionContentCTAurl
           sectionHeading
@@ -48,7 +49,9 @@ function HomeMain() {
       }
     }
   `);
-  const sections = sortObject(nodes);
+  const sections = sortObject(
+    nodes
+  ) as Queries.HomeMainQuery['allSanityHomesections']['nodes'];
   //   console.log(sections);
   return (
     <main>

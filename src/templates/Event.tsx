@@ -51,7 +51,7 @@ function Event({
           )}
           {richText && richText !== null && (
             <div>
-              <PortableText value={richText} />
+              <PortableText value={richText as any} />
             </div>
           )}
         </div>
