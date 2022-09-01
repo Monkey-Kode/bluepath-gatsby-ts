@@ -47,7 +47,11 @@ const LogoWrap = styled.div`
     }
   }
 `;
-function Header({ location }: { location: Location }) {
+function Header({
+  location = window.location,
+}: {
+  location?: Location | null | undefined;
+}) {
   const { sanitySiteSettings } = useStaticQuery(graphql`
     query Header {
       sanitySiteSettings {

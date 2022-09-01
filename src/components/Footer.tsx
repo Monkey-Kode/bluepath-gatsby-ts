@@ -94,7 +94,7 @@ const FooterStyles = styled.footer`
     }
   }
 `;
-function Footer({ location }: { location: Location }) {
+function Footer({ location }: { location?: Location | null | undefined }) {
   const { allSanityAddress }: Queries.FooterQuery = useStaticQuery(graphql`
     query Footer {
       allSanityAddress {

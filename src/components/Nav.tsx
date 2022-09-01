@@ -4,7 +4,7 @@ import { useOnClickOutside } from '../utils/useOnClickOutside';
 import BurgerMenu from './BurgerMenu';
 import Menu from './Menu';
 
-function Nav({ location }: { location: Location }) {
+function Nav({ location }: { location?: Location | null | undefined }) {
   const [open, setOpen] = React.useState(false);
   const node = React.useRef<HTMLElement>(null);
   useOnClickOutside(node, () => setOpen(false));

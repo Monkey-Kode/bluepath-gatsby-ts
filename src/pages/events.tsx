@@ -24,12 +24,13 @@ const Events = ({
   data: {
     allSanityEvent: { nodes },
   },
+  location,
 }: PageProps<Queries.AllEventsQuery>) => {
   //   console.log('data', data);
 
   return (
     <div>
-      <Header location={location}></Header>
+      <Header location={location} />
       <StyledEvents>
         <div className="wrap">
           <h1>Events</h1>
@@ -39,8 +40,7 @@ const Events = ({
           })}
         </div>
       </StyledEvents>
-
-      <Footer location={location}></Footer>
+      <Footer location={location} />
     </div>
   );
 };

@@ -109,7 +109,7 @@ function Menu({
   setOpen,
 }: {
   open: boolean;
-  location: Location;
+  location?: Location | null | undefined;
   siteLocation: string;
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }) {
@@ -173,7 +173,7 @@ function Menu({
                   <a
                     href={`${pageLink}`}
                     onClick={(e) => {
-                      if (location.pathname === '/') {
+                      if (location?.pathname === '/') {
                         e.preventDefault();
                         if (setOpen) {
                           setOpen(false);
