@@ -9,7 +9,6 @@ import ImpactThumb from './ImpactThumb';
 import classNames from 'classnames';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { convertToBgImage } from 'gbimage-bridge';
-import { SanityPage } from '../types';
 
 const StyledImpactWrapper = styled.div`
   width: 100%;
@@ -109,26 +108,10 @@ const StyledHeading = styled.h1`
     font-size: 3vw;
   }
 `;
-function Impact({
-  content: {
-    contentType,
-    Heading,
-    background,
-    mobilebackground,
-    backgroundColor,
-    content,
-    description,
-    hidetitle,
-    id,
-    sectionContentCTAtext,
-    sectionContentCTAjumpId,
-    sectionContentCTApageLink,
-    sectionContentCTAurl,
-    seotitle,
-    slug,
-  },
-}: SanityPage) {
-  let sectionBg = background || '';
+function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
+  const { Heading, background, mobilebackground, backgroundColor, id } =
+    sanityPage;
+  let sectionBg = background;
   if (typeof window !== 'undefined') {
     let mql = window.matchMedia('(max-width: 600px)');
     if (!mql.matches && background) {
@@ -147,10 +130,10 @@ function Impact({
   );
   const [firstClick, setFirstClick] = useState(true);
   const {
-    impactThumbnails: { nodes },
-  } = useStaticQuery(graphql`
+    allSanityImpact: { nodes },
+  }: Queries.ImpactQuery = useStaticQuery(graphql`
     query Impact {
-      impactThumbnails: allSanityImpact {
+      allSanityImpact {
         nodes {
           content1
           content2
@@ -177,14 +160,18 @@ function Impact({
     }
   `);
   const bgColor = backgroundColor ? backgroundColor.hex : '#fff';
-  const thumbs = sortObject(nodes);
+  const thumbs = sortObject(
+    nodes
+  ) as Queries.ImpactQuery['allSanityImpact']['nodes'];
   let index = 0;
-  const image = getImage(sectionBg?.asset?.gatsbyImageData);
-  const bgImage = convertToBgImage(image);
+  const image = sectionBg?.asset?.gatsbyImageData
+    ? getImage(sectionBg?.asset?.gatsbyImageData)
+    : null;
+  const bgImage = image ? convertToBgImage(image) : null;
   return (
     <>
       <StyledImpactWrapper>
-        {background && (
+        {background?.asset?.gatsbyImageData && (
           <GatsbyImage
             className="hide-for-desktop alignfull image-atop"
             image={background?.asset?.gatsbyImageData}
@@ -211,7 +198,7 @@ function Impact({
               </StyledCarbonContent>
             </StyledCarbonSection>
             <div
-              css={{
+              style={{
                 flexDirection: 'column',
                 justifyContent: 'center !important',
                 marginTop: '10vh',

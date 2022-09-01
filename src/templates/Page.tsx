@@ -15,11 +15,11 @@ function innerContent(
 ) {
   if (contentType && sanityPage) {
     if (contentType === 'Form') {
-      return <Form content={sanityPage} />;
+      return <Form sanityPage={sanityPage} />;
     } else if (contentType === 'Connect') {
-      return <Contact content={sanityPage} />;
+      return <Contact sanityPage={sanityPage} />;
     } else if (contentType === 'Impact') {
-      return <Impact content={sanityPage} />;
+      return <Impact sanityPage={sanityPage} />;
     } else if (contentType === 'Projects') {
       return <Projects sanityPage={sanityPage} />;
     } else if (contentType === 'Team') {

@@ -6,9 +6,8 @@ import useRichPageData from '../utils/useRichPageData';
 import { ContactBody } from './ContactBody';
 import SEO from './SEO';
 import { convertToBgImage } from 'gbimage-bridge';
-import { SanityPage } from '../types';
 
-function Contact({ content: allContent }: Queries.PageQuery) {
+function Contact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
   const {
     _id,
     Heading,
@@ -22,10 +21,10 @@ function Contact({ content: allContent }: Queries.PageQuery) {
     seotitle,
     boxLocation,
     richcontent,
-  } = allContent as Queries.PageQuery['content'];
+  } = sanityPage;
   console.log(content);
 
-  let sectionBg = background || '';
+  let sectionBg = background;
   if (typeof window !== 'undefined') {
     let mql = window.matchMedia('(max-width: 600px)');
     if (!mql.matches && background) {
@@ -43,14 +42,16 @@ function Contact({ content: allContent }: Queries.PageQuery) {
   if (boxLocation) {
     boxAlign = boxLocation;
   }
-  const image = getImage(sectionBg?.asset?.gatsbyImageData);
-  const bgImage = convertToBgImage(image);
+  const image = sectionBg?.asset?.gatsbyImageData
+    ? getImage(sectionBg?.asset?.gatsbyImageData)
+    : null;
+  const bgImage = image ? convertToBgImage(image) : null;
 
   return (
     <>
-      <SEO title={seotitle} description={description} />
+      <SEO title={String(seotitle)} description={String(description)} />
       <div className={boxAlign}>
-        {background && (
+        {background?.asset?.gatsbyImageData && (
           <GatsbyImage
             className="hide-for-desktop alignfull image-atop"
             image={background?.asset?.gatsbyImageData}
@@ -74,7 +75,7 @@ function Contact({ content: allContent }: Queries.PageQuery) {
             />
           </StyleBackgroundImage>
         ) : (
-          <section id={String(id)} style={{ backgroundColor: bgColor }}>
+          <section id={String(id)} style={{ backgroundColor: String(bgColor) }}>
             <ContactBody
               id={id}
               content={content}

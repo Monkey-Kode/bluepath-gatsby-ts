@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { navigate, PageProps } from 'gatsby';
+import React, { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react';
+import { navigate } from 'gatsby';
 import styled from 'styled-components';
 import StyleBackgroundImage from '../styles/StyleBackgroundImage';
 import { convertToBgImage } from 'gbimage-bridge';
 import { getImage } from 'gatsby-plugin-image';
+import { encode } from '../utils/encode';
 
 const StyledForm = styled.div`
   background-color: var(--blue);
@@ -20,22 +21,24 @@ const StyledForm = styled.div`
     display: none;
   }
 `;
-function encode(data) {
-  return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&');
-}
-
-function FormBody({ name, id, sectionHeading, boxLocation }) {
+function FormBody({
+  name,
+  sectionHeading,
+  boxLocation,
+}: {
+  name: Queries.SanityPage['name'];
+  sectionHeading: Queries.SanityPage['Heading'];
+  boxLocation?: Queries.SanityPage['boxLocation'];
+}) {
   const [state, setState] = useState({});
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const form = e.target;
+    const form = e.target as HTMLFormElement;
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -44,7 +47,7 @@ function FormBody({ name, id, sectionHeading, boxLocation }) {
         ...state,
       }),
     })
-      .then(() => navigate(form.getAttribute('action')))
+      .then(() => navigate(form.getAttribute('action') as string))
       .catch((error) => console.log(error));
   };
 
@@ -61,7 +64,7 @@ function FormBody({ name, id, sectionHeading, boxLocation }) {
       <StyledForm>
         <h2>{name || sectionHeading}</h2>
         <form
-          name={name && 'generic'}
+          name={name ?? 'generic'}
           action="/thankyou"
           method="POST"
           data-netlify="true"
@@ -116,7 +119,7 @@ function FormBody({ name, id, sectionHeading, boxLocation }) {
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               placeholder="Phone"
               onBlur={handleChange}
-            ></input>
+            />
           </p>
           <p>
             <label htmlFor="state">State</label>
@@ -187,8 +190,8 @@ function FormBody({ name, id, sectionHeading, boxLocation }) {
               id="message"
               name="message"
               placeholder={message}
-              rows="5"
-              cols="33"
+              rows={5}
+              cols={33}
               onBlur={handleChange}
             ></textarea>
           </p>
@@ -200,23 +203,24 @@ function FormBody({ name, id, sectionHeading, boxLocation }) {
     </div>
   );
 }
-const Form = ({
-  content: {
+const Form = ({ sanityPage }: { sanityPage: Queries.SanityPage }) => {
+  const {
     id,
     name,
     background,
     backgroundColor,
-    sectionHeading,
+    Heading: sectionHeading,
     boxLocation,
-  },
-}) => {
+  } = sanityPage;
   const bgColor = backgroundColor ? backgroundColor.hex : '#fff';
   let boxAlign = 'left';
   if (boxLocation) {
     boxAlign = boxLocation;
   }
-  const image = getImage(background?.asset?.gatsbyImageData);
-  const bgImage = convertToBgImage(image);
+  const image = background?.asset?.gatsbyImageData
+    ? getImage(background?.asset?.gatsbyImageData)
+    : null;
+  const bgImage = image ? convertToBgImage(image) : null;
   return (
     <>
       {background ? (
@@ -228,11 +232,7 @@ const Form = ({
             {...bgImage}
           >
             <div>
-              <FormBody
-                id={id}
-                name={name}
-                sectionHeading={sectionHeading}
-              ></FormBody>
+              <FormBody name={name} sectionHeading={sectionHeading}></FormBody>
             </div>
           </StyleBackgroundImage>
         </div>
@@ -240,11 +240,7 @@ const Form = ({
         <div className={boxAlign}>
           <section id={id}>
             <div>
-              <FormBody
-                id={id}
-                name={name}
-                sectionHeading={sectionHeading}
-              ></FormBody>
+              <FormBody name={name} sectionHeading={sectionHeading}></FormBody>
             </div>
           </section>
         </div>
