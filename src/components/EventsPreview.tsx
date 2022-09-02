@@ -7,11 +7,25 @@ const StyledEventsPreview = styled.div`
   .card {
     display: flex;
     align-items: center;
-    /* border-top: 3px solid var(--orange); */
     border-top: 1px solid var(--white);
-    /* border-bottom: 1px solid var(--white); */
-    /* border-radius: 0.5rem; */
-    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+  }
+  .card-image {
+    flex: 1 20%;
+  }
+  .card-content {
+    flex: 1 80%;
+    padding: 1em;
+  }
+  @media (max-width: 800px) {
+    .card {
+      flex-direction: column;
+    }
+    .card-content {
+      p {
+        font-size: 0.75rem;
+        line-height: 1.1rem;
+      }
+    }
   }
   h2 {
     font-size: 1.5rem;
@@ -43,9 +57,9 @@ const EventsPreview = ({
       <div className="card">
         <div className="card-image">
           <figure>
-            {sanityEvent?.image?.asset?.gatsbyImage && (
+            {sanityEvent?.image?.asset?.gatsbyImageData && (
               <GatsbyImage
-                image={sanityEvent.image.asset.gatsbyImage}
+                image={sanityEvent.image.asset.gatsbyImageData}
                 alt="Event Image"
               />
             )}

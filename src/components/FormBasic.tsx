@@ -89,7 +89,7 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
         id="details"
         type="text"
         name="details"
-        placeholder="Details"
+        placeholder="Preferred meeting time"
         value={state.details}
         onChange={handleChange}
       />

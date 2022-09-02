@@ -121,22 +121,26 @@ function Menu({
         nodes {
           name
           order
-          header
           footer
           page {
-            name
-            id
-            slug {
-              current
+            ... on SanityPage {
+              id
+              name
+              slug {
+                current
+              }
             }
           }
           jumpLinkId
           linkType
           id
+          header
+          url
         }
       }
     }
   `);
+  console.log('nodes', nodes);
   //   console.log('location', location);
   const navigation = sortObject(
     nodes
@@ -145,7 +149,16 @@ function Menu({
     <StyledMenu className={siteLocation} open={open}>
       <StyledMenuUl>
         {navigation.map(
-          ({ name: title, page, jumpLinkId, linkType, id, header, footer }) => {
+          ({
+            name: title,
+            page,
+            jumpLinkId,
+            linkType,
+            id,
+            header,
+            footer,
+            url,
+          }) => {
             if (!header && siteLocation === 'header') {
               return null;
             }
@@ -155,8 +168,13 @@ function Menu({
 
             let pageLink = '';
 
-            if (page !== null && linkType === false) {
-              pageLink = page?.slug?.current ?? '';
+            if (
+              page !== null &&
+              linkType === false &&
+              !!Object.keys(page).length
+            ) {
+              //@ts-ignore
+              pageLink = page.slug.current ?? '';
             } else {
               if (location?.pathname !== '/') {
                 pageLink = `/${jumpLinkId}`;
@@ -164,6 +182,12 @@ function Menu({
                 pageLink = jumpLinkId ?? '';
               }
             }
+            if (url) {
+              const link = new URL(url);
+              pageLink = link.pathname.slice(1);
+            }
+
+            console.log('pageLink', pageLink);
 
             return (
               <li key={id}>

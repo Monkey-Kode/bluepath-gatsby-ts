@@ -24,9 +24,16 @@ const StyledMain = styled.main`
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
-    > div {
-      padding: 0 2em 2em 2em;
+    align-items: flex-start;
+    justify-items: center;
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  .event-text {
+    padding: 12.5% 2em;
+    @media (max-width: 800px) {
+      padding: 1em 2em;
     }
   }
   label {
@@ -56,7 +63,8 @@ function Event({
               />
             </div>
           )}
-          <div>
+          <div className="event-text">
+            {content && <h2>{content.name}</h2>}
             {richText && richText !== null && (
               <div>
                 <PortableText value={richText as any} />

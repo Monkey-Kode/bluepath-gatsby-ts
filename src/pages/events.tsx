@@ -19,6 +19,11 @@ const StyledEvents = styled.div`
     padding: 3em 0;
     max-width: 1400px;
   }
+  @media (max-width: 800px) {
+    h1 {
+      padding-left: 0.5em;
+    }
+  }
 `;
 const Events = ({
   data: {
@@ -51,7 +56,7 @@ export const query = graphql`
         name
         image {
           asset {
-            gatsbyImage(width: 300, placeholder: NONE)
+            gatsbyImageData(width: 500, layout: CONSTRAINED, placeholder: NONE)
           }
         }
         slug {
