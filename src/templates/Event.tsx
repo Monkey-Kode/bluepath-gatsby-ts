@@ -5,7 +5,7 @@ import { graphql, PageProps } from 'gatsby';
 import SEO from '../components/SEO';
 import styled from 'styled-components';
 import { PortableText } from '@portabletext/react';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import FormBasic from '../components/FormBasic';
 
 const StyledMain = styled.main`
@@ -49,18 +49,18 @@ function Event({
   location,
 }: PageProps<Queries.EventQuery> & { location: Location }) {
   const richText = content?.content ?? null;
+  const image = content?.image?.asset?.gatsbyImageData
+    ? getImage(content?.image?.asset?.gatsbyImageData)
+    : null;
   return (
     <div className="event">
       <SEO title={content?.description ?? 'Event Page'} />
       <Header location={location}></Header>
       <StyledMain>
         <div className="wrap event-content">
-          {content?.image?.asset?.gatsbyImageData && (
+          {image && (
             <div>
-              <GatsbyImage
-                image={content?.image?.asset?.gatsbyImageData}
-                alt="Event Image"
-              />
+              <GatsbyImage image={image} alt="Event Image" />
             </div>
           )}
           <div className="event-text">
