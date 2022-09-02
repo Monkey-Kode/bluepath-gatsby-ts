@@ -80,7 +80,7 @@ export default function CarouselSlide({
   const { ref, inView } = useInView(intersectionObserverOptions);
   let linkOne = '';
   let linkTwo = '';
-  console.log('ref slide', inView);
+  // console.log('ref slide', inView);
   if (firstLinkId) {
     linkOne = `#${firstLinkId}`;
   } else if (firstLinkURL) {

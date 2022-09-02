@@ -140,7 +140,7 @@ function Menu({
       }
     }
   `);
-  console.log('nodes', nodes);
+  // console.log('nodes', nodes);
   //   console.log('location', location);
   const navigation = sortObject(
     nodes
@@ -187,7 +187,7 @@ function Menu({
               pageLink = link.pathname.slice(1);
             }
 
-            console.log('pageLink', pageLink);
+            // console.log('pageLink', pageLink);
 
             return (
               <li key={id}>
