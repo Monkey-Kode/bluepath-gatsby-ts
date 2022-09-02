@@ -56,7 +56,9 @@ function HomeMain() {
   return (
     <main>
       {sections.map((content) => {
-        return <PageContent key={content.id} content={content} />;
+        return content ? (
+          <PageContent key={content.id} content={content} />
+        ) : null;
       })}
     </main>
   );

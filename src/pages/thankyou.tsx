@@ -20,7 +20,7 @@ function ThankYou({ location }: PageProps) {
         <h1>Thank you for your interest!</h1>
         <p>We will get back to you shortly.</p>
       </StyledMain>
-      <Footer location={location}></Footer>
+      <Footer location={location} />
     </>
   );
 }

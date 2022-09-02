@@ -20,6 +20,9 @@ const StyledForm = styled.div`
   label {
     display: none;
   }
+  div {
+    padding: 0.25rem 0rem;
+  }
 `;
 function FormBody({
   name,
@@ -72,7 +75,7 @@ function FormBody({
           data-netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
         >
-          <p>
+          <div>
             <label htmlFor="name">Name:</label>
             <input
               id="name"
@@ -81,8 +84,8 @@ function FormBody({
               placeholder="Name"
               onBlur={handleChange}
             />
-          </p>
-          <p>
+          </div>
+          <div>
             <label htmlFor="company">Company:</label>
             <input
               id="company"
@@ -90,8 +93,8 @@ function FormBody({
               name="company"
               placeholder="Company"
             />
-          </p>
-          <p>
+          </div>
+          <div>
             <label htmlFor="position">Position:</label>
             <input
               id="position"
@@ -100,8 +103,8 @@ function FormBody({
               placeholder="Position"
               onBlur={handleChange}
             />
-          </p>
-          <p>
+          </div>
+          <div>
             <label htmlFor="email">Email:</label>
             <input
               id="email"
@@ -110,8 +113,8 @@ function FormBody({
               placeholder="Email"
               onBlur={handleChange}
             />
-          </p>
-          <p>
+          </div>
+          <div>
             <label htmlFor="phone">Enter your phone number:</label>
             <input
               type="tel"
@@ -121,8 +124,8 @@ function FormBody({
               placeholder="Phone"
               onBlur={handleChange}
             />
-          </p>
-          <p>
+          </div>
+          <div>
             <label htmlFor="state">State</label>
             <select id="state" name="state" onBlur={handleChange}>
               <option value="">STATE</option>
@@ -184,8 +187,8 @@ function FormBody({
               <option value="Wisconsin">Wisconsin</option>
               <option value="Wyoming">Wyoming</option>
             </select>
-          </p>
-          <p>
+          </div>
+          <div>
             <label htmlFor="message">Message:</label>
             <textarea
               id="message"
@@ -195,10 +198,10 @@ function FormBody({
               cols={33}
               onBlur={handleChange}
             ></textarea>
-          </p>
-          <p>
+          </div>
+          <div>
             <button type="submit">Send</button>
-          </p>
+          </div>
         </form>
       </StyledForm>
     </div>

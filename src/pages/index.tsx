@@ -71,10 +71,10 @@ const IndexPage = ({ location }: PageProps) => {
   return (
     <div className="home">
       <StyledHeaderWrapper ref={ref}>
-        <Header location={location}></Header>
+        <Header location={location} />
       </StyledHeaderWrapper>
       <HomeMain />
-      <Footer location={location}></Footer>
+      <Footer location={location} />
     </div>
   );
 };

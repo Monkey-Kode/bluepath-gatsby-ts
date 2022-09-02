@@ -55,7 +55,7 @@ function Event({
   return (
     <div className="event">
       <SEO title={content?.description ?? 'Event Page'} />
-      <Header location={location}></Header>
+      <Header location={location} />
       <StyledMain>
         <div className="wrap event-content">
           {image && (
