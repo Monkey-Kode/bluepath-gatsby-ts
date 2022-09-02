@@ -19,9 +19,12 @@ const StyledEvents = styled.div`
     padding: 3em 0;
     max-width: 1400px;
   }
+
   @media (max-width: 800px) {
     h1 {
       padding-left: 0.5em;
+      margin-bottom: 0;
+      font-size: 2em;
     }
   }
 `;
