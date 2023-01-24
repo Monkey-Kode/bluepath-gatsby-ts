@@ -27,14 +27,16 @@ const SEO: FC<SEOProps> = ({
     }
   `);
 
+  const siteUrl =
+    typeof window !== 'undefined' && process.env.NODE_ENV === 'production'
+      ? window.location.href
+      : typeof window !== 'undefined' && process.env.NODE_ENV === 'development'
+      ? 'http://localhost:8000/'
+      : 'https://bluepathfinance.com/';
+
   const seoTitle = site?.siteMetadata?.title ?? title ?? 'Bluepath Finance';
   const seoDescription = site?.siteMetadata?.description ?? description ?? '';
-  const seoLogo =
-    image ??
-    `${window?.location?.href ?? 'https://bluepathfinance.com'}${logo.slice(
-      1
-    )}` ??
-    '';
+  const seoLogo = image ?? `${siteUrl}${logo.slice(1)}` ?? '';
   console.log('seoTitle', seoTitle);
   console.log('seoLogo', seoLogo);
   console.log('seoDescription', seoDescription);
