@@ -47,15 +47,33 @@ const SEO: FC<SEOProps> = ({
       <meta name="viewport" content="width=device-width,initial-scale=1.0" />
       <meta name="description" content={seoDescription} />
       {location && <meta property="og:url" content={location.href} />}
-      <meta property="og:image" content={seoLogo} />
-      <meta property="og:image:secure_url" content={seoLogo} />
-      <meta property="og:image:type" content={'image/png'} />
-      <meta property="og:image:width" content={'336'} />
-      <meta property="og:image:height" content={'176'} />
-      <meta property="og:image:alt" content={'Bluepath Finance'} />
-      <meta property="og:title" content={seoTitle} key="ogtitle" />
-      <meta property="og:site_name" content={seoTitle} key="ogsitename" />
-      <meta property="og:description" content={seoDescription} key="ogdesc" />
+      <meta name="title" property="og:title" content={seoTitle} />
+      <meta name="type" property="og:type" content="website" />
+      <meta name="image" property="og:image" content={seoLogo} />
+      <meta
+        name="image_secureurl"
+        property="og:image:secure_url"
+        content={seoLogo}
+      />
+      <meta name="image_type" property="og:image:type" content={'image/png'} />
+      <meta name="image_width" property="og:image:width" content={'336'} />
+      <meta name="image_height" property="og:image:height" content={'176'} />
+      <meta
+        name="image_alt"
+        property="og:image:alt"
+        content={'Bluepath Finance'}
+      />
+      <meta
+        name="sitename"
+        property="og:site_name"
+        content={seoTitle}
+        key="ogsitename"
+      />
+      <meta
+        name="og_description"
+        property="og:description"
+        content={seoDescription}
+      />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@BluePathFinance" />
       <meta name="twitter:creator" content="@BluePathFinance" />
