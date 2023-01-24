@@ -1,6 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React, { FC } from 'react';
 import { Helmet } from 'react-helmet';
+import logo from '../images/1200w/logo-1200-cropped.png';
 interface SEOProps {
   title?: string;
   description?: string;
@@ -25,17 +26,43 @@ const SEO: FC<SEOProps> = ({
       }
     }
   `);
+
+  const seoTitle = site?.siteMetadata?.title ?? title ?? 'Bluepath Finance';
+  const seoDescription = site?.siteMetadata?.description ?? description ?? '';
+  const seoLogo =
+    image ??
+    `${window?.location?.href ?? 'https://bluepathfinance.com'}${logo.slice(
+      1
+    )}` ??
+    '';
+  console.log('seoTitle', seoTitle);
+  console.log('seoLogo', seoLogo);
+  console.log('seoDescription', seoDescription);
   return (
-    <Helmet titleTemplate={`%s - ${site.siteMetadata.title}`}>
+    <Helmet titleTemplate={`${seoTitle}`}>
       <html lang="en" />
-      <title>{title}</title>
+      <title>{seoTitle}</title>
       <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-      <meta name="description" content={site.siteMetadata.description} />
+      <meta name="description" content={seoDescription} />
       {location && <meta property="og:url" content={location.href} />}
-      <meta property="og:imge" content={image || '/logo.svg'} />
-      <meta property="og:title" content={title} key="ogtitle" />
-      <meta property="og:site_name" content={title} key="ogsitename" />
-      <meta property="og:description" content={description} key="ogdesc" />
+      <meta property="og:image" content={seoLogo} />
+      <meta property="og:image:secure_url" content={seoLogo} />
+      <meta property="og:image:type" content={'image/png'} />
+      <meta property="og:image:width" content={'336'} />
+      <meta property="og:image:height" content={'176'} />
+      <meta property="og:image:alt" content={'Bluepath Finance'} />
+      <meta property="og:title" content={seoTitle} key="ogtitle" />
+      <meta property="og:site_name" content={seoTitle} key="ogsitename" />
+      <meta property="og:description" content={seoDescription} key="ogdesc" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@BluePathFinance" />
+      <meta name="twitter:creator" content="@BluePathFinance" />
+      <meta name="twitter:title" content={seoTitle} key="twittertitle" />
+      <meta name="twitter:description" content={seoDescription} />
+      <meta name="twitter:image" content={seoLogo} />
+      <meta name="twitter:image:alt" content={'Bluepath Finance'} />
+      <meta name="twitter:image:width" content={'336'} />
+      <meta name="twitter:image:height" content={'176'} />
       {children}
     </Helmet>
   );

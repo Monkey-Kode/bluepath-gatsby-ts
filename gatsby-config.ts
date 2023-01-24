@@ -6,7 +6,7 @@ require('dotenv').config({
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: 'Blupath Finance',
+    title: 'FUNDING THE DISTRIBUTED ENERGY TRANSITION',
     description:
       'We finance sustainable infrastructure, including energy retrofit and new building projects. Technologies increasingly reduce, store, and generate energy where it is used. New and remodeled buildings need to satisfy tightening carbon emission standards. Financing structures must be nimble enough to capitalize on the cost and environmental savings generated.',
     siteUrl: 'https://bluepathfinance.com',

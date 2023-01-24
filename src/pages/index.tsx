@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import HomeMain from '../components/HomeMain';
 import type { PageProps } from 'gatsby';
+import SEO from '../components/SEO';
 
 const StyledHeaderWrapper = styled.div`
   z-index: 100;
@@ -69,13 +70,16 @@ const IndexPage = ({ location }: PageProps) => {
     }
   };
   return (
-    <div className="home">
-      <StyledHeaderWrapper ref={ref}>
-        <Header location={location} />
-      </StyledHeaderWrapper>
-      <HomeMain />
-      <Footer location={location} />
-    </div>
+    <>
+      <SEO />
+      <div className="home">
+        <StyledHeaderWrapper ref={ref}>
+          <Header location={location} />
+        </StyledHeaderWrapper>
+        <HomeMain />
+        <Footer location={location} />
+      </div>
+    </>
   );
 };
 
