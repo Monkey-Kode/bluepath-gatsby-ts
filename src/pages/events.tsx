@@ -39,7 +39,7 @@ const Events = ({
   const sortedEvents = nodes.sort((a, b) => {
     const aDate = new Date(a.eventAt);
     const bDate = new Date(b.eventAt);
-    return aDate.getTime() - bDate.getTime();
+    return bDate.getTime() - aDate.getTime();
   });
   return (
     <div>
