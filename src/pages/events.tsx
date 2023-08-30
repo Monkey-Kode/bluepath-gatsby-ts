@@ -35,14 +35,19 @@ const Events = ({
   location,
 }: PageProps<Queries.AllEventsQuery>) => {
   //   console.log('data', data);
-
+  // need to sort nodes by eventAt date
+  const sortedEvents = nodes.sort((a, b) => {
+    const aDate = new Date(a.eventAt);
+    const bDate = new Date(b.eventAt);
+    return aDate.getTime() - bDate.getTime();
+  });
   return (
     <div>
       <Header location={location} />
       <StyledEvents>
         <div className="wrap">
           <h1>Events</h1>
-          {nodes.map((sanityEvent) => {
+          {sortedEvents.map((sanityEvent) => {
             const { id } = sanityEvent;
             return <EventsPreview sanityEvent={sanityEvent} key={id} />;
           })}
