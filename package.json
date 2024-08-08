@@ -15,7 +15,8 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore .",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "dev": "gatsby clean && netlify dev"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.8",
