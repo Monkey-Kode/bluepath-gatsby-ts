@@ -1,12 +1,12 @@
-import { useStaticQuery } from 'gatsby';
-import React, { MouseEvent, useEffect, useRef } from 'react';
-import getytid from 'get-youtube-id';
-import styled from 'styled-components';
-import { graphql } from 'gatsby';
-import TriangleOutline from '../images/triangle-outline.svg';
-import scrollTo from 'gatsby-plugin-smoothscroll';
-import { GatsbyImage } from 'gatsby-plugin-image';
-import { ArrElement } from '../types';
+import { useStaticQuery } from "gatsby";
+import React, { MouseEvent, useEffect, useRef } from "react";
+import getytid from "get-youtube-id";
+import styled from "styled-components";
+import { graphql } from "gatsby";
+import TriangleOutline from "../images/triangle-outline.svg";
+import scrollTo from "gatsby-plugin-smoothscroll";
+import { GatsbyImage } from "gatsby-plugin-image";
+import { ArrElement } from "../types";
 const StyledVideo = styled.video`
   max-width: 100vw;
   margin-bottom: -4px;
@@ -52,12 +52,12 @@ const StyledSoundButton = styled.button`
     font-size: 1rem;
     pointer-events: none;
   }
-  &[data-state='mute'] {
+  &[data-state="mute"] {
     #mute-icon {
       display: none;
     }
   }
-  &[data-state='unmute'] {
+  &[data-state="unmute"] {
     #sound-icon {
       display: none;
     }
@@ -79,7 +79,7 @@ type Video = HTMLSourceElement & {
 function Video({
   content,
 }: {
-  content: ArrElement<Queries.HomeMainQuery['allSanityHomesections']['nodes']>;
+  content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
 }) {
   const videoRef = useRef<Video>(null);
   const videoSrcRef = useRef<Video>(null);
@@ -127,23 +127,23 @@ function Video({
     const videoSrcElement = videoSrcRef.current;
     // console.log('video src element', videoSrcElement);
     if (videoSrcElement && videoElement) {
-      const desktopMq = window.matchMedia('(min-width: 800px)');
+      const desktopMq = window.matchMedia("(min-width: 800px)");
       // console.log('videoElement', videoElement);
       if (desktopMq.matches) {
-        videoSrcElement.type = videoElement.dataset.type || 'video/mp4';
-        videoSrcElement.src = videoElement.dataset.src || '';
+        videoSrcElement.type = videoElement.dataset.type || "video/mp4";
+        videoSrcElement.src = videoElement.dataset.src || "";
         // console.log(videoElement.dataset.src);
         // videoDesktopSource.play();
       } else {
-        videoSrcElement.type = videoElement.dataset.mobiletype || 'video/mp4';
-        videoSrcElement.src = videoElement.dataset.mobilesrc || '';
+        videoSrcElement.type = videoElement.dataset.mobiletype || "video/mp4";
+        videoSrcElement.src = videoElement.dataset.mobilesrc || "";
         // console.log('video src', videoSrcElement);
       }
       videoElement.play();
     }
   }, [videoRef]);
 
-  const setSound = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const setSound = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     if (videoRef) {
       const video = videoRef.current;
@@ -152,7 +152,7 @@ function Video({
 
       if (video) {
         video.muted = !video.muted;
-        target.setAttribute('data-state', video.muted ? 'mute' : 'unmute');
+        target.setAttribute("data-state", video.muted ? "mute" : "unmute");
       }
     }
   };
@@ -178,13 +178,13 @@ function Video({
               e.preventDefault();
               // const video = videoRef.current;
               // video.pause();
-              if (typeof window !== 'undefined') {
-                const mql = window.matchMedia('(max-width: 800px)');
+              if (typeof window !== "undefined") {
+                const mql = window.matchMedia("(max-width: 800px)");
                 console.log(mql);
                 if (!mql.matches) {
-                  scrollTo('#carousel');
+                  scrollTo("#carousel");
                 } else {
-                  scrollTo('#bottom-video');
+                  scrollTo("#bottom-video");
                 }
               }
             }}
@@ -229,7 +229,7 @@ function Video({
       <section id={`#${content.anchorId}`}>
         <iframe
           src={`https://www.youtube.com/embed/${id}`}
-          title={name ?? 'Main Video'}
+          title={name ?? "Main Video"}
           width="100%"
           height="100%"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

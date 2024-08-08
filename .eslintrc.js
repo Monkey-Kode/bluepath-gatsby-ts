@@ -1,32 +1,21 @@
 module.exports = {
-  // root: true,
-  // overrides: [
-  //   {
-  //     files: ['*.ts', '*.tsx'],
-  //     processor: '@graphql-eslint/graphql',
-  //     parser: '@typescript-eslint/parser',
-  //     extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-  //     env: {
-  //       es6: true,
-  //     },
-  //   },
-  //   {
-  //     files: ['*.graphql'],
-  //     parser: '@graphql-eslint/eslint-plugin',
-  //     plugins: ['@graphql-eslint'],
-  //     rules: {
-  //       '@graphql-eslint/no-anonymous-operations': 'error',
-  //       '@graphql-eslint/naming-convention': [
-  //         'error',
-  //         {
-  //           OperationDefinition: {
-  //             style: 'PascalCase',
-  //             forbiddenPrefixes: ['Query', 'Mutation', 'Subscription', 'Get'],
-  //             forbiddenSuffixes: ['Query', 'Mutation', 'Subscription'],
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   },
-  // ],
+  parser: "@typescript-eslint/parser",
+  extends: [
+    "react-app",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+  ],
+  plugins: ["@typescript-eslint", "prettier"],
+  rules: {
+    "prettier/prettier": "error",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    // Add any additional custom rules here
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
 };

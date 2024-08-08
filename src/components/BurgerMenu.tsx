@@ -60,7 +60,7 @@ function BurgerMenu({
   return (
     <StyledBurger
       className={classNames({ open }, 'burger-menu')}
-      open={open}
+       open={open}
       onClick={() => setOpen(!open)}
     >
       <div />
