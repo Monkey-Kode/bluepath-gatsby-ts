@@ -4,7 +4,7 @@ import fundingImage from "../images/funding-image.jpg";
 import partneringImage from "../images/partnering-image.jpg";
 import transformingImage from "../images/transforming-image.jpg";
 import solvingImge from "../images/solving-image.jpg";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const hardcodedSections = [
   {
@@ -191,7 +191,19 @@ const SectionItem = styled.li`
   max-width: 600px;
 `;
 
-const StyledFigure = styled.figure`
+const panAnimation = keyframes`
+  0% {
+    background-position: left center;
+  }
+  50% {
+    background-position: right center;
+  }
+  100% {
+    background-position: left center;
+  }
+`;
+
+const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   margin: 0;
   width: var(--square-size);
   height: var(--square-size);
@@ -200,27 +212,12 @@ const StyledFigure = styled.figure`
   mask-size: 100% 100%;
   clip-path: url("#clipPath");
   position: relative;
+  background-image: url(${(props) => props.imageUrl});
+  background-size: cover;
+  background-repeat: no-repeat;
 
-  &:hover img {
-    animation: pan 5s linear infinite;
-  }
-`;
-
-const SectionImage = styled.img`
-  margin-bottom: 0px;
-  height: 100%;
-  object-fit: cover;
-
-  @keyframes pan {
-    0% {
-      transform: translateX(0);
-    }
-    50% {
-      transform: translateX(-10%);
-    }
-    100% {
-      transform: translateX(0);
-    }
+  &:hover {
+    animation: ${panAnimation} 5s linear infinite;
   }
 `;
 
@@ -260,14 +257,7 @@ export default function TableOfContents({
       <SectionList>
         {hardcodedSections.map((section, index) => (
           <SectionItem key={index}>
-            <StyledFigure>
-              <SectionImage
-                src={section.image.imageUrl}
-                alt={section.image.alt}
-                width={section.image.width}
-                height={section.image.height}
-              />
-            </StyledFigure>
+            <StyledBackgroundFigure imageUrl={section.image.imageUrl} />
             <SectionLink href={`#${section.anchorId}`}>
               {section.heading}
             </SectionLink>
