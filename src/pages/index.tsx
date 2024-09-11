@@ -1,10 +1,10 @@
-import React, { useRef, useEffect } from 'react';
-import styled from 'styled-components';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import HomeMain from '../components/HomeMain';
-import type { PageProps } from 'gatsby';
-import SEO from '../components/SEO';
+import React, { useRef, useEffect } from "react";
+import styled from "styled-components";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import HomeMain from "../components/HomeMain";
+import type { PageProps } from "gatsby";
+import SEO from "../components/SEO";
 
 const StyledHeaderWrapper = styled.div`
   z-index: 100;
@@ -50,23 +50,23 @@ const StyledHeaderWrapper = styled.div`
 `;
 // markup
 const IndexPage = ({ location }: PageProps) => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const handleScroll = () => {
-    const header = ref?.current?.querySelector('header');
+    const header = ref?.current?.querySelector("header");
     if (window.scrollY > 0) {
-      header?.classList.remove('hide');
-      header?.classList.add('show');
+      header?.classList.remove("hide");
+      header?.classList.add("show");
       // console.log(window.scrollY);
     } else {
-      header?.classList.remove('show');
-      header?.classList.add('hide');
+      header?.classList.remove("show");
+      header?.classList.add("hide");
     }
   };
   return (
