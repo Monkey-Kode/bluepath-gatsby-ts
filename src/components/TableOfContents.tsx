@@ -15,6 +15,8 @@ const StyledRoot = styled.div`
 
 const StyledBox = styled.div`
   max-width: 18.125rem;
+  max-height: 18.125rem;
+  overflow-y: scroll;
 `;
 
 const Heading = styled.h2`

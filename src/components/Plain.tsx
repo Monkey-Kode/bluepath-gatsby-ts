@@ -59,7 +59,7 @@ function Plain({
           className="plain"
           {...bgImage}
         >
-          <div id={anchorId} className={`${boxAlign} ${name}`}>
+          <div className={`${boxAlign} ${name}`}>
             <ContentBox
               hidetitle={hidetitle}
               sectionContent={sectionContent}
@@ -80,7 +80,7 @@ function Plain({
       <section
         className={name ?? "section"}
         ref={ref}
-        id={anchorId}
+        id={anchorId ?? `section-${id}`}
         style={{ backgroundColor: String(bgColor) }}
       >
         <div className={boxAlign}>
