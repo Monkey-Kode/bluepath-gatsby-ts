@@ -57,15 +57,74 @@ const StyledRoot = styled.div`
   padding: 4rem 2rem;
 `;
 
+const DiagLinesSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path stroke="#1D4483" stroke-miterlimit="10" d="m1.31 1.03 33.75 33.76"/></svg>`;
+
 const StyleLeftContent = styled.div`
   width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+`;
+const StyleOuterBox = styled.div`
+  max-width: 18.125rem;
+  max-height: 18.125rem;
+  overflow-y: auto;
+  position: relative;
+  // Bottom-left corner
+  &::before {
+    content: url("data:image/svg+xml;base64,${btoa(DiagLinesSvg)}");
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    transform: rotate(0deg);
+  }
+
+  // Bottom-right corner
+  &::after {
+    content: url("data:image/svg+xml;base64,${btoa(DiagLinesSvg)}");
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    transform: rotate(-90deg);
+  }
 `;
 
 const StyledBox = styled.div`
+  --border-size: 2.11rem;
   max-width: 18.125rem;
+  max-height: calc(18.125rem - var(--border-size));
+  overflow-y: auto;
+  position: relative;
+  padding-inline: var(--border-size);
+  padding-block: var(--border-size);
+  // Top-left corner
+  &::before {
+    content: url("data:image/svg+xml;base64,${btoa(DiagLinesSvg)}");
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    transform: rotate(90deg);
+  }
+
+  // Top-right corner
+  &::after {
+    content: url("data:image/svg+xml;base64,${btoa(DiagLinesSvg)}");
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    transform: rotate(180deg);
+  }
+`;
+const ScrollableContent = styled.div`
   max-height: 18.125rem;
   overflow-y: scroll;
 `;
@@ -139,15 +198,19 @@ export default function TableOfContents({
       <svg width="0" height="0" style={{ position: "absolute" }}>
         <defs>
           <clipPath id="clipPath">
-            <path d="M94.96 83.83V11.3199L84.1499 0.52002H11.6099L0.75 11.37V83.78L11.7002 94.73H84.0601L94.96 83.83Z" />
+            <path d="M94.96 83.83V11.32L84.15.52H11.61L.75 11.37v72.41L11.7 94.73h72.36l10.9-10.9Z" />
           </clipPath>
         </defs>
       </svg>
       <StyleLeftContent>
-        <StyledBox>
-          <Heading>{sectionHeading}</Heading>
-          <Content>{sectionContent}</Content>
-        </StyledBox>
+        <StyleOuterBox>
+          <StyledBox>
+            <ScrollableContent>
+              <Heading>{sectionHeading}</Heading>
+              <Content>{sectionContent}</Content>
+            </ScrollableContent>
+          </StyledBox>
+        </StyleOuterBox>
       </StyleLeftContent>
       <SectionList>
         {hardcodedSections.map((section, index) => (
