@@ -54,7 +54,7 @@ const StyledRoot = styled.div`
   --font-thin: 300;
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 4rem 2rem;
 `;
 
 const StyleLeftContent = styled.div`
@@ -111,11 +111,13 @@ const StyledFigure = styled.figure`
   overflow: hidden;
   mask-size: 100% 100%;
   clip-path: url("#clipPath");
+  position: relative;
 `;
 
 const SectionImage = styled.img`
   margin-bottom: 0px;
   height: 100%;
+  object-fit: cover;
 `;
 
 const SectionLink = styled.a`
@@ -134,6 +136,13 @@ export default function TableOfContents({
   const { anchorId, sectionContent, sectionHeading } = content;
   return (
     <StyledRoot id={anchorId ?? "tof"}>
+      <svg width="0" height="0" style={{ position: "absolute" }}>
+        <defs>
+          <clipPath id="clipPath">
+            <path d="M94.96 83.83V11.3199L84.1499 0.52002H11.6099L0.75 11.37V83.78L11.7002 94.73H84.0601L94.96 83.83Z" />
+          </clipPath>
+        </defs>
+      </svg>
       <StyleLeftContent>
         <StyledBox>
           <Heading>{sectionHeading}</Heading>
@@ -144,13 +153,6 @@ export default function TableOfContents({
         {hardcodedSections.map((section, index) => (
           <SectionItem key={index}>
             <StyledFigure>
-              <svg width="0" height="0" style={{ position: "absolute" }}>
-                <defs>
-                  <clipPath id="clipPath">
-                    <path d="M94.96 83.83V11.3199L84.1499 0.52002H11.6099L0.75 11.37V83.78L11.7002 94.73H84.0601L94.96 83.83Z" />
-                  </clipPath>
-                </defs>
-              </svg>
               <SectionImage
                 src={section.image.imageUrl}
                 alt={section.image.alt}
