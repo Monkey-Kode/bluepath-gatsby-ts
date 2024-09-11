@@ -224,9 +224,13 @@ const SectionLink = styled.a`
   font-size: 4.781875rem;
   font-weight: var(--font-thin);
   padding-left: 2rem;
-
+  display: inline-block;
+  transition: all 0.3s ease;
   &:hover {
-    font-weight: 400;
+    text-shadow:
+      0 0 0.65px #000,
+      0 0 0.65px #000;
+    transform: scale(1.02);
   }
 `;
 
