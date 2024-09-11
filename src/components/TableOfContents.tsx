@@ -109,6 +109,8 @@ const StyledFigure = styled.figure`
   height: var(--square-size);
   margin-right: 10px;
   overflow: hidden;
+  mask-size: 100% 100%;
+  clip-path: url("#clipPath");
 `;
 
 const SectionImage = styled.img`
@@ -121,6 +123,7 @@ const SectionLink = styled.a`
   color: var(--color-blue);
   font-size: 4.781875rem;
   font-weight: var(--font-thin);
+  padding-left: 2rem;
 `;
 
 export default function TableOfContents({
@@ -141,6 +144,13 @@ export default function TableOfContents({
         {hardcodedSections.map((section, index) => (
           <SectionItem key={index}>
             <StyledFigure>
+              <svg width="0" height="0" style={{ position: "absolute" }}>
+                <defs>
+                  <clipPath id="clipPath">
+                    <path d="M94.96 83.83V11.3199L84.1499 0.52002H11.6099L0.75 11.37V83.78L11.7002 94.73H84.0601L94.96 83.83Z" />
+                  </clipPath>
+                </defs>
+              </svg>
               <SectionImage
                 src={section.image.imageUrl}
                 alt={section.image.alt}
