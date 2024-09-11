@@ -1,7 +1,7 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
-import sortObject from '../utils/sortObject';
-import PageContent from './PageContent';
+import { graphql, useStaticQuery } from "gatsby";
+import React from "react";
+import sortObject from "../utils/sortObject";
+import PageContent from "./PageContent";
 
 function HomeMain() {
   const {
@@ -50,8 +50,8 @@ function HomeMain() {
     }
   `);
   const sections = sortObject(
-    nodes
-  ) as Queries.HomeMainQuery['allSanityHomesections']['nodes'];
+    nodes,
+  ) as Queries.HomeMainQuery["allSanityHomesections"]["nodes"];
   //   console.log(sections);
   return (
     <main>
