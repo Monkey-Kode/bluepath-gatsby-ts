@@ -6,11 +6,62 @@ import transformingImage from "../images/transforming-image.jpg";
 import solvingImge from "../images/solving-image.jpg";
 import styled from "styled-components";
 
+const hardcodedSections = [
+  {
+    heading: "FUNDING",
+    anchorId: "funding",
+    image: {
+      imageUrl: fundingImage,
+      alt: "Funding",
+      width: 215,
+      height: 141,
+    },
+  },
+  {
+    heading: "SOLVING",
+    anchorId: "solving",
+    image: {
+      imageUrl: solvingImge,
+      alt: "Solving",
+      width: 269,
+      height: 180,
+    },
+  },
+  {
+    heading: "PARTNERING",
+    anchorId: "partnering",
+    image: {
+      imageUrl: partneringImage,
+      alt: "Partnering",
+      width: 274,
+      height: 154,
+    },
+  },
+  {
+    heading: "TRANSFORMING",
+    anchorId: "transforming",
+    image: {
+      imageUrl: transformingImage,
+      alt: "Transforming",
+      width: 241,
+      height: 161,
+    },
+  },
+];
+
 const StyledRoot = styled.div`
   --color-blue: #1d4483;
+  --font-thin: 300;
   display: flex;
   align-items: center;
   padding: 20px;
+`;
+
+const StyleLeftContent = styled.div`
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledBox = styled.div`
@@ -31,7 +82,7 @@ const Content = styled.p`
   text-align: center;
   margin-bottom: 20px;
   color: var(--color-blue);
-  font-weight: 300;
+  font-weight: var(--font-thin);
 `;
 
 const SectionList = styled.ul`
@@ -43,27 +94,33 @@ const SectionList = styled.ul`
 `;
 
 const SectionItem = styled.li`
-  display: flex;
+  --square-size: 96.21px;
+  display: grid;
+  grid-template-columns: var(--square-size) 3fr;
   align-items: center;
   margin-bottom: 10px;
   width: 100%;
   max-width: 600px;
 `;
 
-const SectionImage = styled.img`
-  width: 50px;
-  height: 50px;
+const StyledFigure = styled.figure`
+  margin: 0;
+  width: var(--square-size);
+  height: var(--square-size);
   margin-right: 10px;
+  overflow: hidden;
+`;
+
+const SectionImage = styled.img`
+  margin-bottom: 0px;
+  height: 100%;
 `;
 
 const SectionLink = styled.a`
   text-decoration: none;
   color: var(--color-blue);
-  font-size: 1.2em;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  font-size: 4.781875rem;
+  font-weight: var(--font-thin);
 `;
 
 export default function TableOfContents({
@@ -71,43 +128,26 @@ export default function TableOfContents({
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
 }) {
-  // Extract the necessary data from the content prop
   const { anchorId, sectionContent, sectionHeading } = content;
-
-  // Hard-coded sections
-  const hardcodedSections = [
-    {
-      heading: "FUNDING",
-      anchorId: "funding",
-      imageUrl: fundingImage,
-    },
-    {
-      heading: "SOLVING",
-      anchorId: "solving",
-      imageUrl: solvingImge,
-    },
-    {
-      heading: "PARTNERING",
-      anchorId: "partnering",
-      imageUrl: partneringImage,
-    },
-    {
-      heading: "TRANSFORMING",
-      anchorId: "transforming",
-      imageUrl: transformingImage,
-    },
-  ];
-
   return (
     <StyledRoot id={anchorId ?? "tof"}>
-      <StyledBox>
-        <Heading>{sectionHeading}</Heading>
-        <Content>{sectionContent}</Content>
-      </StyledBox>
+      <StyleLeftContent>
+        <StyledBox>
+          <Heading>{sectionHeading}</Heading>
+          <Content>{sectionContent}</Content>
+        </StyledBox>
+      </StyleLeftContent>
       <SectionList>
         {hardcodedSections.map((section, index) => (
           <SectionItem key={index}>
-            <SectionImage src={section.imageUrl} alt={section.heading} />
+            <StyledFigure>
+              <SectionImage
+                src={section.image.imageUrl}
+                alt={section.image.alt}
+                width={section.image.width}
+                height={section.image.height}
+              />
+            </StyledFigure>
             <SectionLink href={`#${section.anchorId}`}>
               {section.heading}
             </SectionLink>
