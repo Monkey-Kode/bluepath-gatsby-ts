@@ -52,7 +52,8 @@ const hardcodedSections = [
 const StyledRoot = styled.div`
   --color-blue: #1d4483;
   --font-thin: 300;
-  display: flex;
+  display: grid;
+  grid-template-columns: 4fr 6fr;
   align-items: center;
   padding: 4rem 2rem;
 `;
@@ -60,7 +61,6 @@ const StyledRoot = styled.div`
 const DiagLinesSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path stroke="#1D4483" stroke-miterlimit="10" d="m1.31 1.03 33.75 33.76"/></svg>`;
 
 const StyleLeftContent = styled.div`
-  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,7 +178,6 @@ const SectionList = styled.ul`
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const SectionItem = styled.li`
@@ -192,14 +191,11 @@ const SectionItem = styled.li`
 `;
 
 const panAnimation = keyframes`
-  0% {
+  0%, 100% {
     background-position: left center;
   }
   50% {
     background-position: right center;
-  }
-  100% {
-    background-position: left center;
   }
 `;
 
@@ -215,9 +211,10 @@ const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   background-image: url(${(props) => props.imageUrl});
   background-size: cover;
   background-repeat: no-repeat;
-
+  background-position: left center; /* Ensure initial position */
   &:hover {
     animation: ${panAnimation} 5s linear infinite;
+    animation-play-state: running;
   }
 `;
 
@@ -227,6 +224,10 @@ const SectionLink = styled.a`
   font-size: 4.781875rem;
   font-weight: var(--font-thin);
   padding-left: 2rem;
+
+  &:hover {
+    font-weight: 400;
+  }
 `;
 
 export default function TableOfContents({
