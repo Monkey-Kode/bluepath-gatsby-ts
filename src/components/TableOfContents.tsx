@@ -11,11 +11,11 @@ const StyledRoot = styled.div`
   display: flex;
   align-items: center;
   padding: 20px;
-  border: 1px solid #ddd;
-  color: var(--color-blue);
 `;
 
-const StyledBox = styled.div``;
+const StyledBox = styled.div`
+  max-width: 18.125rem;
+`;
 
 const Heading = styled.h2`
   font-size: 1.5em;
@@ -68,7 +68,7 @@ export default function TableOfContents({
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
 }) {
   // Extract the necessary data from the content prop
-  const { sectionContent, sectionHeading } = content;
+  const { anchorId, sectionContent, sectionHeading } = content;
 
   // Hard-coded sections
   const hardcodedSections = [
@@ -95,7 +95,7 @@ export default function TableOfContents({
   ];
 
   return (
-    <StyledRoot>
+    <StyledRoot id={anchorId ?? "tof"}>
       <StyledBox>
         <Heading>{sectionHeading}</Heading>
         <Content>{sectionContent}</Content>
