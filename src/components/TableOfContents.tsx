@@ -67,8 +67,10 @@ const StyleLeftContent = styled.div`
   position: relative;
 `;
 const StyleOuterBox = styled.div`
+  --border-size: 2.11rem;
+  --max-height: calc(18.125rem - var(--border-size));
   max-width: 18.125rem;
-  max-height: 18.125rem;
+  max-height: var(--max-height);
   overflow-y: auto;
   position: relative;
   // Bottom-left corner
@@ -95,13 +97,11 @@ const StyleOuterBox = styled.div`
 `;
 
 const StyledBox = styled.div`
-  --border-size: 2.11rem;
   max-width: 18.125rem;
-  max-height: calc(18.125rem - var(--border-size));
+  max-height: var(--max-height);
   overflow-y: auto;
   position: relative;
   padding-inline: var(--border-size);
-  padding-block: var(--border-size);
   // Top-left corner
   &::before {
     content: url("data:image/svg+xml;base64,${btoa(DiagLinesSvg)}");
@@ -125,7 +125,7 @@ const StyledBox = styled.div`
   }
 `;
 const ScrollableContent = styled.div`
-  max-height: 18.125rem;
+  max-height: var(--max-height);
   overflow-y: scroll;
 `;
 
@@ -135,6 +135,7 @@ const Heading = styled.h2`
   color: var(--color-blue);
   text-align: center;
   font-weight: 300;
+  padding-top: 1rem;
 `;
 
 const Content = styled.p`
