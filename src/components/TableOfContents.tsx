@@ -66,6 +66,7 @@ const StyleLeftContent = styled.div`
   align-items: center;
   position: relative;
 `;
+
 const StyleOuterBox = styled.div`
   --border-size: 2.11rem;
   --max-height: calc(18.125rem - var(--border-size));
@@ -73,6 +74,7 @@ const StyleOuterBox = styled.div`
   max-height: var(--max-height);
   overflow-y: auto;
   position: relative;
+
   // Bottom-left corner
   &::before {
     content: url("data:image/svg+xml;base64,${btoa(DiagLinesSvg)}");
@@ -102,6 +104,7 @@ const StyledBox = styled.div`
   overflow-y: auto;
   position: relative;
   padding-inline: var(--border-size);
+
   // Top-left corner
   &::before {
     content: url("data:image/svg+xml;base64,${btoa(DiagLinesSvg)}");
@@ -197,12 +200,28 @@ const StyledFigure = styled.figure`
   mask-size: 100% 100%;
   clip-path: url("#clipPath");
   position: relative;
+
+  &:hover img {
+    animation: pan 5s linear infinite;
+  }
 `;
 
 const SectionImage = styled.img`
   margin-bottom: 0px;
   height: 100%;
   object-fit: cover;
+
+  @keyframes pan {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-10%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 `;
 
 const SectionLink = styled.a`
