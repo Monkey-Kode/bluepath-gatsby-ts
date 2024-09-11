@@ -12,7 +12,7 @@ function PageContent({
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
 }) {
   const contentType = content?.contentType?.name;
-  if (contentType === "TOC" || !contentType) return null;
+  if (contentType === "TOF" || !contentType) return null;
   if (contentType === "Video") {
     return <Video key={content.id} content={content} />;
   } else if (contentType === "Carousel") {
