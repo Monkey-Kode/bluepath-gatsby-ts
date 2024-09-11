@@ -24,12 +24,14 @@ const Heading = styled.h2`
   margin-bottom: 20px;
   color: var(--color-blue);
   text-align: center;
+  font-weight: 300;
 `;
 
 const Content = styled.p`
   text-align: center;
   margin-bottom: 20px;
   color: var(--color-blue);
+  font-weight: 300;
 `;
 
 const SectionList = styled.ul`
