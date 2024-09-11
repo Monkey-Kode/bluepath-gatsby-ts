@@ -124,18 +124,43 @@ const StyledBox = styled.div`
     transform: rotate(180deg);
   }
 `;
+
 const ScrollableContent = styled.div`
+  --scrollbar-color: hsla(210.9, 90.56%, 27.9% / 0.4);
+  --scrollbar-color: color(display-p3 0.1137 0.2667 0.5137 / 0.4);
+  --scrollbar-width: 0.225625rem;
   max-height: var(--max-height);
   overflow-y: scroll;
+
+  // Custom scrollbar styles
+  &::-webkit-scrollbar {
+    width: var(--scrollbar-width); /* width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /* background of the scrollbar track */
+    border: solid var(--scrollbar-width) transparent; /* to ensure the background doesn’t bleed */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color); /* color of the scrollbar thumb */
+    border: solid var(--scrollbar-width) transparent; /* add space around thumb */
+    border-radius: 0;
+  }
+
+  // Customize the scrollbar for Firefox
+  scrollbar-color: var(--scrollbar-color) transparent; /* thumb and track color */
+  scrollbar-width: thin; /* width of the scrollbar */
 `;
 
 const Heading = styled.h2`
-  font-size: 1.5em;
+  font-size: 1.670625rem;
   margin-bottom: 20px;
   color: var(--color-blue);
   text-align: center;
   font-weight: 300;
   padding-top: 1rem;
+  padding-inline: 0.5rem;
 `;
 
 const Content = styled.p`
