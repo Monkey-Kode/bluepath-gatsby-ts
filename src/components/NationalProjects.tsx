@@ -19,6 +19,7 @@ const Heading = styled.h2`
   padding-inline-end: 2rem;
   padding-block: 2rem;
   border-right: 3.65px solid var(--color-orange);
+  text-align: left;
 `;
 
 const ProjectContainer = styled.div`
@@ -50,10 +51,32 @@ const fadeInOut = keyframes`
 
 const AnimatedProject = styled.div`
   animation: ${fadeInOut} 5s linear infinite;
+  display: flex;
+  width: 100%;
+  height: 100%;
 `;
 
 const ProjectImage = styled.figure`
-  width: 100%;
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  margin-right: 1rem;
+  display: flex;
+`;
+
+const ProjectCard = styled.div`
+  display: flex;
+  padding: 1rem;
+  background-color: #fff;
+  text-align: left;
+`;
+
+const ProjectTitle = styled.h3`
+  font-size: 1rem;
+  color: var(--color-blue);
+  margin: 0;
+  margin-bottom: 0.5rem;
+  text-align: left;
 `;
 
 type CaseStudy = Queries.HomeMainQuery["allSanityCasestudies"]["nodes"][number];
@@ -98,18 +121,21 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
             size,
             location,
           } = project;
-          console.log("project", project);
           return (
             <ProjectColumn key={id}>
               <AnimatedProject>
-                <ProjectImage>
-                  {entity && getImageComponent(entity)}
-                </ProjectImage>
-                <h3>{title}</h3>
-                <ProjectDetails>
-                  ${size?.toLocaleString()} <br />
-                  {technologies?.filter(Boolean).join(", ")}
-                </ProjectDetails>
+                <ProjectCard>
+                  <ProjectImage>
+                    {entity && getImageComponent(entity)}
+                  </ProjectImage>
+                  <div>
+                    <ProjectTitle>{title}</ProjectTitle>
+                    <ProjectDetails>
+                      ${size?.toLocaleString()} <br />
+                      {technologies?.filter(Boolean).join(", ")}
+                    </ProjectDetails>
+                  </div>
+                </ProjectCard>
               </AnimatedProject>
             </ProjectColumn>
           );
