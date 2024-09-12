@@ -4,24 +4,21 @@ import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 10fr;
   width: 100%;
   align-items: center;
   padding: 2rem 0;
 `;
 
 const Heading = styled.h2`
+  --color-orange: hsla(34, 85%, 53%, 1);
   font-size: 1.670625rem;
   color: var(--color-blue);
   font-weight: 300;
-  margin-right: 2rem;
-`;
-
-const Divider = styled.div`
-  width: 2px;
-  height: 100%;
-  background-color: #f5a623;
-  margin: 0 2rem;
+  margin-inline-end: 2rem;
+  padding-inline-end: 2rem;
+  padding-block: 2rem;
+  border-right: 3.65px solid var(--color-orange);
 `;
 
 const ProjectContainer = styled.div`
@@ -88,7 +85,6 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
   return (
     <StyledNationalProjects>
       <Heading>National Projects</Heading>
-      <Divider />
       <ProjectContainer>
         {currentProjects.map((project, index) => {
           const {
