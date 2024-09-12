@@ -9,8 +9,10 @@ import TableOfContents from "./TableOfContents";
 
 function PageContent({
   content,
+  caseStudies,
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
+  caseStudies: Queries.HomeMainQuery["allSanityCasestudies"]["nodes"];
 }) {
   const contentType = content?.contentType?.name;
   console.log(contentType);
@@ -24,7 +26,13 @@ function PageContent({
     // @ts-ignore
     return <Team key={content.id} sanityPage={content} />;
   } else if (contentType === "TOF") {
-    return <TableOfContents key={content.id} content={content} />;
+    return (
+      <TableOfContents
+        key={content.id}
+        content={content}
+        caseStudies={caseStudies}
+      />
+    );
   } else {
     return <Plain key={content.id} content={content} />;
   }

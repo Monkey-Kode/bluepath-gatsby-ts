@@ -5,6 +5,7 @@ import partneringImage from "../images/partnering-image.jpg";
 import transformingImage from "../images/transforming-image.jpg";
 import solvingImge from "../images/solving-image.jpg";
 import styled, { keyframes } from "styled-components";
+import NationalProjects from "./NationalProjects"; // Adjust the import path as needed
 
 const hardcodedSections = [
   {
@@ -243,8 +244,10 @@ const SectionLink = styled.a`
 
 export default function TableOfContents({
   content,
+  caseStudies,
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
+  caseStudies: Queries.HomeMainQuery["allSanityCasestudies"]["nodes"];
 }) {
   const { anchorId, sectionContent, sectionHeading } = content;
   return (
@@ -276,6 +279,7 @@ export default function TableOfContents({
           </SectionItem>
         ))}
       </SectionList>
+      <NationalProjects caseStudies={caseStudies} />
     </StyledRoot>
   );
 }
