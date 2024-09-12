@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { GatsbyImage } from "gatsby-plugin-image";
+
 const StyledNationalProjects = styled.div`
   display: flex;
   align-items: center;
@@ -37,7 +39,7 @@ const ProjectColumn = styled.div`
   overflow: hidden;
 `;
 
-const ProjectImage = styled.div`
+const ProjectImage = styled.img`
   width: 100px;
   height: 100px;
   background-color: #f0f0f0;
@@ -97,7 +99,8 @@ function NationalProjects({
         {currentProjects.map((project, index) => (
           <ProjectColumn key={index}>
             <AnimatedProject>
-              <ProjectImage />
+              <ProjectImage></ProjectImage>
+
               <ProjectTitle>{project.entity[0]}</ProjectTitle>
               <ProjectDetails>
                 ${project.size.toLocaleString()} <br />
