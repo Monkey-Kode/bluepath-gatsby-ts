@@ -3,6 +3,8 @@ import styled, { keyframes } from "styled-components";
 import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
+  --color-orange: hsla(34, 85%, 53%, 1);
+  --border: 3.65px solid var(--color-orange);
   display: grid;
   grid-template-columns: 1fr 10fr;
   width: 100%;
@@ -11,14 +13,13 @@ const StyledNationalProjects = styled.div`
 `;
 
 const Heading = styled.h2`
-  --color-orange: hsla(34, 85%, 53%, 1);
   font-size: 1.670625rem;
   color: var(--color-blue);
   font-weight: 300;
   margin-inline-end: 2rem;
   padding-inline-end: 2rem;
   padding-block: 2rem;
-  border-right: 3.65px solid var(--color-orange);
+  border-right: var(--border);
   text-align: left;
 `;
 
@@ -37,11 +38,15 @@ const ProjectColumn = styled.div`
   padding: 0 1rem;
   position: relative;
   overflow: hidden;
+  &:not(:first-child) {
+    border-left: var(--border);
+  }
 `;
 
 const ProjectDetails = styled.p`
   font-size: 0.875rem;
   color: var(--color-blue);
+  line-height: 1.2;
 `;
 
 const fadeInOut = keyframes`
@@ -59,14 +64,21 @@ const AnimatedProject = styled.div`
 const ProjectImage = styled.figure`
   width: 100px;
   height: 100px;
-  margin: 0;
-  margin-right: 1rem;
+  margin-inline-end: 1rem;
   display: flex;
+  align-items: flex-start;
+  > svg {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
 `;
 
 const ProjectCard = styled.div`
   display: flex;
-  padding: 1rem;
+  padding-block-start: 1rem;
+  padding-block-end: 0;
+  padding-inline: 1rem;
   background-color: #fff;
   text-align: left;
 `;
