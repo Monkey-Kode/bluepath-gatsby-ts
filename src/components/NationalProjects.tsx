@@ -55,8 +55,6 @@ const AnimatedProject = styled.div`
 
 const ProjectImage = styled.figure`
   width: 100%;
-  height: 200px;
-  background-color: #f5a623;
 `;
 
 type CaseStudy = Queries.HomeMainQuery["allSanityCasestudies"]["nodes"][number];
