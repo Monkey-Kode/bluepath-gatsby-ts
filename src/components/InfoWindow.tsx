@@ -16,16 +16,13 @@ function FeaturedImage({
     return (
       <div className="image">
         <GatsbyImage
-          image={image.asset.gatsbyImageData?.src}
+          image={image.asset.gatsbyImageData}
           alt={title ?? "Featured Project"}
         />
       </div>
     );
   } else if (entity && entity.length > 0) {
-    const sanitizeEntity = String(entity).toLowerCase().trim();
-    // console.log(sanitizeEntity.includes === 'residential');
-    const ImageComponent = getImageComponent(sanitizeEntity);
-
+    const ImageComponent = getImageComponent(entity);
     return <div className="image">{ImageComponent}</div>;
   }
   return null;

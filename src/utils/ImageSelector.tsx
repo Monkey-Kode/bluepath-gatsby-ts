@@ -7,7 +7,8 @@ import University from "../images/university.svg";
 import Government from "../images/government.svg";
 import Hospital from "../images/hospital.svg";
 
-export const getImageComponent = (sanitizeEntity: string) => {
+export const getImageComponent = (entity: readonly (string | null)[]) => {
+  const sanitizeEntity = String(entity).toLowerCase().trim();
   if (sanitizeEntity.includes("residential")) {
     return <Housing />;
   } else if (sanitizeEntity.includes("commercial")) {

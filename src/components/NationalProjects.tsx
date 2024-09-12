@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { GatsbyImage } from "gatsby-plugin-image";
+import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
   display: flex;
@@ -39,19 +39,6 @@ const ProjectColumn = styled.div`
   overflow: hidden;
 `;
 
-const ProjectImage = styled.img`
-  width: 100px;
-  height: 100px;
-  background-color: #f0f0f0;
-  margin-bottom: 1rem;
-`;
-
-const ProjectTitle = styled.h3`
-  font-size: 1rem;
-  color: var(--color-blue);
-  margin-bottom: 0.5rem;
-`;
-
 const ProjectDetails = styled.p`
   font-size: 0.875rem;
   color: var(--color-blue);
@@ -66,17 +53,24 @@ const AnimatedProject = styled.div`
   animation: ${fadeInOut} 5s linear infinite;
 `;
 
-function NationalProjects({
-  caseStudies,
-}: {
+const ProjectImage = styled.figure`
+  width: 100%;
+  height: 200px;
+  background-color: #f5a623;
+`;
+
+type CaseStudy = Queries.HomeMainQuery["allSanityCasestudies"]["nodes"][number];
+type NationalProjectsProps = {
   caseStudies: Queries.HomeMainQuery["allSanityCasestudies"]["nodes"];
-}) {
-  const [currentProjects, setCurrentProjects] = useState([]);
+};
+
+function NationalProjects({ caseStudies }: NationalProjectsProps) {
+  const [currentProjects, setCurrentProjects] = useState<CaseStudy[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentProjects((prevProjects) => {
-        const newProjects = prevProjects.map((project, index) => {
+        const newProjects = prevProjects.map((_, index) => {
           const nextIndex = (index + 1) % caseStudies.length;
           return caseStudies[nextIndex];
         });
@@ -96,19 +90,34 @@ function NationalProjects({
       <Heading>National Projects</Heading>
       <Divider />
       <ProjectContainer>
-        {currentProjects.map((project, index) => (
-          <ProjectColumn key={index}>
-            <AnimatedProject>
-              <ProjectImage></ProjectImage>
-
-              <ProjectTitle>{project.entity[0]}</ProjectTitle>
-              <ProjectDetails>
-                ${project.size.toLocaleString()} <br />
-                {project.technologies.join(", ")}
-              </ProjectDetails>
-            </AnimatedProject>
-          </ProjectColumn>
-        ))}
+        {currentProjects.map((project, index) => {
+          const {
+            id,
+            financing,
+            entity,
+            content,
+            address,
+            technologies,
+            title,
+            size,
+            location,
+          } = project;
+          console.log("project", project);
+          return (
+            <ProjectColumn key={id}>
+              <AnimatedProject>
+                <ProjectImage>
+                  {entity && getImageComponent(entity)}
+                </ProjectImage>
+                <h3>{title}</h3>
+                <ProjectDetails>
+                  ${size?.toLocaleString()} <br />
+                  {technologies?.filter(Boolean).join(", ")}
+                </ProjectDetails>
+              </AnimatedProject>
+            </ProjectColumn>
+          );
+        })}
       </ProjectContainer>
     </StyledNationalProjects>
   );
