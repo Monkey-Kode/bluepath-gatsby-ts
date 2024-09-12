@@ -60,11 +60,11 @@ function InfoWindow({
             </div>
             <div className="line-content">
               <h3>Financing</h3>
-              <p>{`$${formatNumber(size)}`}</p>
+              <p>{`$${size && formatNumber(size)}`}</p>
             </div>
             <div className="line-content">
               <h3>Technology</h3>
-              <p>{technologies.join(", ")}</p>
+              <p>{technologies?.join(", ")}</p>
             </div>
           </div>
         </div>
