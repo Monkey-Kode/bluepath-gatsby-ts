@@ -3,7 +3,9 @@ import styled, { keyframes } from "styled-components";
 import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
   align-items: center;
   padding: 2rem 0;
 `;

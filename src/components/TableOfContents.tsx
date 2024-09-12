@@ -62,6 +62,7 @@ const StyledRoot = styled.div`
 const DiagLinesSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path stroke="#1D4483" stroke-miterlimit="10" d="m1.31 1.03 33.75 33.76"/></svg>`;
 
 const StyleLeftContent = styled.div`
+  grid-column: 1 / 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,6 +179,7 @@ const SectionList = styled.ul`
   list-style-type: none;
   padding: 0;
   display: grid;
+  grid-column: 2 / -1;
 `;
 
 const panAnimation = keyframes`
@@ -227,6 +229,7 @@ const SectionItem = styled.li`
 // Style the background image container
 
 const SectionLink = styled.a`
+  --font-thin: 100;
   text-decoration: none;
   color: var(--color-blue);
   font-size: 4.781875rem;
@@ -242,6 +245,10 @@ const SectionLink = styled.a`
   }
 `;
 
+const StyledNationalProjectsWrapper = styled.div`
+  grid-column: 1 / -1;
+`;
+
 export default function TableOfContents({
   content,
   caseStudies,
@@ -251,35 +258,39 @@ export default function TableOfContents({
 }) {
   const { anchorId, sectionContent, sectionHeading } = content;
   return (
-    <StyledRoot id={anchorId ?? "tof"}>
-      <svg width="0" height="0" style={{ position: "absolute" }}>
-        <defs>
-          <clipPath id="clipPath">
-            <path d="M94.96 83.83V11.32L84.15.52H11.61L.75 11.37v72.41L11.7 94.73h72.36l10.9-10.9Z" />
-          </clipPath>
-        </defs>
-      </svg>
-      <StyleLeftContent>
-        <StyleOuterBox>
-          <StyledBox>
-            <ScrollableContent>
-              <Heading>{sectionHeading}</Heading>
-              <Content>{sectionContent}</Content>
-            </ScrollableContent>
-          </StyledBox>
-        </StyleOuterBox>
-      </StyleLeftContent>
-      <SectionList>
-        {hardcodedSections.map((section, index) => (
-          <SectionItem key={index}>
-            <StyledBackgroundFigure imageUrl={section.image.imageUrl} />
-            <SectionLink href={`#${section.anchorId}`}>
-              {section.heading}
-            </SectionLink>
-          </SectionItem>
-        ))}
-      </SectionList>
-      <NationalProjects caseStudies={caseStudies} />
-    </StyledRoot>
+    <>
+      <StyledRoot id={anchorId ?? "tof"}>
+        <svg width="0" height="0" style={{ position: "absolute" }}>
+          <defs>
+            <clipPath id="clipPath">
+              <path d="M94.96 83.83V11.32L84.15.52H11.61L.75 11.37v72.41L11.7 94.73h72.36l10.9-10.9Z" />
+            </clipPath>
+          </defs>
+        </svg>
+        <StyleLeftContent>
+          <StyleOuterBox>
+            <StyledBox>
+              <ScrollableContent>
+                <Heading>{sectionHeading}</Heading>
+                <Content>{sectionContent}</Content>
+              </ScrollableContent>
+            </StyledBox>
+          </StyleOuterBox>
+        </StyleLeftContent>
+        <SectionList>
+          {hardcodedSections.map((section, index) => (
+            <SectionItem key={index}>
+              <StyledBackgroundFigure imageUrl={section.image.imageUrl} />
+              <SectionLink href={`#${section.anchorId}`}>
+                {section.heading}
+              </SectionLink>
+            </SectionItem>
+          ))}
+        </SectionList>
+        <StyledNationalProjectsWrapper>
+          <NationalProjects caseStudies={caseStudies} />
+        </StyledNationalProjectsWrapper>
+      </StyledRoot>
+    </>
   );
 }
