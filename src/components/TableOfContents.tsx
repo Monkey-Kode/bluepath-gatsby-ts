@@ -176,18 +176,7 @@ const Content = styled.p`
 const SectionList = styled.ul`
   list-style-type: none;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-`;
-
-const SectionItem = styled.li`
-  --square-size: 96.21px;
   display: grid;
-  grid-template-columns: var(--square-size) 3fr;
-  align-items: center;
-  margin-bottom: 10px;
-  width: 100%;
-  max-width: 600px;
 `;
 
 const panAnimation = keyframes`
@@ -212,11 +201,29 @@ const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left center; /* Ensure initial position */
+  cursor: pointer;
+`;
+
+// Style the SectionItem
+const SectionItem = styled.li`
+  --square-size: 96.21px;
+  display: grid;
+  grid-template-columns: var(--square-size) 3fr;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 600px;
+
+  // Add hover state for the SectionItem
   &:hover {
-    animation: ${panAnimation} 5s linear infinite;
-    animation-play-state: running;
+    ${StyledBackgroundFigure} {
+      animation: ${panAnimation} 5s linear infinite;
+      animation-play-state: running;
+    }
   }
 `;
+
+// Style the background image container
 
 const SectionLink = styled.a`
   text-decoration: none;
