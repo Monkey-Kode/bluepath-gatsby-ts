@@ -132,7 +132,7 @@ const GlobalStyles = createGlobalStyle`
             padding-left: 1.5rem;
             padding-right: 1.5rem;
             padding-bottom: 0;
-            margin:0;
+            margin: 0;
         }
     }
 
