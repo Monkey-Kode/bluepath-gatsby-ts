@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 // import arrowRight from '../images/arrow-right.png';
 // import arrowLeft from '../images/arrow-left.png';
 const GlobalStyles = createGlobalStyle`
@@ -33,7 +33,7 @@ const GlobalStyles = createGlobalStyle`
         padding: 0;
         margin:0;
         box-sizing: border-box;
-
+        scroll-behavior: smooth;
     }
 
 
@@ -101,10 +101,10 @@ const GlobalStyles = createGlobalStyle`
                 margin-top: 135px;
             }
         }
-        ${'' /* border-left: var(--border-left); */}
+        ${"" /* border-left: var(--border-left); */}
          &[class*="Carousel"] {
-            ${'' /* border-left: none; */}
-            ${'' /* border-right: var(--border-right); */}
+            ${"" /* border-left: none; */}
+            ${"" /* border-right: var(--border-right); */}
          }
         @media only screen and (max-width: 480px) {
            margin: 0 auto;
@@ -191,13 +191,13 @@ const GlobalStyles = createGlobalStyle`
     }
     section {
         a:not([class*="thumb"]) {
-            ${'' /* color: white; */}
+            ${"" /* color: white; */}
         }
     }
 
     .box {
         .wrap {
-            ${'' /* background: var(--blueRGB); */}
+            ${"" /* background: var(--blueRGB); */}
             padding-bottom: 1.5em;
         }
         p {
@@ -290,8 +290,8 @@ const GlobalStyles = createGlobalStyle`
         }
             justify-content: flex-end;
             .box {
-                ${'' /* border-left: none; */}
-                ${'' /* border-right: var(--border-right); */}
+                ${"" /* border-left: none; */}
+                ${"" /* border-right: var(--border-right); */}
                 h2 {
                     text-align: center;
 
