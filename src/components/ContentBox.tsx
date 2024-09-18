@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import scrollTo from "gatsby-plugin-smoothscroll";
 import styled from "styled-components";
 import { useInView } from "react-intersection-observer";
@@ -8,11 +8,13 @@ import intersectionObserverOptions from "../utils/intersectionObserverOptions";
 import splitByNewLines from "../utils/splitByNewLines";
 import classNames from "classnames";
 
-const StyledBox = styled(motion.div)`
+const Container = styled(motion.div)`
   padding-inline: 2rem;
   max-width: 37.5rem;
-  height: 200px; /* Initial height */
   overflow: hidden; /* Ensure content doesn't overflow during animation */
+`;
+
+const Header = styled.div`
   h2 {
     border: none;
     font-size: var(--big-heading-size);
@@ -25,6 +27,7 @@ const StyledBox = styled(motion.div)`
       text-align: center;
     }
   }
+
   h3 {
     font-size: var(--small-heading-size);
     font-style: italic;
@@ -38,10 +41,14 @@ const StyledBox = styled(motion.div)`
       line-height: 1.5;
     }
   }
+`;
+
+const Content = styled.div`
   a {
     display: block;
     text-align: center;
   }
+
   p {
     padding-inline: 0;
   }
@@ -65,6 +72,22 @@ function ContentBox({
   hidetitle: Queries.SanityPage["hidetitle"];
 }) {
   const { ref, inView } = useInView(intersectionObserverOptions);
+
+  const headerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight);
+    }
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, []);
+
   let ctaLink = "";
   if (sectionContentCTAjumpId) {
     ctaLink = `#${sectionContentCTAjumpId}`;
@@ -76,8 +99,6 @@ function ContentBox({
   const subheading =
     headingContent.length > 1 ? headingContent.slice(1).join(" ") : null;
 
-  // console.log('hide title ', hidetitle);
-  // console.log(`content box '${sectionHeading}' inview`, inView);
   return (
     <div
       ref={ref}
@@ -86,38 +107,44 @@ function ContentBox({
         inactive: !inView,
       })}
     >
-      <StyledBox
+      <Container
         className={classNames("box", sectionHeading)}
-        initial={{ height: "200px" }}
-        animate={{ height: inView ? "100%" : "200px" }}
-        transition={{ duration: 0.5 }}
+        initial={{ height: headerHeight }}
+        animate={{
+          height: inView ? headerHeight + contentHeight : headerHeight,
+        }}
+        transition={{ duration: 0.5, delay: 0.2 }} // Added delay here
       >
-        {!sectionHeadingPosition && !hidetitle && <h2>{heading}</h2>}
-        {sectionHeadingPosition && !hidetitle && (
-          <h2 className="hide-for-desktop">{heading}</h2>
-        )}
-        {!sectionHeadingPosition && !hidetitle && <h3>{subheading}</h3>}
-        {sectionHeadingPosition && !hidetitle && (
-          <h3 className="hide-for-desktop">{heading}</h3>
-        )}
-        <div className="wrap">
-          <p>{splitByNewLines(String(sectionContent))}</p>
-          {ctaLink && sectionContentCTAtext && sectionContentCTAjumpId && (
-            <a
-              href={ctaLink}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo(ctaLink);
-              }}
-            >
-              {sectionContentCTAtext}
-            </a>
+        <Header ref={headerRef}>
+          {!sectionHeadingPosition && !hidetitle && <h2>{heading}</h2>}
+          {sectionHeadingPosition && !hidetitle && (
+            <h2 className="hide-for-desktop">{heading}</h2>
           )}
-          {ctaLink && sectionContentCTAtext && !sectionContentCTAjumpId && (
-            <Link to={ctaLink}>{sectionContentCTAtext}</Link>
+          {!sectionHeadingPosition && !hidetitle && <h3>{subheading}</h3>}
+          {sectionHeadingPosition && !hidetitle && (
+            <h3 className="hide-for-desktop">{heading}</h3>
           )}
-        </div>
-      </StyledBox>
+        </Header>
+        <Content ref={contentRef}>
+          <div className="wrap">
+            <p>{splitByNewLines(String(sectionContent))}</p>
+            {ctaLink && sectionContentCTAtext && sectionContentCTAjumpId && (
+              <a
+                href={ctaLink}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo(ctaLink);
+                }}
+              >
+                {sectionContentCTAtext}
+              </a>
+            )}
+            {ctaLink && sectionContentCTAtext && !sectionContentCTAjumpId && (
+              <Link to={ctaLink}>{sectionContentCTAtext}</Link>
+            )}
+          </div>
+        </Content>
+      </Container>
     </div>
   );
 }
