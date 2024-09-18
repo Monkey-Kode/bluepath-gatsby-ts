@@ -20,7 +20,8 @@ const GlobalStyles = createGlobalStyle`
         --border-bottom: 2px solid var(--orange);
         --small-content-width: 40vw;
         --mobile-header-height: 153px;
-        --big-heading-size: 3rem;
+        --big-heading-size: 8.27rem;
+        --small-heading-size: 2.405625rem;
         --big-heading-padding: .5em ;
         --box-width: 725px;
         --white: #fff;

@@ -1,18 +1,32 @@
-import { Link } from 'gatsby';
-import React from 'react';
-import scrollTo from 'gatsby-plugin-smoothscroll';
-import styled from 'styled-components';
-import { useInView } from 'react-intersection-observer';
-import intersectionObserverOptions from '../utils/intersectionObserverOptions';
-import splitByNewLines from '../utils/splitByNewLines';
-import classNames from 'classnames';
+import { Link } from "gatsby";
+import React from "react";
+import scrollTo from "gatsby-plugin-smoothscroll";
+import styled from "styled-components";
+import { useInView } from "react-intersection-observer";
+import intersectionObserverOptions from "../utils/intersectionObserverOptions";
+import splitByNewLines from "../utils/splitByNewLines";
+import classNames from "classnames";
 const StyledBox = styled.div`
   padding: 0 0 1rem;
   h2 {
+    border: none;
     font-size: var(--big-heading-size);
+    margin: 0;
+    padding: 0;
+    padding-block-start: 1.5rem;
+    line-height: 0.9;
     @media only screen and (max-width: 800px) {
       font-size: 5.5vw;
       text-align: center;
+    }
+  }
+  h3 {
+    font-size: var(--small-heading-size);
+    font-style: italic;
+    text-align: center;
+    text-transform: lowercase;
+    @media only screen and (max-width: 800px) {
+      font-size: 4vw;
       line-height: 1.5;
     }
   }
@@ -30,21 +44,26 @@ function ContentBox({
   sectionHeadingPosition,
   hidetitle,
 }: {
-  sectionHeading: Queries.SanityPage['Heading'];
-  sectionContent: Queries.SanityPage['content'];
-  sectionContentCTAjumpId: Queries.SanityPage['sectionContentCTAjumpId'];
-  sectionContentCTApageLink: Queries.SanityPage['sectionContentCTApageLink'];
-  sectionContentCTAtext: Queries.SanityPage['sectionContentCTAtext'];
-  sectionHeadingPosition: Queries.SanityPage['sectionHeadingPosition'];
-  hidetitle: Queries.SanityPage['hidetitle'];
+  sectionHeading: Queries.SanityPage["Heading"];
+  sectionContent: Queries.SanityPage["content"];
+  sectionContentCTAjumpId: Queries.SanityPage["sectionContentCTAjumpId"];
+  sectionContentCTApageLink: Queries.SanityPage["sectionContentCTApageLink"];
+  sectionContentCTAtext: Queries.SanityPage["sectionContentCTAtext"];
+  sectionHeadingPosition: Queries.SanityPage["sectionHeadingPosition"];
+  hidetitle: Queries.SanityPage["hidetitle"];
 }) {
   const { ref, inView } = useInView(intersectionObserverOptions);
-  let ctaLink = '';
+  let ctaLink = "";
   if (sectionContentCTAjumpId) {
     ctaLink = `#${sectionContentCTAjumpId}`;
   } else if (sectionContentCTApageLink) {
-    ctaLink = `/${sectionContentCTApageLink?.slug?.current ?? ''}`;
+    ctaLink = `/${sectionContentCTApageLink?.slug?.current ?? ""}`;
   }
+  const headingContent = sectionHeading?.toString().split(" ") ?? [];
+  const heading = headingContent.length > 0 ? headingContent[0] : null;
+  const subheading =
+    headingContent.length > 1 ? headingContent.slice(1).join(" ") : null;
+
   // console.log('hide title ', hidetitle);
   // console.log(`content box '${sectionHeading}' inview`, inView);
   return (
@@ -55,14 +74,17 @@ function ContentBox({
         inactive: !inView,
       })}
     >
-      <StyledBox className={classNames('box', sectionHeading)}>
-        {!sectionHeadingPosition && !hidetitle && <h2>{sectionHeading}</h2>}
+      <StyledBox className={classNames("box", sectionHeading)}>
+        {!sectionHeadingPosition && !hidetitle && <h2>{heading}</h2>}
         {sectionHeadingPosition && !hidetitle && (
-          <h2 className="hide-for-desktop">{sectionHeading}</h2>
+          <h2 className="hide-for-desktop">{heading}</h2>
+        )}
+        {!sectionHeadingPosition && !hidetitle && <h3>{subheading}</h3>}
+        {sectionHeadingPosition && !hidetitle && (
+          <h3 className="hide-for-desktop">{heading}</h3>
         )}
         <div className="wrap">
           <p>{splitByNewLines(String(sectionContent))}</p>
-
           {ctaLink && sectionContentCTAtext && sectionContentCTAjumpId && (
             <a
               href={ctaLink}
