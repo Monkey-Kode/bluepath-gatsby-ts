@@ -17,7 +17,7 @@ const Heading = styled.h2`
   color: var(--color-blue);
   font-weight: 300;
   padding-inline-end: 2rem;
-  padding-block: 2rem;
+  padding-block-start: 2rem;
   text-align: left;
   text-transform: uppercase;
 `;
@@ -41,9 +41,11 @@ const ProjectColumn = styled.div`
 `;
 
 const ProjectDetails = styled.p`
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--color-blue);
   line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
 `;
 
 const fadeInOut = keyframes`
@@ -63,7 +65,6 @@ const ProjectCard = styled.div`
   grid-template-columns: 35% 65%;
   padding-block-start: 1rem;
   padding-block-end: 0;
-  padding-inline-end: 1rem;
   background-color: #fff;
   text-align: left;
   align-items: flex-start;
@@ -84,10 +85,15 @@ const ProjectImage = styled.figure`
 `;
 const ProjectTitle = styled.h3`
   font-size: 1rem;
+  font-weight: 400;
   color: var(--color-blue);
   margin: 0;
-  margin-bottom: 0.5rem;
   text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 20ch; /* This limits the width to approximately 12 characters */
 `;
 
 type CaseStudy = Queries.HomeMainQuery["allSanityCasestudies"]["nodes"][number];
