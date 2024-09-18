@@ -8,6 +8,7 @@ import splitByNewLines from "../utils/splitByNewLines";
 import classNames from "classnames";
 const StyledBox = styled.div`
   padding-inline: 2rem;
+  max-width: 37.5rem;
   h2 {
     border: none;
     font-size: var(--big-heading-size);
@@ -39,7 +40,6 @@ const StyledBox = styled.div`
   }
   p {
     padding-inline: 0;
-  }
 `;
 function ContentBox({
   sectionHeading,

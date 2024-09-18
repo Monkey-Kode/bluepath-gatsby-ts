@@ -20,9 +20,9 @@ const GlobalStyles = createGlobalStyle`
         --border-bottom: 2px solid var(--orange);
         --small-content-width: 40vw;
         --mobile-header-height: 153px;
-        --big-heading-size: 8.27rem;
-        --small-heading-size: 2.405625rem;
-        --big-heading-padding: .5em ;
+        --big-heading-size: 7.27rem;
+        --small-heading-size: 2.105625rem;
+        --big-heading-padding: .5rem;
         --box-width: 725px;
         --white: #fff;
     }
@@ -220,7 +220,6 @@ const GlobalStyles = createGlobalStyle`
 
     .inactive, .active {
         transition: all .5s ease-in-out;
-        h2 {
             transition: all .5s ease-out;
             transition-delay: 250ms;
         }
