@@ -16,10 +16,8 @@ const Heading = styled.h2`
   font-size: 1.670625rem;
   color: var(--color-blue);
   font-weight: 300;
-  margin-inline-end: 2rem;
   padding-inline-end: 2rem;
   padding-block: 2rem;
-  border-right: var(--border);
   text-align: left;
   text-transform: uppercase;
 `;
@@ -36,12 +34,10 @@ const ProjectColumn = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 0 1rem;
+  padding-inline: 1rem;
   position: relative;
   overflow: hidden;
-  &:not(:first-child) {
-    border-left: var(--border);
-  }
+  border-left: var(--border);
 `;
 
 const ProjectDetails = styled.p`
@@ -62,28 +58,30 @@ const AnimatedProject = styled.div`
   height: 100%;
 `;
 
+const ProjectCard = styled.div`
+  display: grid;
+  grid-template-columns: 35% 65%;
+  padding-block-start: 1rem;
+  padding-block-end: 0;
+  padding-inline-end: 1rem;
+  background-color: #fff;
+  text-align: left;
+  align-items: flex-start;
+`;
+
 const ProjectImage = styled.figure`
-  width: 100px;
-  height: 100px;
-  margin-inline-end: 1rem;
+  width: 100%;
+  height: auto;
+  padding-inline-end: 1rem;
   display: flex;
   align-items: flex-start;
+  margin: 0;
   > svg {
     height: 100%;
     width: 100%;
     object-fit: contain;
   }
 `;
-
-const ProjectCard = styled.div`
-  display: flex;
-  padding-block-start: 1rem;
-  padding-block-end: 0;
-  padding-inline: 1rem;
-  background-color: #fff;
-  text-align: left;
-`;
-
 const ProjectTitle = styled.h3`
   font-size: 1rem;
   color: var(--color-blue);

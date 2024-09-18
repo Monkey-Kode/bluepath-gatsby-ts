@@ -11,8 +11,6 @@ export const getImageComponent = (entity: readonly (string | null)[]) => {
   const sanitizeEntity = String(entity).toLowerCase().trim();
   if (sanitizeEntity.includes("residential")) {
     return <Housing />;
-  } else if (sanitizeEntity.includes("commercial")) {
-    return <Office />;
   } else if (
     sanitizeEntity.includes("school") ||
     sanitizeEntity.includes("education")
@@ -30,6 +28,8 @@ export const getImageComponent = (entity: readonly (string | null)[]) => {
   } else if (sanitizeEntity.includes("hospital")) {
     return <Hospital />;
   }
-
-  return null;
+  // else if (sanitizeEntity.includes("commercial")) {
+  //     return <Office />;
+  //   }
+  return <Office />;
 };
