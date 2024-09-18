@@ -74,7 +74,7 @@ const StyleOuterBox = styled.div`
   --max-height: calc(18.125rem - var(--border-size));
   max-width: 18.125rem;
   max-height: var(--max-height);
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
 
   // Bottom-left corner
