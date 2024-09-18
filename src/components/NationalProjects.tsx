@@ -49,8 +49,8 @@ const ProjectDetails = styled.p`
 `;
 
 const fadeInOut = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(20px); }
 `;
 
 const AnimatedProject = styled.div`
@@ -83,6 +83,7 @@ const ProjectImage = styled.figure`
     object-fit: contain;
   }
 `;
+
 const ProjectTitle = styled.h3`
   font-size: 1rem;
   font-weight: 400;
@@ -93,70 +94,74 @@ const ProjectTitle = styled.h3`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 20ch; /* This limits the width to approximately 12 characters */
+  max-width: 20ch;
 `;
 
 type CaseStudy = Queries.HomeMainQuery["allSanityCasestudies"]["nodes"][number];
 type NationalProjectsProps = {
-  caseStudies: Queries.HomeMainQuery["allSanityCasestudies"]["nodes"];
+  caseStudies: CaseStudy[];
+};
+
+// Helper function to chunk the projects into 4 sets.
+const chunkProjects = (projects: CaseStudy[], numSets: number) => {
+  const sets: CaseStudy[][] = Array.from({ length: numSets }, () => []);
+  projects.forEach((project, index) => {
+    sets[index % numSets].push(project);
+  });
+  return sets;
 };
 
 function NationalProjects({ caseStudies }: NationalProjectsProps) {
-  const [currentProjects, setCurrentProjects] = useState<CaseStudy[]>([]);
+  const [projectSets, setProjectSets] = useState<CaseStudy[][]>(() =>
+    chunkProjects(caseStudies, 4),
+  );
+  const [currentIndices, setCurrentIndices] = useState([0, 0, 0, 0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentProjects((prevProjects) => {
-        const newProjects = prevProjects.map((_, index) => {
-          const nextIndex = (index + 1) % caseStudies.length;
-          return caseStudies[nextIndex];
-        });
-        return newProjects;
+      setCurrentIndices((prevIndices) => {
+        return prevIndices.map(
+          (index, i) => (index + 1) % projectSets[i].length,
+        );
       });
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [caseStudies]);
-
-  useEffect(() => {
-    setCurrentProjects(caseStudies.slice(0, 4));
-  }, [caseStudies]);
+  }, [projectSets]);
 
   return (
     <StyledNationalProjects>
       <Heading>National Projects</Heading>
       <ProjectContainer>
-        {currentProjects.map((project, index) => {
-          const {
-            id,
-            financing,
-            entity,
-            content,
-            address,
-            technologies,
-            title,
-            size,
-            location,
-          } = project;
-          return (
-            <ProjectColumn key={id}>
-              <AnimatedProject>
-                <ProjectCard>
-                  <ProjectImage>
-                    {entity && getImageComponent(entity)}
-                  </ProjectImage>
-                  <div>
-                    <ProjectTitle>{title}</ProjectTitle>
-                    <ProjectDetails>
-                      ${size?.toLocaleString()} <br />
-                      {technologies?.filter(Boolean).join(", ")}
-                    </ProjectDetails>
-                  </div>
-                </ProjectCard>
-              </AnimatedProject>
-            </ProjectColumn>
-          );
-        })}
+        {projectSets.map((projectSet, setIndex) => (
+          <ProjectColumn key={setIndex}>
+            <AnimatedProject>
+              <ProjectCard>
+                <ProjectImage>
+                  {projectSet[currentIndices[setIndex]].entity &&
+                    getImageComponent(
+                      projectSet[currentIndices[setIndex]].entity,
+                    )}
+                </ProjectImage>
+                <div>
+                  <ProjectTitle>
+                    {projectSet[currentIndices[setIndex]].title}
+                  </ProjectTitle>
+                  <ProjectDetails>
+                    $
+                    {projectSet[
+                      currentIndices[setIndex]
+                    ].size?.toLocaleString()}{" "}
+                    <br />
+                    {projectSet[currentIndices[setIndex]].technologies
+                      ?.filter(Boolean)
+                      .join(", ")}
+                  </ProjectDetails>
+                </div>
+              </ProjectCard>
+            </AnimatedProject>
+          </ProjectColumn>
+        ))}
       </ProjectContainer>
     </StyledNationalProjects>
   );

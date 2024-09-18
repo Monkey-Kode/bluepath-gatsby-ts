@@ -215,7 +215,6 @@ const SectionItem = styled.li`
   align-items: center;
   margin-bottom: 10px;
   width: 100%;
-
   // Add hover state for the SectionItem
   &:hover {
     ${StyledBackgroundFigure} {
