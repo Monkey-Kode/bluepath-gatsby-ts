@@ -53,8 +53,9 @@ const fadeInOut = keyframes`
   100% { opacity: 0; transform: translateX(20px); }
 `;
 
-const AnimatedProject = styled.div`
-  animation: ${fadeInOut} 5s linear infinite;
+const AnimatedProject = styled.div<{ $duration: number; $delay: number }>`
+  animation: ${fadeInOut} ${(props) => props.$duration}s linear
+    ${(props) => props.$delay}s infinite;
   display: flex;
   width: 100%;
   height: 100%;
@@ -133,27 +134,22 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
     <StyledNationalProjects>
       <Heading>National Projects</Heading>
       <ProjectContainer>
-        {projectSets.map((projectSet, setIndex) => (
-          <ProjectColumn key={setIndex}>
-            <AnimatedProject>
+        {projectSets.map((projectSet, index) => (
+          <ProjectColumn key={index}>
+            <AnimatedProject $duration={5} $delay={index}>
               <ProjectCard>
                 <ProjectImage>
-                  {projectSet[currentIndices[setIndex]].entity &&
-                    getImageComponent(
-                      projectSet[currentIndices[setIndex]].entity,
-                    )}
+                  {projectSet[currentIndices[index]].entity &&
+                    getImageComponent(projectSet[currentIndices[index]].entity)}
                 </ProjectImage>
                 <div>
                   <ProjectTitle>
-                    {projectSet[currentIndices[setIndex]].title}
+                    {projectSet[currentIndices[index]].title}
                   </ProjectTitle>
                   <ProjectDetails>
-                    $
-                    {projectSet[
-                      currentIndices[setIndex]
-                    ].size?.toLocaleString()}{" "}
+                    ${projectSet[currentIndices[index]].size?.toLocaleString()}{" "}
                     <br />
-                    {projectSet[currentIndices[setIndex]].technologies
+                    {projectSet[currentIndices[index]].technologies
                       ?.filter(Boolean)
                       .join(", ")}
                   </ProjectDetails>
