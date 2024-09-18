@@ -6,13 +6,14 @@ import Video from "./Video";
 import Team from "./Team";
 import { ArrElement } from "../types";
 import TableOfContents from "./TableOfContents";
+import { CaseStudy } from "./NationalProjects";
 
 function PageContent({
   content,
   caseStudies,
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
-  caseStudies: Queries.HomeMainQuery["allSanityCasestudies"]["nodes"];
+  caseStudies: CaseStudy[];
 }) {
   const contentType = content?.contentType?.name;
   console.log(contentType);

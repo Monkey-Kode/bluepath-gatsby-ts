@@ -12,7 +12,7 @@ function Plain({
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
 }) {
-  console.log(JSON.stringify(content, null, 2));
+  // console.log(JSON.stringify(content, null, 2));
   const {
     id,
     anchorId,
