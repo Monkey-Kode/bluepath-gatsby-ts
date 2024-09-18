@@ -215,7 +215,6 @@ const SectionItem = styled.li`
   align-items: center;
   margin-bottom: 10px;
   width: 100%;
-  max-width: 600px;
 
   // Add hover state for the SectionItem
   &:hover {
