@@ -21,6 +21,7 @@ const Heading = styled.h2`
   padding-block: 2rem;
   border-right: var(--border);
   text-align: left;
+  text-transform: uppercase;
 `;
 
 const ProjectContainer = styled.div`
