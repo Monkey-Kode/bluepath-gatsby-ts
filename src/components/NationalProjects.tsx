@@ -98,7 +98,8 @@ const ProjectTitle = styled.h3`
   max-width: 20ch;
 `;
 
-type CaseStudy = Queries.HomeMainQuery["allSanityCasestudies"]["nodes"][number];
+export type CaseStudy =
+  Queries.HomeMainQuery["allSanityCasestudies"]["nodes"][number];
 type NationalProjectsProps = {
   caseStudies: CaseStudy[];
 };

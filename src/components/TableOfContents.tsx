@@ -5,7 +5,7 @@ import partneringImage from "../images/partnering-image.jpg";
 import transformingImage from "../images/transforming-image.jpg";
 import solvingImge from "../images/solving-image.jpg";
 import styled, { keyframes } from "styled-components";
-import NationalProjects from "./NationalProjects"; // Adjust the import path as needed
+import NationalProjects, { CaseStudy } from "./NationalProjects"; // Adjust the import path as needed
 
 const hardcodedSections = [
   {
@@ -252,7 +252,7 @@ export default function TableOfContents({
   caseStudies,
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
-  caseStudies: Queries.HomeMainQuery["allSanityCasestudies"]["nodes"];
+  caseStudies: CaseStudy[];
 }) {
   const { anchorId, sectionContent, sectionHeading } = content;
   return (
