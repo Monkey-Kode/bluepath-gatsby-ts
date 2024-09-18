@@ -3,12 +3,16 @@ import React from "react";
 import scrollTo from "gatsby-plugin-smoothscroll";
 import styled from "styled-components";
 import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 import intersectionObserverOptions from "../utils/intersectionObserverOptions";
 import splitByNewLines from "../utils/splitByNewLines";
 import classNames from "classnames";
-const StyledBox = styled.div`
+
+const StyledBox = styled(motion.div)`
   padding-inline: 2rem;
   max-width: 37.5rem;
+  height: 200px; /* Initial height */
+  overflow: hidden; /* Ensure content doesn't overflow during animation */
   h2 {
     border: none;
     font-size: var(--big-heading-size);
@@ -40,7 +44,9 @@ const StyledBox = styled.div`
   }
   p {
     padding-inline: 0;
+  }
 `;
+
 function ContentBox({
   sectionHeading,
   sectionContent,
@@ -80,7 +86,12 @@ function ContentBox({
         inactive: !inView,
       })}
     >
-      <StyledBox className={classNames("box", sectionHeading)}>
+      <StyledBox
+        className={classNames("box", sectionHeading)}
+        initial={{ height: "200px" }}
+        animate={{ height: inView ? "100%" : "200px" }}
+        transition={{ duration: 0.5 }}
+      >
         {!sectionHeadingPosition && !hidetitle && <h2>{heading}</h2>}
         {sectionHeadingPosition && !hidetitle && (
           <h2 className="hide-for-desktop">{heading}</h2>
