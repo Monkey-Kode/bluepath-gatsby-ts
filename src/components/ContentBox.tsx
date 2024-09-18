@@ -7,13 +7,13 @@ import intersectionObserverOptions from "../utils/intersectionObserverOptions";
 import splitByNewLines from "../utils/splitByNewLines";
 import classNames from "classnames";
 const StyledBox = styled.div`
-  padding: 0 0 1rem;
+  padding-inline: 2rem;
   h2 {
     border: none;
     font-size: var(--big-heading-size);
     margin: 0;
-    padding: 0;
     padding-block-start: 1.5rem;
+    padding-block-end: 0;
     line-height: 0.9;
     @media only screen and (max-width: 800px) {
       font-size: 5.5vw;
@@ -25,6 +25,9 @@ const StyledBox = styled.div`
     font-style: italic;
     text-align: center;
     text-transform: lowercase;
+    margin: 0;
+    padding-block-end: 1.5rem;
+    border-bottom: var(--border-bottom);
     @media only screen and (max-width: 800px) {
       font-size: 4vw;
       line-height: 1.5;
