@@ -37,6 +37,9 @@ const StyledBox = styled.div`
     display: block;
     text-align: center;
   }
+  p {
+    padding-inline: 0;
+  }
 `;
 function ContentBox({
   sectionHeading,
