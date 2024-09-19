@@ -57,7 +57,7 @@ const Divider = styled(motion.hr)`
   border-bottom: var(--border-bottom);
   margin-block-start: 0;
   margin-block-end: 0;
-  overflow: hidden;
+  transform-origin: left;
 `;
 
 function ContentBox({
@@ -162,8 +162,8 @@ function ContentBox({
           )}
         </Header>
         <Divider
-          initial={{ x: "-100%", opacity: 0 }}
-          animate={{ x: inView ? "0%" : "-100%", opacity: inView ? 1 : 0 }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: inView ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 1 }}
         />
         <Content ref={contentRef}>
