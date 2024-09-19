@@ -47,6 +47,7 @@ const ProjectColumn = styled.div`
 
 const ProjectDetails = styled.p`
   font-size: 1rem;
+  font-weight: 400;
   color: var(--color-blue);
   line-height: 1.2;
   margin: 0;
