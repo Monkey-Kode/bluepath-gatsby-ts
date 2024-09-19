@@ -35,7 +35,8 @@ const ProjectColumn = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-inline: 1rem;
+  padding-inline-start: 1.5rem; /* Add more padding to the left */
+  padding-inline-end: 1.5rem; /* Add more padding to the right */
   position: relative; /* Ensure relative positioning */
   overflow: hidden;
   border-left: var(--border);
@@ -158,8 +159,8 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                   style={{
                     position: "absolute",
                     top: 0,
-                    left: 0,
-                    right: 0,
+                    left: "1.5rem" /* Adjust left and right for padding space */,
+                    right: "1.5rem",
                     bottom: 0,
                   }}
                 >
