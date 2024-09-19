@@ -217,61 +217,6 @@ const GlobalStyles = createGlobalStyle`
         }
     }
 
-
-    .inactive, .active {
-        transition: all .5s ease-in-out;
-            transition: all .5s ease-out;
-            transition-delay: 250ms;
-        }
-        .wrap {
-            transition: opacity 1s ease-in-out;
-            transition-delay: 500ms;
-        }
-        p {
-            transition: opacity 1s ease-in-out;
-            transition-delay: 1000ms;
-        }
-        a {
-            transition: opacity 1s ease-in-out;
-            transition-delay: 1250ms;
-        }
-    }
-
-    .inactive {
-        opacity: 0;
-
-        h2 {
-            opacity: 0;
-
-        }
-        .wrap {
-            opacity: 0;
-        }
-        p {
-            opacity: 0;
-        }
-        a {
-            opacity: 0;
-        }
-    }
-    .active {
-        opacity: 1;
-
-        h2 {
-            opacity: 1;
-
-        }
-        .wrap {
-            opacity: 1;
-        }
-        p {
-            opacity: 1;
-        }
-        a {
-            opacity: 1;
-        }
-    }
-
     .left, .right {
         display: flex;
         @media only screen and (min-width: 1025px) {
