@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "gatsby"; // Import Link from gatsby
 import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
@@ -35,6 +36,7 @@ const ProjectColumn = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding-inline: 1rem;
   padding-inline-start: 1.5rem; /* Add more padding to the left */
   padding-inline-end: 1.5rem; /* Add more padding to the right */
   position: relative; /* Ensure relative positioning */
@@ -146,51 +148,62 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
         animate="visible"
       >
         {projectSets.map((projectSet, columnIndex) => (
-          <ProjectColumn key={columnIndex}>
-            <AnimatePresence>
-              {projectSet[currentIndices[columnIndex]] && (
-                <motion.div
-                  key={projectSet[currentIndices[columnIndex]].title}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  variants={animationVariants}
-                  transition={{ duration: 1, delay: columnIndex * 0.5 }}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: "1.5rem" /* Adjust left and right for padding space */,
-                    right: "1.5rem",
-                    bottom: 0,
-                  }}
-                >
-                  <ProjectCard>
-                    <ProjectImage>
-                      {projectSet[currentIndices[columnIndex]].entity &&
-                        getImageComponent(
-                          projectSet[currentIndices[columnIndex]].entity,
-                        )}
-                    </ProjectImage>
-                    <div>
-                      <ProjectTitle>
-                        {projectSet[currentIndices[columnIndex]].title}
-                      </ProjectTitle>
-                      <ProjectDetails>
-                        $
-                        {projectSet[
-                          currentIndices[columnIndex]
-                        ].size?.toLocaleString()}{" "}
-                        <br />
-                        {projectSet[currentIndices[columnIndex]].technologies
-                          ?.filter(Boolean)
-                          .join(", ")}
-                      </ProjectDetails>
-                    </div>
-                  </ProjectCard>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </ProjectColumn>
+          <Link
+            to="/projects"
+            key={columnIndex}
+            style={{
+              display: "block",
+              textDecoration: "none",
+              color: "inherit",
+              width: "100%",
+            }}
+          >
+            <ProjectColumn>
+              <AnimatePresence>
+                {projectSet[currentIndices[columnIndex]] && (
+                  <motion.div
+                    key={projectSet[currentIndices[columnIndex]].title}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    variants={animationVariants}
+                    transition={{ duration: 1, delay: columnIndex * 0.5 }}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: "1.5rem" /* Adjust left and right for padding space */,
+                      right: "1.5rem",
+                      bottom: 0,
+                    }}
+                  >
+                    <ProjectCard>
+                      <ProjectImage>
+                        {projectSet[currentIndices[columnIndex]].entity &&
+                          getImageComponent(
+                            projectSet[currentIndices[columnIndex]].entity,
+                          )}
+                      </ProjectImage>
+                      <div>
+                        <ProjectTitle>
+                          {projectSet[currentIndices[columnIndex]].title}
+                        </ProjectTitle>
+                        <ProjectDetails>
+                          $
+                          {projectSet[
+                            currentIndices[columnIndex]
+                          ].size?.toLocaleString()}{" "}
+                          <br />
+                          {projectSet[currentIndices[columnIndex]].technologies
+                            ?.filter(Boolean)
+                            .join(", ")}
+                        </ProjectDetails>
+                      </div>
+                    </ProjectCard>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </ProjectColumn>
+          </Link>
         ))}
       </ProjectContainer>
     </StyledNationalProjects>
