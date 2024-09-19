@@ -103,10 +103,18 @@ const chunkProjects = (projects: CaseStudy[], numSets: number) => {
   return sets;
 };
 
+const containerVariants = {
+  visible: {
+    transition: {
+      staggerChildren: 0.5,
+    },
+  },
+};
+
 const animationVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: 20 },
 };
 
 function NationalProjects({ caseStudies }: NationalProjectsProps) {
@@ -130,7 +138,12 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
   return (
     <StyledNationalProjects>
       <Heading>National Projects</Heading>
-      <ProjectContainer>
+      <ProjectContainer
+        as={motion.div}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {projectSets.map((projectSet, columnIndex) => (
           <ProjectColumn key={columnIndex}>
             <AnimatePresence>
@@ -141,7 +154,7 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                   animate="visible"
                   exit="exit"
                   variants={animationVariants}
-                  transition={{ duration: 1 }}
+                  transition={{ duration: 1, delay: columnIndex * 0.5 }}
                   style={{
                     position: "absolute",
                     top: 0,
