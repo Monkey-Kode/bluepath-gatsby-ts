@@ -162,8 +162,8 @@ function ContentBox({
           )}
         </Header>
         <Divider
-          initial={{ x: "-100%" }}
-          animate={{ x: inView ? "0%" : "-100%" }}
+          initial={{ x: "-100%", opacity: 0 }}
+          animate={{ x: inView ? "0%" : "-100%", opacity: inView ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 1 }}
         />
         <Content ref={contentRef}>
