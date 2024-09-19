@@ -15,28 +15,40 @@ const Container = styled(motion.div)`
 `;
 
 const Header = styled.div`
+  /* Container Query Example: Fallback for non-supported browsers simulating container-based font sizing */
   h2 {
     border: none;
-    font-size: var(--big-heading-size);
     margin: 0;
     padding-block-start: 1.5rem;
     padding-block-end: 0;
     line-height: 0.9;
+    font-size: clamp(
+      1.5rem,
+      4vw + 1rem,
+      4rem
+    ); /* Smootly scales based on viewport width up to 7rem */
+    max-width: 100%; /* Ensures h2 does not exceed the container's width */
+    overflow-wrap: break-word; /* Forces text to wrap within the container */
+
     @media only screen and (max-width: 800px) {
-      font-size: 5.5vw;
+      font-size: clamp(
+        1.2rem,
+        5vw,
+        2rem
+      ); /* Scale down for smaller viewports */
       text-align: center;
     }
   }
 
   h3 {
-    font-size: var(--small-heading-size);
+    font-size: calc(1.125rem + 0.5vw); /* Adjusts based on viewport width */
     font-style: italic;
     text-align: center;
     text-transform: lowercase;
     margin: 0;
     padding-block-end: 1.5rem;
     @media only screen and (max-width: 800px) {
-      font-size: 4vw;
+      font-size: calc(1rem + 1vw); /* Adjusts for smaller screens as well */
       line-height: 1.5;
     }
   }
