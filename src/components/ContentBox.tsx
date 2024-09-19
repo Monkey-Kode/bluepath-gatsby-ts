@@ -57,6 +57,7 @@ const Divider = styled(motion.hr)`
   border-bottom: var(--border-bottom);
   margin-block-start: 0;
   margin-block-end: 0;
+  overflow: hidden;
 `;
 
 function ContentBox({
