@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
 import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
@@ -35,9 +36,10 @@ const ProjectColumn = styled.div`
   align-items: center;
   text-align: center;
   padding-inline: 1rem;
-  position: relative;
+  position: relative; /* Ensure relative positioning */
   overflow: hidden;
   border-left: var(--border);
+  height: 150px; /* Set a fixed height to avoid collapsing */
 `;
 
 const ProjectDetails = styled.p`
@@ -48,19 +50,6 @@ const ProjectDetails = styled.p`
   text-transform: uppercase;
 `;
 
-const fadeInOut = keyframes`
-  0% { opacity: 1; transform: translateX(0); }
-  100% { opacity: 0; transform: translateX(20px); }
-`;
-
-const AnimatedProject = styled.div<{ $duration: number; $delay: number }>`
-  animation: ${fadeInOut} ${(props) => props.$duration}s linear
-    ${(props) => props.$delay}s infinite;
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
-
 const ProjectCard = styled.div`
   display: grid;
   grid-template-columns: 35% 65%;
@@ -69,6 +58,7 @@ const ProjectCard = styled.div`
   background-color: #fff;
   text-align: left;
   align-items: flex-start;
+  width: 100%;
 `;
 
 const ProjectImage = styled.figure`
@@ -113,6 +103,12 @@ const chunkProjects = (projects: CaseStudy[], numSets: number) => {
   return sets;
 };
 
+const animationVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
+};
+
 function NationalProjects({ caseStudies }: NationalProjectsProps) {
   const [projectSets, setProjectSets] = useState<CaseStudy[][]>(() =>
     chunkProjects(caseStudies, 4),
@@ -135,28 +131,51 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
     <StyledNationalProjects>
       <Heading>National Projects</Heading>
       <ProjectContainer>
-        {projectSets.map((projectSet, index) => (
-          <ProjectColumn key={index}>
-            <AnimatedProject $duration={5} $delay={index}>
-              <ProjectCard>
-                <ProjectImage>
-                  {projectSet[currentIndices[index]].entity &&
-                    getImageComponent(projectSet[currentIndices[index]].entity)}
-                </ProjectImage>
-                <div>
-                  <ProjectTitle>
-                    {projectSet[currentIndices[index]].title}
-                  </ProjectTitle>
-                  <ProjectDetails>
-                    ${projectSet[currentIndices[index]].size?.toLocaleString()}{" "}
-                    <br />
-                    {projectSet[currentIndices[index]].technologies
-                      ?.filter(Boolean)
-                      .join(", ")}
-                  </ProjectDetails>
-                </div>
-              </ProjectCard>
-            </AnimatedProject>
+        {projectSets.map((projectSet, columnIndex) => (
+          <ProjectColumn key={columnIndex}>
+            <AnimatePresence>
+              {projectSet[currentIndices[columnIndex]] && (
+                <motion.div
+                  key={projectSet[currentIndices[columnIndex]].title}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={animationVariants}
+                  transition={{ duration: 1 }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                  }}
+                >
+                  <ProjectCard>
+                    <ProjectImage>
+                      {projectSet[currentIndices[columnIndex]].entity &&
+                        getImageComponent(
+                          projectSet[currentIndices[columnIndex]].entity,
+                        )}
+                    </ProjectImage>
+                    <div>
+                      <ProjectTitle>
+                        {projectSet[currentIndices[columnIndex]].title}
+                      </ProjectTitle>
+                      <ProjectDetails>
+                        $
+                        {projectSet[
+                          currentIndices[columnIndex]
+                        ].size?.toLocaleString()}{" "}
+                        <br />
+                        {projectSet[currentIndices[columnIndex]].technologies
+                          ?.filter(Boolean)
+                          .join(", ")}
+                      </ProjectDetails>
+                    </div>
+                  </ProjectCard>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </ProjectColumn>
         ))}
       </ProjectContainer>
