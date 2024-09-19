@@ -35,7 +35,6 @@ const Header = styled.div`
     text-transform: lowercase;
     margin: 0;
     padding-block-end: 1.5rem;
-    border-bottom: var(--border-bottom);
     @media only screen and (max-width: 800px) {
       font-size: 4vw;
       line-height: 1.5;
@@ -52,6 +51,12 @@ const Content = styled.div`
   p {
     padding-inline: 0;
   }
+`;
+
+const Divider = styled.hr`
+  border-bottom: var(--border-bottom);
+  margin-block-start: 0;
+  margin-block-end: 0;
 `;
 
 function ContentBox({
@@ -125,6 +130,7 @@ function ContentBox({
             <h3 className="hide-for-desktop">{heading}</h3>
           )}
         </Header>
+        <Divider />
         <Content ref={contentRef}>
           <div className="wrap">
             <p>{splitByNewLines(String(sectionContent))}</p>
