@@ -53,7 +53,7 @@ const Content = styled.div`
   }
 `;
 
-const Divider = styled.hr`
+const Divider = styled(motion.hr)`
   border-bottom: var(--border-bottom);
   margin-block-start: 0;
   margin-block-end: 0;
@@ -121,18 +121,57 @@ function ContentBox({
         transition={{ duration: 1, delay: 0.5 }} // Added delay here
       >
         <Header ref={headerRef}>
-          {!sectionHeadingPosition && !hidetitle && <h2>{heading}</h2>}
-          {sectionHeadingPosition && !hidetitle && (
-            <h2 className="hide-for-desktop">{heading}</h2>
+          {!sectionHeadingPosition && !hidetitle && (
+            <motion.h2
+              initial={{ opacity: 0 }}
+              animate={{ opacity: inView ? 1 : 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {heading}
+            </motion.h2>
           )}
-          {!sectionHeadingPosition && !hidetitle && <h3>{subheading}</h3>}
           {sectionHeadingPosition && !hidetitle && (
-            <h3 className="hide-for-desktop">{heading}</h3>
+            <motion.h2
+              className="hide-for-desktop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: inView ? 1 : 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {heading}
+            </motion.h2>
+          )}
+          {!sectionHeadingPosition && !hidetitle && (
+            <motion.h3
+              initial={{ opacity: 0 }}
+              animate={{ opacity: inView ? 1 : 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              {subheading}
+            </motion.h3>
+          )}
+          {sectionHeadingPosition && !hidetitle && (
+            <motion.h3
+              className="hide-for-desktop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: inView ? 1 : 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              {subheading}
+            </motion.h3>
           )}
         </Header>
-        <Divider />
+        <Divider
+          initial={{ x: "-100%" }}
+          animate={{ x: inView ? "0%" : "-100%" }}
+          transition={{ duration: 0.5, delay: 1 }}
+        />
         <Content ref={contentRef}>
-          <div className="wrap">
+          <motion.div
+            className="wrap"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: inView ? 1 : 0 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
+          >
             <p>{splitByNewLines(String(sectionContent))}</p>
             {ctaLink && sectionContentCTAtext && sectionContentCTAjumpId && (
               <a
@@ -148,7 +187,7 @@ function ContentBox({
             {ctaLink && sectionContentCTAtext && !sectionContentCTAjumpId && (
               <Link to={ctaLink}>{sectionContentCTAtext}</Link>
             )}
-          </div>
+          </motion.div>
         </Content>
       </Container>
     </div>
