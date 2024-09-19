@@ -113,7 +113,7 @@ function ContentBox({
         animate={{
           height: inView ? headerHeight + contentHeight : headerHeight,
         }}
-        transition={{ duration: 0.5, delay: 0.2 }} // Added delay here
+        transition={{ duration: 1, delay: 0.5 }} // Added delay here
       >
         <Header ref={headerRef}>
           {!sectionHeadingPosition && !hidetitle && <h2>{heading}</h2>}
