@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import HomeMain from "../components/HomeMain";
 import type { PageProps } from "gatsby";
 import SEO from "../components/SEO";
+import { useInView } from "react-intersection-observer";
 
 const StyledHeaderWrapper = styled.div`
   z-index: 100;
@@ -51,6 +52,9 @@ const StyledHeaderWrapper = styled.div`
 // markup
 const IndexPage = ({ location }: PageProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [footerRef, footerInView, entry] = useInView({
+    threshold: 0.5,
+  });
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -76,8 +80,14 @@ const IndexPage = ({ location }: PageProps) => {
         <StyledHeaderWrapper ref={ref}>
           <Header location={location} />
         </StyledHeaderWrapper>
-        <HomeMain />
-        <Footer location={location} />
+        <HomeMain
+          footerRef={{
+            ref: footerRef,
+            inView: footerInView,
+            entry: entry,
+          }}
+        />
+        <Footer location={location} ref={footerRef} />
       </div>
     </>
   );

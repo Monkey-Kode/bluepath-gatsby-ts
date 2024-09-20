@@ -4,8 +4,21 @@ import PageContent from "./PageContent";
 import { CaseStudy } from "./NationalProjects";
 import { graphql, useStaticQuery } from "gatsby";
 import StickyNationalProjects from "./StickyNationalProjects";
+import { RefObject } from "react";
 
-function HomeMain() {
+// Define the type for the footerRef prop
+type FooterRefProp = {
+  ref: RefObject<HTMLDivElement>;
+  inView: boolean;
+  entry: IntersectionObserverEntry | null;
+};
+
+// Define the props for the HomeMain component
+interface HomeMainProps {
+  footerRef: FooterRefProp;
+}
+
+function HomeMain({ footerRef }: HomeMainProps) {
   const {
     allSanityHomesections: { nodes },
     allSanityCasestudies: { nodes: caseStudiesNodes },
@@ -85,7 +98,6 @@ function HomeMain() {
   const sections = sortObject(
     nodes,
   ) as Queries.HomeMainQuery["allSanityHomesections"]["nodes"];
-  //   console.log(sections);
 
   const caseStudies = sortObject(caseStudiesNodes) as CaseStudy[];
 
@@ -100,7 +112,7 @@ function HomeMain() {
           />
         ) : null;
       })}
-      <StickyNationalProjects caseStudies={caseStudies} />
+      <StickyNationalProjects caseStudies={caseStudies} footerRef={footerRef} />
     </main>
   );
 }

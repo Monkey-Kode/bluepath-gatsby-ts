@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
 import styled from "styled-components";
+import { RefObject } from "react";
 
 const StickWrapper = styled(motion.div)`
   display: none;
@@ -16,39 +16,33 @@ const StickWrapper = styled(motion.div)`
   }
 `;
 
+type FooterRefProp = {
+  ref: RefObject<HTMLDivElement>;
+  inView: boolean;
+  entry: IntersectionObserverEntry | null;
+};
+
+interface StickyNationalProjectsProps {
+  caseStudies: CaseStudy[];
+  footerRef: FooterRefProp;
+}
+
 export default function StickyNationalProjects({
   caseStudies,
-}: {
-  caseStudies: CaseStudy[];
-}) {
+  footerRef,
+}: StickyNationalProjectsProps) {
   const controls = useAnimation();
-  const [footerRef, footerInView, entry] = useInView({
-    threshold: 0.5,
-  });
 
   useEffect(() => {
-    if (footerInView) {
+    console.log("entry", footerRef.entry);
+    if (footerRef.inView) {
       controls.start({ opacity: 0, y: "100%" });
-    } else {
-      controls.start({ opacity: 1, y: 0 });
     }
-  }, [controls, footerInView]);
+  }, [controls, footerRef.inView]);
 
   return (
-    <>
-      <StickWrapper initial={{ opacity: 0, y: "100%" }} animate={controls}>
-        <NationalProjects caseStudies={caseStudies} />
-      </StickWrapper>
-      <div
-        ref={footerRef}
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "1px",
-        }}
-      />
-    </>
+    <StickWrapper initial={{ opacity: 0, y: "100%" }} animate={controls}>
+      <NationalProjects caseStudies={caseStudies} />
+    </StickWrapper>
   );
 }
