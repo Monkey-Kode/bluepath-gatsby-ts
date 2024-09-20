@@ -30,6 +30,7 @@ const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-block-end: 1rem;
 `;
 
 const ProjectColumn = styled.div`
