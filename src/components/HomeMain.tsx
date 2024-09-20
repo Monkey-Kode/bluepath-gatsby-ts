@@ -7,10 +7,10 @@ import StickyNationalProjects from "./StickyNationalProjects";
 import { RefObject } from "react";
 
 // Define the type for the footerRef prop
-type FooterRefProp = {
-  ref: RefObject<HTMLDivElement>;
+export type FooterRefProp = {
+  ref: (node?: Element | null) => void;
   inView: boolean;
-  entry: IntersectionObserverEntry | null;
+  entry: IntersectionObserverEntry | undefined;
 };
 
 // Define the props for the HomeMain component

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
 import styled from "styled-components";
-import { RefObject } from "react";
+import { FooterRefProp } from "./HomeMain";
 
 const StickWrapper = styled(motion.div)`
   display: none;
@@ -15,12 +15,6 @@ const StickWrapper = styled(motion.div)`
     z-index: 10;
   }
 `;
-
-type FooterRefProp = {
-  ref: RefObject<HTMLDivElement>;
-  inView: boolean;
-  entry: IntersectionObserverEntry | null;
-};
 
 interface StickyNationalProjectsProps {
   caseStudies: CaseStudy[];
