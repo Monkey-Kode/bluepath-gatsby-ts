@@ -9,7 +9,9 @@ const StyledRoot = styled.div`
   --font-thin: 300;
   display: grid;
   align-items: center;
-  padding: 4rem 2rem;
+  padding-block-start: 6.793125rem;
+  padding-block-end: 0;
+  padding-inline: 2rem;
   min-height: 100vh;
 `;
 
