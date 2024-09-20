@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
@@ -18,11 +18,11 @@ export default function StickyNationalProjects({
   caseStudies: CaseStudy[];
 }) {
   const controls = useAnimation();
-  const [footerRef, footerInView] = useInView({
-    threshold: 0,
+  const [footerRef, footerInView, entry] = useInView({
+    threshold: 0.5,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (footerInView) {
       controls.start({ opacity: 0, y: "100%" });
     } else {

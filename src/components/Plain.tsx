@@ -38,7 +38,7 @@ function Plain({
   const image = background?.asset?.gatsbyImageData
     ? getImage(background?.asset?.gatsbyImageData)
     : null;
-  const bgImage = image ? convertToBgImage(image) : null;
+  const bgImage = image ? convertToBgImage(image) : undefined;
 
   if (background) {
     return (
@@ -57,7 +57,7 @@ function Plain({
           Tag="section"
           backgroundColor={bgColor}
           className="plain"
-          {...bgImage}
+          {...(bgImage || {})}
         >
           <div className={`${boxAlign} ${name}`}>
             <ContentBox
