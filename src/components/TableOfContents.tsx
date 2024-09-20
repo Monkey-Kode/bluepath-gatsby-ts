@@ -54,9 +54,14 @@ const StyledRoot = styled.div`
   --color-blue: #1d4483;
   --font-thin: 300;
   display: grid;
-  grid-template-columns: 4fr 6fr;
   align-items: center;
   padding: 4rem 2rem;
+  min-height: 100vh;
+`;
+
+const TopSection = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 6fr;
 `;
 
 const DiagLinesSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path stroke="#1D4483" stroke-miterlimit="10" d="m1.31 1.03 33.75 33.76"/></svg>`;
@@ -258,33 +263,35 @@ export default function TableOfContents({
   return (
     <>
       <StyledRoot id={anchorId ?? "tof"}>
-        <svg width="0" height="0" style={{ position: "absolute" }}>
-          <defs>
-            <clipPath id="clipPath">
-              <path d="M94.96 83.83V11.32L84.15.52H11.61L.75 11.37v72.41L11.7 94.73h72.36l10.9-10.9Z" />
-            </clipPath>
-          </defs>
-        </svg>
-        <StyleLeftContent>
-          <StyleOuterBox>
-            <StyledBox>
-              <ScrollableContent>
-                <Heading>{sectionHeading}</Heading>
-                <Content>{sectionContent}</Content>
-              </ScrollableContent>
-            </StyledBox>
-          </StyleOuterBox>
-        </StyleLeftContent>
-        <SectionList>
-          {hardcodedSections.map((section, index) => (
-            <SectionItem key={index}>
-              <StyledBackgroundFigure imageUrl={section.image.imageUrl} />
-              <SectionLink href={`#${section.anchorId}`}>
-                {section.heading}
-              </SectionLink>
-            </SectionItem>
-          ))}
-        </SectionList>
+        <TopSection>
+          <svg width="0" height="0" style={{ position: "absolute" }}>
+            <defs>
+              <clipPath id="clipPath">
+                <path d="M94.96 83.83V11.32L84.15.52H11.61L.75 11.37v72.41L11.7 94.73h72.36l10.9-10.9Z" />
+              </clipPath>
+            </defs>
+          </svg>
+          <StyleLeftContent>
+            <StyleOuterBox>
+              <StyledBox>
+                <ScrollableContent>
+                  <Heading>{sectionHeading}</Heading>
+                  <Content>{sectionContent}</Content>
+                </ScrollableContent>
+              </StyledBox>
+            </StyleOuterBox>
+          </StyleLeftContent>
+          <SectionList>
+            {hardcodedSections.map((section, index) => (
+              <SectionItem key={index}>
+                <StyledBackgroundFigure imageUrl={section.image.imageUrl} />
+                <SectionLink href={`#${section.anchorId}`}>
+                  {section.heading}
+                </SectionLink>
+              </SectionItem>
+            ))}
+          </SectionList>
+        </TopSection>
         <StyledNationalProjectsWrapper>
           <NationalProjects caseStudies={caseStudies} />
         </StyledNationalProjectsWrapper>

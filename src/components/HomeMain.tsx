@@ -1,8 +1,8 @@
-import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 import sortObject from "../utils/sortObject";
 import PageContent from "./PageContent";
 import { CaseStudy } from "./NationalProjects";
+import { graphql, useStaticQuery } from "gatsby";
 
 function HomeMain() {
   const {
