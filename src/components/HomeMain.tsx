@@ -2,6 +2,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 import sortObject from "../utils/sortObject";
 import PageContent from "./PageContent";
+import { CaseStudy } from "./NationalProjects";
 
 function HomeMain() {
   const {
@@ -85,9 +86,7 @@ function HomeMain() {
   ) as Queries.HomeMainQuery["allSanityHomesections"]["nodes"];
   //   console.log(sections);
 
-  const caseStudies = sortObject(
-    caseStudiesNodes,
-  ) as Queries.HomeMainQuery["allSanityCasestudies"]["nodes"];
+  const caseStudies = sortObject(caseStudiesNodes) as CaseStudy[];
 
   return (
     <main>
