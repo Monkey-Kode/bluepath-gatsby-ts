@@ -37,6 +37,8 @@ export default function StickyNationalProjects({
     console.log("entry", footerRef.entry);
     if (footerRef.inView) {
       controls.start({ opacity: 0, y: "100%" });
+    } else {
+      controls.start({ opacity: 1, y: 0 });
     }
   }, [controls, footerRef.inView]);
 
