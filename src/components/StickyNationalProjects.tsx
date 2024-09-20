@@ -5,11 +5,15 @@ import NationalProjects, { CaseStudy } from "./NationalProjects";
 import styled from "styled-components";
 
 const StickWrapper = styled(motion.div)`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
+  display: none;
+  @media (min-width: 800px) {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
 `;
 
 export default function StickyNationalProjects({
