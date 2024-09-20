@@ -35,6 +35,7 @@ function PageContent({
         <TableOfContents
           key={content.id}
           content={content}
+          caseStudies={caseStudies}
           tableOfContentsRef={tableOfContentsRef}
         />
       )

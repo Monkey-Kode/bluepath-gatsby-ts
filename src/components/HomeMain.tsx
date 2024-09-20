@@ -20,7 +20,7 @@ interface HomeMainProps {
 
 function HomeMain({ footerRef }: HomeMainProps) {
   const tableOfContentsRef = useInView({
-    threshold: 0.5,
+    threshold: 0.25,
   });
 
   const {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
 import styled from "styled-components";
@@ -28,17 +28,31 @@ export default function StickyNationalProjects({
   tableOfContentsRef,
 }: StickyNationalProjectsProps) {
   const controls = useAnimation();
+  const [prevScrollY, setPrevScrollY] = useState(0);
 
   useEffect(() => {
-    console.log("tof entry", tableOfContentsRef.entry);
-    if (footerRef.inView) {
-      // Animate out when footer is in view
-      controls.start({ opacity: 0, y: "100%" });
-    } else if (tableOfContentsRef.inView) {
-      // Animate in when table of contents is not in view and footer is not in view
-      controls.start({ opacity: 1, y: 0 });
-    }
-  }, [controls, footerRef.inView, tableOfContentsRef.inView]);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Log the entry values to the console
+      // console.log("Table of Contents Entry:", tableOfContentsRef.entry);
+      // console.log("Footer Entry:", footerRef.entry);
+
+      if (footerRef.inView) {
+        controls.start({ opacity: 0, y: "100%" });
+      } else if (!tableOfContentsRef.inView && currentScrollY > prevScrollY) {
+        controls.start({ opacity: 1, y: 0 });
+      } else {
+        controls.start({ opacity: 0, y: "100%" });
+      }
+      setPrevScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [controls, footerRef.inView, tableOfContentsRef.inView, prevScrollY]);
 
   return (
     <StickWrapper initial={{ opacity: 0, y: "100%" }} animate={controls}>

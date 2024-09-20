@@ -211,9 +211,11 @@ const StyledNationalProjectsWrapper = styled.div`
 
 export default function TableOfContents({
   content,
+  caseStudies,
   tableOfContentsRef,
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
+  caseStudies: CaseStudy[];
   tableOfContentsRef: InViewHookResponse;
 }) {
   const { anchorId, sectionContent, sectionHeading } = content;
@@ -249,6 +251,9 @@ export default function TableOfContents({
             ))}
           </SectionList>
         </TopSection>
+        <StyledNationalProjectsWrapper>
+          <NationalProjects caseStudies={caseStudies} />
+        </StyledNationalProjectsWrapper>
       </StyledRoot>
     </div>
   );
