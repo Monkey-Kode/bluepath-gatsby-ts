@@ -3,6 +3,7 @@ import sortObject from "../utils/sortObject";
 import PageContent from "./PageContent";
 import { CaseStudy } from "./NationalProjects";
 import { graphql, useStaticQuery } from "gatsby";
+import StickyNationalProjects from "./StickyNationalProjects";
 
 function HomeMain() {
   const {
@@ -99,6 +100,7 @@ function HomeMain() {
           />
         ) : null;
       })}
+      <StickyNationalProjects caseStudies={caseStudies} />
     </main>
   );
 }

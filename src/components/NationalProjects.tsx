@@ -11,7 +11,9 @@ const StyledNationalProjects = styled.div`
   grid-template-columns: 1fr 10fr;
   width: 100%;
   align-items: center;
-  padding: 2rem 0;
+  padding-block: 0;
+  padding-inline: 2rem;
+  background-color: white;
 `;
 
 const Heading = styled.h2`
