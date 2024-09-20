@@ -3,6 +3,7 @@ import { ArrElement } from "../types";
 import styled, { keyframes } from "styled-components";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
 import { hardcodedSections } from "../data/tableofcontents";
+import { InViewHookResponse } from "react-intersection-observer";
 
 const StyledRoot = styled.div`
   --color-blue: #1d4483;
@@ -211,13 +212,15 @@ const StyledNationalProjectsWrapper = styled.div`
 export default function TableOfContents({
   content,
   caseStudies,
+  tableOfContentsRef,
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
   caseStudies: CaseStudy[];
+  tableOfContentsRef: InViewHookResponse;
 }) {
   const { anchorId, sectionContent, sectionHeading } = content;
   return (
-    <>
+    <div ref={tableOfContentsRef.ref}>
       <StyledRoot id={anchorId ?? "tof"}>
         <TopSection>
           <svg width="0" height="0" style={{ position: "absolute" }}>
@@ -252,6 +255,6 @@ export default function TableOfContents({
           <NationalProjects caseStudies={caseStudies} />
         </StyledNationalProjectsWrapper>
       </StyledRoot>
-    </>
+    </div>
   );
 }

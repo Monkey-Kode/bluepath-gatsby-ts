@@ -52,7 +52,7 @@ const StyledHeaderWrapper = styled.div`
 // markup
 const IndexPage = ({ location }: PageProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [footerRef, footerInView, entry] = useInView({
+  const footerRef = useInView({
     threshold: 0.5,
   });
   useEffect(() => {
@@ -80,14 +80,8 @@ const IndexPage = ({ location }: PageProps) => {
         <StyledHeaderWrapper ref={ref}>
           <Header location={location} />
         </StyledHeaderWrapper>
-        <HomeMain
-          footerRef={{
-            ref: footerRef,
-            inView: footerInView,
-            entry: entry,
-          }}
-        />
-        <Footer location={location} ref={footerRef} />
+        <HomeMain footerRef={footerRef} />
+        <Footer location={location} ref={footerRef.ref} />
       </div>
     </>
   );

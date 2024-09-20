@@ -3,6 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
 import styled from "styled-components";
 import { FooterRefProp } from "./HomeMain";
+import { InViewHookResponse } from "react-intersection-observer";
 
 const StickWrapper = styled(motion.div)`
   display: none;
@@ -18,12 +19,14 @@ const StickWrapper = styled(motion.div)`
 
 interface StickyNationalProjectsProps {
   caseStudies: CaseStudy[];
-  footerRef: FooterRefProp;
+  footerRef: InViewHookResponse;
+  tableOfContentsRef: InViewHookResponse;
 }
 
 export default function StickyNationalProjects({
   caseStudies,
   footerRef,
+  tableOfContentsRef,
 }: StickyNationalProjectsProps) {
   const controls = useAnimation();
 

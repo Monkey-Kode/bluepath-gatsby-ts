@@ -4,7 +4,7 @@ import PageContent from "./PageContent";
 import { CaseStudy } from "./NationalProjects";
 import { graphql, useStaticQuery } from "gatsby";
 import StickyNationalProjects from "./StickyNationalProjects";
-import { RefObject } from "react";
+import { InViewHookResponse, useInView } from "react-intersection-observer";
 
 // Define the type for the footerRef prop
 export type FooterRefProp = {
@@ -15,10 +15,14 @@ export type FooterRefProp = {
 
 // Define the props for the HomeMain component
 interface HomeMainProps {
-  footerRef: FooterRefProp;
+  footerRef: InViewHookResponse;
 }
 
 function HomeMain({ footerRef }: HomeMainProps) {
+  const tableOfContentsRef = useInView({
+    threshold: 0.5,
+  });
+
   const {
     allSanityHomesections: { nodes },
     allSanityCasestudies: { nodes: caseStudiesNodes },
@@ -109,10 +113,19 @@ function HomeMain({ footerRef }: HomeMainProps) {
             key={content.id}
             content={content}
             caseStudies={caseStudies}
+            tableOfContentsRef={
+              content?.contentType?.name === "TOF"
+                ? tableOfContentsRef
+                : undefined
+            }
           />
         ) : null;
       })}
-      <StickyNationalProjects caseStudies={caseStudies} footerRef={footerRef} />
+      <StickyNationalProjects
+        caseStudies={caseStudies}
+        footerRef={footerRef}
+        tableOfContentsRef={tableOfContentsRef}
+      />
     </main>
   );
 }
