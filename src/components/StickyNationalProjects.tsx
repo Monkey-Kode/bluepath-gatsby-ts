@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
 import styled from "styled-components";
-import { FooterRefProp } from "./HomeMain";
 import { InViewHookResponse } from "react-intersection-observer";
 
 const StickWrapper = styled(motion.div)`
@@ -31,13 +30,15 @@ export default function StickyNationalProjects({
   const controls = useAnimation();
 
   useEffect(() => {
-    console.log("entry", footerRef.entry);
+    console.log("tof entry", tableOfContentsRef.entry);
     if (footerRef.inView) {
+      // Animate out when footer is in view
       controls.start({ opacity: 0, y: "100%" });
-    } else {
+    } else if (tableOfContentsRef.inView) {
+      // Animate in when table of contents is not in view and footer is not in view
       controls.start({ opacity: 1, y: 0 });
     }
-  }, [controls, footerRef.inView]);
+  }, [controls, footerRef.inView, tableOfContentsRef.inView]);
 
   return (
     <StickWrapper initial={{ opacity: 0, y: "100%" }} animate={controls}>
