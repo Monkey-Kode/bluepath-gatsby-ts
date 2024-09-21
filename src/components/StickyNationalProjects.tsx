@@ -84,7 +84,11 @@ export default function StickyNationalProjects({
   ]);
 
   return (
-    <StickWrapper initial={{ opacity: 0, y: "100%" }} animate={controls}>
+    <StickWrapper
+      initial={{ opacity: 0, y: "100%" }}
+      animate={controls}
+      transition={{ duration: 0.5 }}
+    >
       {shouldStickyBeVisible && <NationalProjects caseStudies={caseStudies} />}
     </StickWrapper>
   );

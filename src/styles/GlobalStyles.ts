@@ -67,7 +67,6 @@ const GlobalStyles = createGlobalStyle`
         > div:not(.team-wrapper):not([class*="Contact"]):not([class*="Impact"]){
             display: flex;
             align-items:center;
-            justify-content: center;
             height: 100%;
             @media only screen and ( max-width: 800px) {
                 background-color: var(--blue);
