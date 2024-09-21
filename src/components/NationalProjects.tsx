@@ -5,15 +5,18 @@ import { Link } from "gatsby"; // Import Link from gatsby
 import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
-  --color-orange: hsla(34, 85%, 53%, 1);
-  --border: 3.65px solid var(--color-orange);
-  display: grid;
-  grid-template-columns: 1fr 10fr;
-  width: 100%;
-  align-items: center;
-  padding-block: 0;
-  padding-inline: 2rem;
-  background-color: white;
+  display: none;
+  @media (min-width: 769px) {
+    --color-orange: hsla(34, 85%, 53%, 1);
+    --border: 3.65px solid var(--color-orange);
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    width: 100%;
+    align-items: center;
+    padding-block: 0;
+    padding-inline: 2rem;
+    background-color: white;
+  }
 `;
 
 const Heading = styled.h2`
@@ -30,7 +33,6 @@ const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-block-end: 1rem;
 `;
 
 const ProjectColumn = styled.div`
@@ -93,6 +95,7 @@ const ProjectTitle = styled.h3`
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 20ch;
+  padding-block-end: 0.5rem;
 `;
 
 export type CaseStudy =

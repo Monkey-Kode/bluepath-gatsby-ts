@@ -18,47 +18,57 @@ const StyledRoot = styled.div`
 
 const TopSection = styled.div`
   display: grid;
-  grid-template-columns: 4fr 6fr;
+  grid-template-columns: 1fr;
+  grid-auto-rows: auto; // This makes rows automatically adjust to their content
+  gap: 1rem; // Optional: adds space between rows
+  @media (min-width: 769px) {
+    grid-template-columns: 4fr 6fr;
+  }
 `;
 
 const DiagLinesSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none"><path stroke="#1D4483" stroke-miterlimit="10" d="m1.31 1.03 33.75 33.76"/></svg>`;
 
 const StyleLeftContent = styled.div`
-  grid-column: 1 / 2;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow-y: scroll;
-  --scrollbar-color: hsla(210.9, 90.56%, 27.9% / 0.4);
-  --scrollbar-color: color(display-p3 0.1137 0.2667 0.5137 / 0.4);
-  --scrollbar-width: 0.225625rem;
-
-  // Custom scrollbar styles
-  &::-webkit-scrollbar {
-    width: var(--scrollbar-width); /* width of the entire scrollbar */
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent; /* background of the scrollbar track */
-    border: solid var(--scrollbar-width) transparent; /* to ensure the background doesn’t bleed */
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-color); /* color of the scrollbar thumb */
-    border: solid var(--scrollbar-width) transparent; /* add space around thumb */
-    border-radius: 0;
-  }
 
   // Customize the scrollbar for Firefox
   scrollbar-color: var(--scrollbar-color) transparent; /* thumb and track color */
   scrollbar-width: thin; /* width of the scrollbar */
+  @media (min-width: 769px) {
+    grid-column: 1 / 2;
+    overflow-y: scroll;
+    --scrollbar-color: hsla(210.9, 90.56%, 27.9% / 0.4);
+    --scrollbar-color: color(display-p3 0.1137 0.2667 0.5137 / 0.4);
+    --scrollbar-width: 0.225625rem;
+
+    // Custom scrollbar styles
+    &::-webkit-scrollbar {
+      width: var(--scrollbar-width); /* width of the entire scrollbar */
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent; /* background of the scrollbar track */
+      border: solid var(--scrollbar-width) transparent; /* to ensure the background doesn’t bleed */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(
+        --scrollbar-color
+      ); /* color of the scrollbar thumb */
+      border: solid var(--scrollbar-width) transparent; /* add space around thumb */
+      border-radius: 0;
+    }
+  }
 `;
 
 const StyleOuterBox = styled.div`
+  --box-size: 18rem;
   --border-size: 2.11rem;
-  --max-height: calc(18.125rem - var(--border-size));
-  max-width: 18.125rem;
+  --max-height: calc(var(--box-size) - var(--border-size));
+  max-width: 100%;
   max-height: var(--max-height);
   overflow: hidden;
   position: relative;
@@ -84,10 +94,14 @@ const StyleOuterBox = styled.div`
     height: 36px;
     transform: rotate(-90deg);
   }
+  @media (min-width: 769px) {
+    --box-size: 18.125rem;
+    max-width: var(--box-size);
+  }
 `;
 
 const StyledBox = styled.div`
-  max-width: 18.125rem;
+  max-width: 100%;
   max-height: var(--max-height);
   overflow-y: auto;
   position: relative;
@@ -114,6 +128,9 @@ const StyledBox = styled.div`
     height: 36px;
     transform: rotate(180deg);
   }
+  @media (min-width: 769px) {
+    max-width: 18.125rem;
+  }
 `;
 
 const ScrollableContent = styled.div`
@@ -131,17 +148,37 @@ const Heading = styled.h2`
 `;
 
 const Content = styled.p`
+  display: none;
   text-align: center;
   margin-bottom: 20px;
   color: var(--color-blue);
   font-weight: var(--font-thin);
+  @media (min-width: 769px) {
+    display: block;
+  }
+`;
+
+export const MobileContent = styled(Content)`
+  display: block;
+  @media (min-width: 769px) {
+    display: none;
+  }
 `;
 
 const SectionList = styled.ul`
+  --box-size: 18.125rem;
   list-style-type: none;
   padding: 0;
+  margin: 0;
   display: grid;
-  grid-column: 2 / -1;
+  grid-template-columns: repeat(4, 25%);
+  gap: 0.5rem;
+  max-width: calc(100% - 2rem);
+  @media (min-width: 769px) {
+    grid-template-columns: 1fr; // Single column for larger screens
+    grid-column: 2 / -1; // This will apply only on larger screens
+    gap: 0; // Remove gap for single column layout
+  }
 `;
 
 const panAnimation = keyframes`
@@ -157,7 +194,6 @@ const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   margin: 0;
   width: var(--square-size);
   height: var(--square-size);
-  margin-right: 10px;
   overflow: hidden;
   mask-size: 100% 100%;
   clip-path: url("#clipPath");
@@ -167,14 +203,17 @@ const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   background-repeat: no-repeat;
   background-position: left center; /* Ensure initial position */
   cursor: pointer;
+  @media (min-width: 769px) {
+    margin-right: 10px;
+  }
 `;
 
 // Style the SectionItem
 const SectionItem = styled.li`
-  --square-size: 96.21px;
+  --square-size: 62px;
   display: grid;
-  grid-template-columns: var(--square-size) 3fr;
   align-items: center;
+  grid-template-columns: 1fr;
   margin-bottom: 10px;
   width: 100%;
   // Add hover state for the SectionItem
@@ -184,24 +223,31 @@ const SectionItem = styled.li`
       animation-play-state: running;
     }
   }
+  @media (min-width: 769px) {
+    --square-size: 96.21px;
+    grid-template-columns: var(--square-size) 3fr;
+  }
 `;
 
 // Style the background image container
 
 const SectionLink = styled.a`
-  --font-thin: 100;
-  text-decoration: none;
-  color: var(--color-blue);
-  font-size: 4.781875rem;
-  font-weight: var(--font-thin);
-  padding-left: 2rem;
-  display: inline-block;
-  transition: all 0.3s ease;
-  &:hover {
-    text-shadow:
-      0 0 0.65px #000,
-      0 0 0.65px #000;
-    transform: scale(1.02);
+  display: none;
+  @media (min-width: 769px) {
+    --font-thin: 100;
+    text-decoration: none;
+    color: var(--color-blue);
+    font-size: 4.781875rem;
+    font-weight: var(--font-thin);
+    padding-left: 2rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+    &:hover {
+      text-shadow:
+        0 0 0.65px #000,
+        0 0 0.65px #000;
+      transform: scale(1.02);
+    }
   }
 `;
 
@@ -250,6 +296,7 @@ export default function TableOfContents({
               </SectionItem>
             ))}
           </SectionList>
+          <MobileContent>{sectionContent}</MobileContent>
         </TopSection>
         <StyledNationalProjectsWrapper>
           <NationalProjects caseStudies={caseStudies} />

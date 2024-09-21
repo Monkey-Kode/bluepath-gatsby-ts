@@ -43,15 +43,6 @@ function Plain({
   if (background) {
     return (
       <>
-        {background?.asset?.gatsbyImageData && (
-          <GatsbyImage
-            id=""
-            alt="Background scenery"
-            className={`hide-for-desktop ${anchorId || "section"}`}
-            image={background?.asset?.gatsbyImageData}
-            style={{ marginBottom: "0", display: "block" }}
-          />
-        )}
         <StyleBackgroundImage
           id={anchorId}
           Tag="section"
