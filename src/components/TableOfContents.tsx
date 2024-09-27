@@ -214,8 +214,8 @@ const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   height: var(--square-size);
   overflow: hidden;
   mask-size: 100% 100%;
-  clip-path: url("#clipPath");
   position: relative;
+  clip-path: url("#mobile-clipPath");
   background-image: url(${(props) => props.imageUrl});
   background-size: cover;
   background-repeat: no-repeat;
@@ -223,6 +223,7 @@ const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   cursor: pointer;
   @media (min-width: 769px) {
     margin-right: 10px;
+    clip-path: url("#clipPath");
   }
 `;
 
@@ -287,6 +288,13 @@ export default function TableOfContents({
     <div ref={tableOfContentsRef.ref}>
       <StyledRoot id={anchorId ?? "tof"}>
         <TopSection>
+          <svg width="0" height="0" style={{ position: "absolute" }}>
+            <defs>
+              <clipPath id="mobile-clipPath">
+                <path d="M61.19 54.02V7.3L54.23.34H7.48L.48 7.33v46.67L7.54 61.07h46.63l7.02-7.02Z" />
+              </clipPath>
+            </defs>
+          </svg>
           <svg width="0" height="0" style={{ position: "absolute" }}>
             <defs>
               <clipPath id="clipPath">
