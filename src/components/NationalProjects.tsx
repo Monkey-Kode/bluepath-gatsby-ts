@@ -5,7 +5,8 @@ import { Link } from "gatsby"; // Import Link from gatsby
 import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
-  display: none;
+  display: flex;
+  flex-direction: column;
   @media (min-width: 769px) {
     --color-orange: hsla(34, 85%, 53%, 1);
     --border: 3.65px solid var(--color-orange);
@@ -23,16 +24,25 @@ const Heading = styled.h2`
   font-size: 1.670625rem;
   color: var(--color-blue);
   font-weight: 300;
-  padding-inline-end: 2rem;
   padding-block-start: 2rem;
   text-align: left;
   text-transform: uppercase;
+  padding-inline: 0;
+  display: flex;
+  justify-content: center;
+  @media (min-width: 769px) {
+    padding-inline-end: 2rem;
+  }
 `;
 
 const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-direction: column;
+  @media (min-width: 769px) {
+    flex-direction: row;
+  }
 `;
 
 const ProjectColumn = styled.div`
