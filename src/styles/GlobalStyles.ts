@@ -115,9 +115,7 @@ const GlobalStyles = createGlobalStyle`
             font-size: var(--big-heading-size);
             text-align: center;
             color: white;
-            padding: .5em 0;
             margin: 0 1em;
-            border-bottom: var(--border-bottom);
             @media only screen and (max-width: 480px) {
                 font-size: 2rem;
                 padding-left: 0.5rem;

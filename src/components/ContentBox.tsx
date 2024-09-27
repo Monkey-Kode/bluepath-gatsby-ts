@@ -17,10 +17,10 @@ const Container = styled(motion.div)`
 const Header = styled.div`
   /* Container Query Example: Fallback for non-supported browsers simulating container-based font sizing */
   h2 {
-    border: none;
+    border: none !important;
     margin: 0;
     padding-block-start: 1.5rem;
-    padding-block-end: 0;
+    padding-block-end: 0.5rem;
     line-height: 0.9;
     max-width: 100%; /* Ensures h2 does not exceed the container's width */
     overflow-wrap: break-word; /* Forces text to wrap within the container */
