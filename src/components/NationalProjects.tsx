@@ -7,6 +7,7 @@ import { getImageComponent } from "../utils/ImageSelector";
 const StyledNationalProjects = styled.div`
   display: flex;
   flex-direction: column;
+  padding-block-end: 3rem;
   @media (min-width: 769px) {
     --color-orange: hsla(34, 85%, 53%, 1);
     --border: 3.65px solid var(--color-orange);
@@ -89,6 +90,7 @@ const ProjectImage = styled.figure`
   margin: 0;
   > svg {
     height: 100%;
+    max-height: 125px;
     width: 100%;
     object-fit: contain;
   }
