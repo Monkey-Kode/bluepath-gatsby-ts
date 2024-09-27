@@ -23,6 +23,10 @@ const TopSection = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: auto; // This makes rows automatically adjust to their content
+  justify-content: center;
+  align-items: center;
+  place-items: center;
+  place-content: center;
   gap: 1rem; // Optional: adds space between rows
   @media (min-width: 769px) {
     grid-template-columns: 4fr 6fr;
@@ -114,7 +118,7 @@ const StyledBox = styled.div`
   max-height: var(--max-height);
   overflow-y: auto;
   position: relative;
-  padding-inline: var(--border-size);
+  padding-inline: calc(var(--border-size) / 2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -152,6 +156,7 @@ const StyledBox = styled.div`
 const ScrollableContent = styled.div`
   max-height: var(--max-height);
   max-width: 80vw;
+  overflow-y: hidden;
 `;
 
 const Heading = styled.h2`
@@ -177,6 +182,7 @@ const Content = styled.p`
 
 export const MobileContent = styled(Content)`
   display: block;
+  padding-inline: 2rem;
   @media (min-width: 769px) {
     display: none;
   }
@@ -184,25 +190,29 @@ export const MobileContent = styled(Content)`
 
 const SectionList = styled.ul`
   --box-size: 18.125rem;
+  --list-inline-padding: 0;
   list-style-type: none;
   padding: 0;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(4, 25%);
   gap: 0.5rem;
-  max-width: calc(100% - 1.5rem);
-  padding-inline: 3rem;
+  padding-inline: var(--list-inline-padding);
+  max-width: calc(100% - calc(var(--list-inline-padding) * 2));
+  place-content: center;
+  place-items: center;
+  justify-content: center;
+  align-items: center;
   @media (min-width: 769px) {
-    padding-inline: 0;
     grid-template-columns: 1fr; // Single column for larger screens
     grid-column: 2 / -1; // This will apply only on larger screens
     gap: 0; // Remove gap for single column layout
   }
-  @media (min-width: 501px) and (max-width: 768px) {
-    padding-inline: 6rem;
+  @media (min-width: 467px) and (max-width: 768px) {
+    --list-inline-padding: 3.25rem;
   }
-  @media (max-width: 500px) {
-    padding-inline: 3rem;
+  @media (max-width: 466px) {
+    --list-inline-padding: 2rem;
   }
 `;
 
