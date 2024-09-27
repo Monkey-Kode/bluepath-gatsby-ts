@@ -190,12 +190,19 @@ const SectionList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 25%);
   gap: 0.5rem;
-  max-width: calc(100% - 2rem);
+  max-width: calc(100% - 1.5rem);
   padding-inline: 3rem;
   @media (min-width: 769px) {
+    padding-inline: 0;
     grid-template-columns: 1fr; // Single column for larger screens
     grid-column: 2 / -1; // This will apply only on larger screens
     gap: 0; // Remove gap for single column layout
+  }
+  @media (min-width: 501px) and (max-width: 768px) {
+    padding-inline: 6rem;
+  }
+  @media (max-width: 500px) {
+    padding-inline: 3rem;
   }
 `;
 
