@@ -147,6 +147,7 @@ const StyledBox = styled.div`
 
 const ScrollableContent = styled.div`
   max-height: var(--max-height);
+  max-width: 80vw;
 `;
 
 const Heading = styled.h2`
@@ -186,6 +187,7 @@ const SectionList = styled.ul`
   grid-template-columns: repeat(4, 25%);
   gap: 0.5rem;
   max-width: calc(100% - 2rem);
+  padding-inline: 3rem;
   @media (min-width: 769px) {
     grid-template-columns: 1fr; // Single column for larger screens
     grid-column: 2 / -1; // This will apply only on larger screens
