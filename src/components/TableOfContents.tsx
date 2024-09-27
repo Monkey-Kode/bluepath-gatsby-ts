@@ -69,6 +69,7 @@ const StyleLeftContent = styled.div`
 `;
 
 const StyleOuterBox = styled.div`
+  --item-size: 2.25rem;
   --box-size: 14rem;
   --border-size: 2.11rem;
   --max-height: calc(var(--box-size) - var(--border-size));
@@ -85,8 +86,8 @@ const StyleOuterBox = styled.div`
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 36px;
-    height: 36px;
+    width: var(--item-size);
+    height: var(--item-size);
     transform: rotate(0deg);
   }
 
@@ -96,8 +97,8 @@ const StyleOuterBox = styled.div`
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 36px;
-    height: 36px;
+    width: var(--item-size);
+    height: var(--item-size);
     transform: rotate(-90deg);
   }
   @media (min-width: 769px) {
@@ -125,9 +126,12 @@ const StyledBox = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: 36px;
-    height: 36px;
+    width: var(--item-size);
+    height: var(--item-size);
     transform: rotate(90deg);
+    @media (min-width: 769px) {
+      --item-size: 2.25rem;
+    }
   }
 
   // Top-right corner
@@ -136,8 +140,8 @@ const StyledBox = styled.div`
     position: absolute;
     top: 0;
     right: 0;
-    width: 36px;
-    height: 36px;
+    width: var(--item-size);
+    height: var(--item-size);
     transform: rotate(180deg);
   }
   @media (min-width: 769px) {
