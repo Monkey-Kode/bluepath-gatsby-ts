@@ -105,11 +105,6 @@ const GlobalStyles = createGlobalStyle`
                 margin-top: 135px;
             }
         }
-        ${"" /* border-left: var(--border-left); */}
-         &[class*="Carousel"] {
-            ${"" /* border-left: none; */}
-            ${"" /* border-right: var(--border-right); */}
-         }
         @media only screen and (max-width: 480px) {
            margin: 0 auto;
         }
@@ -193,15 +188,9 @@ const GlobalStyles = createGlobalStyle`
         padding-top: 10px;
         text-transform: none !important;
     }
-    section {
-        a:not([class*="thumb"]) {
-            ${"" /* color: white; */}
-        }
-    }
 
     .box {
         .wrap {
-            ${"" /* background: var(--blueRGB); */}
             padding-bottom: 1.5em;
         }
         p {
@@ -238,8 +227,6 @@ const GlobalStyles = createGlobalStyle`
         }
             justify-content: flex-end;
             .box {
-                ${"" /* border-left: none; */}
-                ${"" /* border-right: var(--border-right); */}
                 h2 {
                     text-align: center;
 

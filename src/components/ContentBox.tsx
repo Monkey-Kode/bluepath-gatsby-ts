@@ -22,20 +22,11 @@ const Header = styled.div`
     padding-block-start: 1.5rem;
     padding-block-end: 0;
     line-height: 0.9;
-    font-size: clamp(
-      1.5rem,
-      4vw + 1rem,
-      4rem
-    ); /* Smootly scales based on viewport width up to 7rem */
     max-width: 100%; /* Ensures h2 does not exceed the container's width */
     overflow-wrap: break-word; /* Forces text to wrap within the container */
+    --big-heading-size: 4.25rem;
 
     @media only screen and (max-width: 800px) {
-      font-size: clamp(
-        1.2rem,
-        5vw,
-        2rem
-      ); /* Scale down for smaller viewports */
       text-align: center;
     }
   }
@@ -48,7 +39,6 @@ const Header = styled.div`
     margin: 0;
     padding-block-end: 1.5rem;
     @media only screen and (max-width: 800px) {
-      font-size: calc(1rem + 1vw); /* Adjusts for smaller screens as well */
       line-height: 1.5;
     }
   }
