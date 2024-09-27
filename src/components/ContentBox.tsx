@@ -24,7 +24,7 @@ const Header = styled.div`
     line-height: 0.9;
     max-width: 100%; /* Ensures h2 does not exceed the container's width */
     overflow-wrap: break-word; /* Forces text to wrap within the container */
-    --big-heading-size: 4.25rem;
+    --big-heading-size: 3.75rem;
 
     @media only screen and (max-width: 800px) {
       text-align: center;
