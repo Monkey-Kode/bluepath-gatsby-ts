@@ -5,12 +5,11 @@ import { Link } from "gatsby"; // Import Link from gatsby
 import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
+  --color-orange: hsla(34, 85%, 53%, 1);
+  --border: 3.65px solid var(--color-orange);
   display: flex;
   flex-direction: column;
-  padding-block-end: 3rem;
   @media (min-width: 769px) {
-    --color-orange: hsla(34, 85%, 53%, 1);
-    --border: 3.65px solid var(--color-orange);
     display: grid;
     grid-template-columns: 1fr 10fr;
     width: 100%;
@@ -31,8 +30,11 @@ const Heading = styled.h2`
   padding-inline: 0;
   display: flex;
   justify-content: center;
+  padding-block-end: 1.5rem;
+  border-bottom: var(--border);
   @media (min-width: 769px) {
     padding-inline-end: 2rem;
+    border-bottom: none;
   }
 `;
 
@@ -57,8 +59,14 @@ const ProjectColumn = styled.div`
   padding-inline-end: 1.5rem; /* Add more padding to the right */
   position: relative; /* Ensure relative positioning */
   overflow: hidden;
-  border-left: var(--border);
-  height: 150px; /* Set a fixed height to avoid collapsing */
+  height: calc(150px + 1.5rem); /* Set a fixed height to avoid collapsing */
+
+  border-bottom: var(--border);
+  @media (min-width: 769px) {
+    border-left: var(--border);
+    border-bottom: none;
+    height: 150px; /* Set a fixed height to avoid collapsing */
+  }
 `;
 
 const ProjectDetails = styled.p`
