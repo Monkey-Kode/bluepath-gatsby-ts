@@ -10,10 +10,13 @@ const StyledRoot = styled.div`
   --font-thin: 300;
   display: grid;
   align-items: center;
-  padding-block-start: 6.793125rem;
-  padding-block-end: 0;
-  padding-inline: 2rem;
   min-height: 100vh;
+  padding-block-start: 2.25rem;
+  @media (min-width: 769px) {
+    padding-block-start: 6.793125rem;
+    padding-block-end: 0;
+    padding-inline: 2rem;
+  }
 `;
 
 const TopSection = styled.div`
@@ -33,6 +36,7 @@ const StyleLeftContent = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  margin-block-end: 0.5rem;
 
   // Customize the scrollbar for Firefox
   scrollbar-color: var(--scrollbar-color) transparent; /* thumb and track color */
@@ -65,10 +69,12 @@ const StyleLeftContent = styled.div`
 `;
 
 const StyleOuterBox = styled.div`
-  --box-size: 18rem;
+  --box-size: 14rem;
   --border-size: 2.11rem;
   --max-height: calc(var(--box-size) - var(--border-size));
   max-width: 100%;
+  min-width: var(--box-size);
+  min-height: var(--box-size);
   max-height: var(--max-height);
   overflow: hidden;
   position: relative;
@@ -101,12 +107,18 @@ const StyleOuterBox = styled.div`
 `;
 
 const StyledBox = styled.div`
-  max-width: 100%;
+  min-width: var(--box-size);
+  min-height: var(--box-size);
+  max-width: var(--box-size);
   max-height: var(--max-height);
   overflow-y: auto;
   position: relative;
   padding-inline: var(--border-size);
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  place-content: center;
+  place-items: center;
   // Top-left corner
   &::before {
     content: url("data:image/svg+xml;base64,${btoa(DiagLinesSvg)}");
