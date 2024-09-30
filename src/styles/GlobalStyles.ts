@@ -189,7 +189,7 @@ const GlobalStyles = createGlobalStyle`
 
     .box {
         .wrap {
-            padding-bottom: 1.5em;
+            padding-bottom: 2em;
         }
         p {
             text-align: justify;

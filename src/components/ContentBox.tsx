@@ -10,7 +10,7 @@ import classNames from "classnames";
 
 const Container = styled(motion.div)`
   padding-inline: 2rem;
-  max-width: 37.5rem;
+  max-width: 38.5rem;
   overflow: hidden; /* Ensure content doesn't overflow during animation */
 `;
 
@@ -32,7 +32,7 @@ const Header = styled.div`
   }
 
   h3 {
-    font-size: calc(1.125rem + 0.5vw); /* Adjusts based on viewport width */
+    font-size: calc(1.875rem + 0.5vw); /* Adjusts based on viewport width */
     font-style: italic;
     text-align: center;
     text-transform: lowercase;
