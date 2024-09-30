@@ -109,6 +109,7 @@ const ProjectImage = styled.figure`
     max-height: 125px;
     width: 100%;
     object-fit: contain;
+    transform: translateY(-5%);
   }
 `;
 
