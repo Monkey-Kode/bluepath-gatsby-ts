@@ -78,7 +78,7 @@ const ProjectDetails = styled.p`
   margin: 0;
   text-transform: uppercase;
   > :first-child {
-    padding: 0;
+    padding-block-end: 0.5rem;
     margin: 0;
   }
 `;
