@@ -110,6 +110,9 @@ const ProjectImage = styled.figure`
     width: 100%;
     object-fit: contain;
     transform: translateY(-5%);
+    rect {
+      stroke: var(--blue);
+    }
   }
 `;
 

@@ -4,7 +4,7 @@ import Industrial from "../images/industrial.svg";
 import School from "../images/school.svg";
 import Office from "../images/office.svg";
 import University from "../images/university.svg";
-import Government from "../images/government.svg";
+import Government from "../images/SVG/goverment.svg";
 import Hospital from "../images/hospital.svg";
 
 export const getImageComponent = (
