@@ -280,9 +280,9 @@ const SectionLink = styled.a`
     transition: all 0.3s ease;
     &:hover {
       text-shadow:
-        0 0 0.65px #000,
-        0 0 0.65px #000;
-      transform: scale(1.02);
+        0 0 1px #000,
+        0 0 1px #000;
+      transform: scale(1.05);
     }
   }
 `;

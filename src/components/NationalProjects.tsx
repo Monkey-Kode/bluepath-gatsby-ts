@@ -70,12 +70,16 @@ const ProjectColumn = styled.div`
 `;
 
 const ProjectDetails = styled.p`
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 400;
   color: var(--color-blue);
   line-height: 1.2;
   margin: 0;
   text-transform: uppercase;
+  > :first-child {
+    padding: 0;
+    margin: 0;
+  }
 `;
 
 const ProjectCard = styled.div`
@@ -105,7 +109,7 @@ const ProjectImage = styled.figure`
 `;
 
 const ProjectTitle = styled.h3`
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 400;
   color: var(--color-blue);
   margin: 0;
@@ -212,13 +216,15 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                       </ProjectImage>
                       <div>
                         <ProjectTitle>
-                          {projectSet[currentIndices[columnIndex]].title}
+                          {projectSet[currentIndices[columnIndex]].entity}
                         </ProjectTitle>
                         <ProjectDetails>
-                          $
-                          {projectSet[
-                            currentIndices[columnIndex]
-                          ].size?.toLocaleString()}{" "}
+                          <div>
+                            $
+                            {projectSet[
+                              currentIndices[columnIndex]
+                            ].size?.toLocaleString()}{" "}
+                          </div>
                           <br />
                           {projectSet[currentIndices[columnIndex]].technologies
                             ?.filter(Boolean)
