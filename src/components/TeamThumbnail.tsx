@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion';
-import { GatsbyImage } from 'gatsby-plugin-image';
-import React, { MouseEvent } from 'react';
-import styled from 'styled-components';
-import fluidType from '../utils/fluidTypography';
-import scrollTo from 'gatsby-plugin-smoothscroll';
-import { ArrElement } from '../types';
+import { motion } from "framer-motion";
+import { GatsbyImage } from "gatsby-plugin-image";
+import React, { MouseEvent } from "react";
+import styled from "styled-components";
+import fluidType from "../utils/fluidTypography";
+import scrollTo from "gatsby-plugin-smoothscroll";
+import { ArrElement } from "../types";
 const StyledThumb = styled.a`
   background: var(--blue);
   display: grid;
@@ -28,7 +28,7 @@ const StyledThumb = styled.a`
     }
   }
   h3 {
-    ${(props) => fluidType('375px', '1400px', '11px', '16px')}
+    ${(props) => fluidType("375px", "1400px", "11px", "16px")}
     padding:0rem 1rem;
   }
   h3,
@@ -63,12 +63,12 @@ function TeamThumbnail({
   image,
   setcurrentSlide,
 }: {
-  id: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['id'];
-  name: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['name'];
-  role: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['role'];
-  image: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['image'];
+  id: ArrElement<Queries.TeamQuery["allSanityTeam"]["nodes"]>["id"];
+  name: ArrElement<Queries.TeamQuery["allSanityTeam"]["nodes"]>["name"];
+  role: ArrElement<Queries.TeamQuery["allSanityTeam"]["nodes"]>["role"];
+  image: ArrElement<Queries.TeamQuery["allSanityTeam"]["nodes"]>["image"];
   setcurrentSlide: (
-    id: ArrElement<Queries.TeamQuery['allSanityTeam']['nodes']>['id']
+    id: ArrElement<Queries.TeamQuery["allSanityTeam"]["nodes"]>["id"],
   ) => void;
 }) {
   return (
@@ -76,10 +76,10 @@ function TeamThumbnail({
       <StyledThumb
         key={id}
         href={`#${id}`}
-        onClick={(event: MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        onClick={(event) => {
           event.stopPropagation();
           event.preventDefault();
-          scrollTo('body');
+          scrollTo("body");
           setcurrentSlide(id);
         }}
       >
