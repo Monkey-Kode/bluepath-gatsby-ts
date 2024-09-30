@@ -44,6 +44,9 @@ const ProjectContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   flex-direction: column;
+  a {
+    padding-block-start: 0;
+  }
   @media (min-width: 769px) {
     flex-direction: row;
   }
