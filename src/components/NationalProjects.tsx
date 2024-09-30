@@ -6,9 +6,10 @@ import { getImageComponent } from "../utils/ImageSelector";
 
 const StyledNationalProjects = styled.div`
   --color-orange: hsla(34, 85%, 53%, 1);
-  --border: 3.65px solid var(--color-orange);
+  --border: 2px solid var(--color-orange);
   display: flex;
   flex-direction: column;
+  color: var(--blue);
   @media (min-width: 769px) {
     display: grid;
     grid-template-columns: 1fr 10fr;
