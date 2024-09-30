@@ -226,7 +226,6 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                               currentIndices[columnIndex]
                             ].size?.toLocaleString()}{" "}
                           </div>
-                          <br />
                           {projectSet[currentIndices[columnIndex]].technologies
                             ?.filter(Boolean)
                             .join(", ")}
