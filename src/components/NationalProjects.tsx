@@ -116,7 +116,10 @@ const ProjectImage = styled.figure`
   }
 `;
 const ProjectState = styled.div`
-  font-size: 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding-block-end: 0.5rem;
 `;
 const ProjectTitle = styled.h3`
   font-size: 0.75rem;
