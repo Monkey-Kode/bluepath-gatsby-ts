@@ -197,7 +197,11 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
         const project = projectSets[columnIndex][currentIndex];
         const projectId = project.id;
 
-        if (geocodeCache.current[projectId]) {
+        if (
+          geocodeCache.current &&
+          typeof projectId === "string" &&
+          geocodeCache.current[projectId]
+        ) {
           // Use cached state name
           setStateNames((prevStateNames) => {
             const newStateNames = [...prevStateNames];
@@ -207,19 +211,24 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
         } else {
           const location = project.location;
 
-          if (location) {
+          if (
+            location &&
+            typeof location.lat === "number" &&
+            typeof location.lng === "number"
+          ) {
             const latlng = { lat: location.lat, lng: location.lng };
 
             geocoder.geocode({ location: latlng }, (results, status) => {
-              if (status === "OK" && results[0]) {
+              if (status === "OK" && results && results[0]) {
                 const addressComponents = results[0].address_components;
                 const stateComponent = addressComponents.find((component) =>
                   component.types.includes("administrative_area_level_1"),
                 );
                 const stateName = stateComponent?.long_name || null;
 
-                // Cache the result
-                geocodeCache.current[projectId] = stateName;
+                if (stateName !== null) {
+                  geocodeCache.current[projectId] = stateName;
+                }
 
                 setStateNames((prevStateNames) => {
                   const newStateNames = [...prevStateNames];
@@ -234,6 +243,13 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                   return newStateNames;
                 });
               }
+            });
+          } else {
+            console.error("Invalid location data for project:", projectId);
+            setStateNames((prevStateNames) => {
+              const newStateNames = [...prevStateNames];
+              newStateNames[columnIndex] = null;
+              return newStateNames;
             });
           }
         }
