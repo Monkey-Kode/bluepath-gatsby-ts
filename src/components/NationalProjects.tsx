@@ -88,7 +88,7 @@ const ProjectDetails = styled.p`
 
 const ProjectCard = styled.div`
   display: grid;
-  grid-template-columns: 35% 65%;
+  grid-template-columns: 65% 35%;
   padding-block-start: 1rem;
   padding-block-end: 0;
   background-color: #fff;
@@ -128,9 +128,8 @@ const ProjectTitle = styled.h3`
   margin: 0;
   text-align: left;
   text-transform: uppercase;
-  white-space: nowrap;
+  white-space: wrap;
   overflow: hidden;
-  text-overflow: ellipsis;
   max-width: 20ch;
   padding-block-end: 0.5rem;
 `;
@@ -296,33 +295,31 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                     }}
                   >
                     <ProjectCard>
-                      <ProjectImage>
-                        {projectSet[currentIndices[columnIndex]].entity &&
-                          getImageComponent(
-                            projectSet[currentIndices[columnIndex]].entity,
-                          )}
-                      </ProjectImage>
                       <div>
-                        <ProjectState>
+                        <ProjectTitle>
                           {stateNames[columnIndex]
                             ? stateNames[columnIndex]
                             : "Loading..."}
-                        </ProjectState>
-                        <ProjectTitle>
-                          {projectSet[currentIndices[columnIndex]].entity}
+                          : {projectSet[currentIndices[columnIndex]].entity}
                         </ProjectTitle>
                         <ProjectDetails>
+                          {projectSet[currentIndices[columnIndex]].technologies
+                            ?.filter(Boolean)
+                            .join(", ")}
                           <div>
                             $
                             {projectSet[
                               currentIndices[columnIndex]
                             ].size?.toLocaleString()}{" "}
                           </div>
-                          {projectSet[currentIndices[columnIndex]].technologies
-                            ?.filter(Boolean)
-                            .join(", ")}
                         </ProjectDetails>
                       </div>
+                      <ProjectImage>
+                        {projectSet[currentIndices[columnIndex]].entity &&
+                          getImageComponent(
+                            projectSet[currentIndices[columnIndex]].entity,
+                          )}
+                      </ProjectImage>
                     </ProjectCard>
                   </motion.div>
                 )}
