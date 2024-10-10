@@ -80,9 +80,8 @@ const ProjectDetails = styled.p`
   line-height: 1.2;
   margin: 0;
   text-transform: uppercase;
-  > :first-child {
-    padding-block-end: 0.5rem;
-    margin: 0;
+  > * {
+    margin-block-end: 0.5rem;
   }
 `;
 
@@ -303,9 +302,13 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                           : {projectSet[currentIndices[columnIndex]].entity}
                         </ProjectTitle>
                         <ProjectDetails>
-                          {projectSet[currentIndices[columnIndex]].technologies
-                            ?.filter(Boolean)
-                            .join(", ")}
+                          <div>
+                            {projectSet[
+                              currentIndices[columnIndex]
+                            ].technologies
+                              ?.filter(Boolean)
+                              .join(", ")}
+                          </div>
                           <div>
                             $
                             {projectSet[
