@@ -58,13 +58,10 @@ const ProjectColumn = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-inline: 1rem;
-  padding-inline-start: 1.5rem; /* Add more padding to the left */
-  padding-inline-end: 1.5rem; /* Add more padding to the right */
+  padding-inline: 0.5rem;
   position: relative; /* Ensure relative positioning */
   overflow: hidden;
   height: calc(150px + 1.5rem); /* Set a fixed height to avoid collapsing */
-
   border-bottom: var(--border);
   @media (min-width: 769px) {
     border-left: var(--border);
@@ -73,19 +70,8 @@ const ProjectColumn = styled.div`
   }
 `;
 
-const ProjectDetails = styled.p`
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: var(--color-blue);
-  line-height: 1.2;
-  margin: 0;
-  text-transform: uppercase;
-  > * {
-    margin-block-end: 0.5rem;
-  }
-`;
-
 const ProjectCard = styled.div`
+  --font-size: 0.6rem;
   display: grid;
   grid-template-columns: 65% 35%;
   padding-block-start: 1rem;
@@ -99,7 +85,7 @@ const ProjectCard = styled.div`
 const ProjectImage = styled.figure`
   width: 100%;
   height: auto;
-  padding-inline-end: 1rem;
+  padding-inline-start: 1rem;
   display: flex;
   align-items: flex-start;
   margin: 0;
@@ -114,14 +100,19 @@ const ProjectImage = styled.figure`
     }
   }
 `;
-const ProjectState = styled.div`
-  font-size: 0.75rem;
-  text-transform: uppercase;
+const ProjectDetails = styled.p`
+  font-size: var(--font-size);
   font-weight: 400;
-  padding-block-end: 0.5rem;
+  color: var(--color-blue);
+  line-height: 1.2;
+  margin: 0;
+  text-transform: uppercase;
+  > * {
+    margin-block-end: 0.5rem;
+  }
 `;
 const ProjectTitle = styled.h3`
-  font-size: 0.75rem;
+  font-size: var(--font-size);
   font-weight: 400;
   color: var(--color-blue);
   margin: 0;
