@@ -43,12 +43,24 @@ const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  flex-direction: column;
   a {
     padding-block-start: 0;
   }
+
   @media (min-width: 769px) {
     flex-direction: row;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; // for smoother scrolling on iOS
+
+    & > * {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+    }
   }
 `;
 
