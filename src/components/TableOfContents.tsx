@@ -154,10 +154,30 @@ const StyledBox = styled.div`
 `;
 
 const ScrollableContent = styled.div`
+  --scrollbar-width: 0.225625rem;
   max-height: var(--max-height);
   max-width: 80vw;
   overflow-y: scroll;
   overflow-x: hidden;
+
+  /* Ensure scrollbar is always visible in WebKit browsers (like Chrome) */
+  &::-webkit-scrollbar {
+    width: var(--scrollbar-width); /* Adjust width as needed */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Optional: Set track background */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--blue); /* Use custom color */
+    border-radius: 6px; /* Optional: Round the edges */
+    border: var(--scrollbar-width) solid transparent; /* To add some padding */
+  }
+
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--blue) transparent;
 `;
 
 const Heading = styled.h2`
