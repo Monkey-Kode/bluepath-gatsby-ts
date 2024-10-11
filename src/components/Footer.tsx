@@ -128,7 +128,7 @@ const Footer = forwardRef<HTMLDivElement, FooterProps>(function Footer(
   return (
     <FooterStyles ref={ref}>
       <div className="footer-logo">
-        <DarkLogo css={{ maxWidth: "300px", margin: "0 auto" }} />
+        <DarkLogo style={{ maxWidth: "300px", margin: "0 auto" }} />
       </div>
       <div className="wrap">
         {addressesOrdered.map(({ name, address, id, order, details }) => {

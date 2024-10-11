@@ -352,7 +352,6 @@ export default function TableOfContents({
     const currentRef = scrollableRef.current;
     if (currentRef) {
       currentRef.addEventListener("scroll", handleScroll);
-      console.log("scrolling scrollableRef", scrollableRef);
       return () => {
         currentRef.removeEventListener("scroll", handleScroll);
       };
