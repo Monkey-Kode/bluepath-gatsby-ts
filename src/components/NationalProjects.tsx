@@ -43,6 +43,7 @@ const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-block-end: 2rem;
   a {
     padding-block-start: 0;
   }
