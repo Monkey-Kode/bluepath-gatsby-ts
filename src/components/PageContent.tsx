@@ -19,7 +19,7 @@ function PageContent({
   tableOfContentsRef?: InViewHookResponse;
 }) {
   const contentType = content?.contentType?.name;
-  console.log(contentType);
+  // console.log(contentType);
   if (contentType === "Video") {
     return <Video key={content.id} content={content} />;
   } else if (contentType === "Carousel") {

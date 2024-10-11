@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
 import { hardcodedSections } from "../data/tableofcontents";
 import { InViewHookResponse } from "react-intersection-observer";
+// import logRefProperties from "../utils/logRefProperties";
 
 const StyledRoot = styled.div`
   --color-blue: #1d4483;
@@ -341,22 +342,56 @@ export default function TableOfContents({
   const { anchorId, sectionContent, sectionHeading } = content;
   const [isArrowVisible, setIsArrowVisible] = useState(true);
   const scrollableRef = useRef<HTMLDivElement>(null);
-
-  const handleScroll = () => {
-    if (scrollableRef.current) {
-      setIsArrowVisible(false);
-    }
-  };
+  const lastScrollTopRef = useRef(0);
+  const rafIdRef = useRef<number | null>(null);
+  const isScrollingRef = useRef(false);
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const currentRef = scrollableRef.current;
-    if (currentRef) {
-      currentRef.addEventListener("scroll", handleScroll);
-      return () => {
-        currentRef.removeEventListener("scroll", handleScroll);
-      };
-    }
+    const scrollableElement = scrollableRef.current;
+    if (!scrollableElement) return;
+
+    const checkScrollPosition = () => {
+      const { scrollTop, scrollHeight, clientHeight } = scrollableElement;
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
+      const isScrolling = scrollTop !== lastScrollTopRef.current;
+
+      if (isScrolling) {
+        isScrollingRef.current = true;
+        setIsArrowVisible(false);
+        if (hideTimeoutRef.current) {
+          clearTimeout(hideTimeoutRef.current);
+        }
+      }
+
+      if (isAtTop) {
+        setIsArrowVisible(true);
+      } else if (isAtBottom) {
+        setIsArrowVisible(false);
+      } else if (!isScrolling && isScrollingRef.current) {
+        isScrollingRef.current = false;
+        hideTimeoutRef.current = setTimeout(() => {
+          setIsArrowVisible(true);
+        }, 1000); // Hide arrow after 1 second of inactivity
+      }
+
+      lastScrollTopRef.current = scrollTop;
+      rafIdRef.current = requestAnimationFrame(checkScrollPosition);
+    };
+
+    rafIdRef.current = requestAnimationFrame(checkScrollPosition);
+
+    return () => {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+    };
   }, []);
+
   return (
     <div ref={tableOfContentsRef.ref}>
       <StyledRoot id={anchorId ?? "tof"}>
