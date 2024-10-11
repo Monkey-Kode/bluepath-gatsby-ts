@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ArrElement } from "../types";
 import styled, { keyframes } from "styled-components";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
@@ -180,6 +180,20 @@ const ScrollableContent = styled.div`
   scrollbar-color: var(--blue) transparent;
 `;
 
+const DownArrow = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem; /* Adjust the font size as needed */
+  color: var(--blue);
+  transition: opacity 0.3s ease; /* Smooth transition */
+  opacity: 1;
+  &.hidden {
+    opacity: 0;
+  }
+`;
+
 const Heading = styled.h2`
   font-size: 1.670625rem;
   margin-bottom: 20px;
@@ -325,6 +339,25 @@ export default function TableOfContents({
   tableOfContentsRef: InViewHookResponse;
 }) {
   const { anchorId, sectionContent, sectionHeading } = content;
+  const [isArrowVisible, setIsArrowVisible] = useState(true);
+  const scrollableRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (scrollableRef.current) {
+      setIsArrowVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    const currentRef = scrollableRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", handleScroll);
+      console.log("scrolling scrollableRef", scrollableRef);
+      return () => {
+        currentRef.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
   return (
     <div ref={tableOfContentsRef.ref}>
       <StyledRoot id={anchorId ?? "tof"}>
@@ -346,9 +379,12 @@ export default function TableOfContents({
           <StyleLeftContent>
             <StyleOuterBox>
               <StyledBox>
-                <ScrollableContent>
+                <ScrollableContent ref={scrollableRef}>
                   <Heading>{sectionHeading}</Heading>
                   <Content>{sectionContent}</Content>
+                  <DownArrow className={isArrowVisible ? "" : "hidden"}>
+                    ↓
+                  </DownArrow>
                 </ScrollableContent>
               </StyledBox>
             </StyleOuterBox>
