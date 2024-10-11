@@ -120,8 +120,8 @@ const ProjectTitle = styled.h3`
   text-transform: uppercase;
   white-space: wrap;
   overflow: hidden;
-  max-width: 20ch;
   padding-block-end: 0.5rem;
+  line-height: 1.25;
 `;
 
 export type CaseStudy =
