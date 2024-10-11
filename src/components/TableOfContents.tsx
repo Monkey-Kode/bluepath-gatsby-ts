@@ -156,7 +156,8 @@ const StyledBox = styled.div`
 const ScrollableContent = styled.div`
   max-height: var(--max-height);
   max-width: 80vw;
-  overflow-y: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const Heading = styled.h2`
