@@ -290,6 +290,9 @@ const SectionLink = styled.a`
 
 const StyledNationalProjectsWrapper = styled.div`
   grid-column: 1 / -1;
+  @media (max-width: 768px) {
+    margin-inline: 1.5rem;
+  }
 `;
 
 export default function TableOfContents({
