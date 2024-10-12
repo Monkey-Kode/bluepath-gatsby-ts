@@ -8,6 +8,7 @@ const StyledNationalProjects = styled.div`
   --color-orange: hsla(34, 85%, 53%, 1);
   --border: 2px solid var(--color-orange);
   --bottom-margin: 1rem;
+  background-color: white;
   display: flex;
   flex-direction: column;
   color: var(--blue);
@@ -19,7 +20,7 @@ const StyledNationalProjects = styled.div`
     padding-block: 0;
     padding-inline: 2rem;
     background-color: white;
-    margin-block-end: 1rem;
+    padding-block: 0.5rem;
   }
 `;
 
