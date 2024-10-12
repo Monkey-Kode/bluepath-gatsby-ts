@@ -43,6 +43,7 @@ function Plain({
   if (background) {
     return (
       <>
+        {/* @ts-ignore */}
         <StyleBackgroundImage
           id={anchorId}
           Tag="section"
