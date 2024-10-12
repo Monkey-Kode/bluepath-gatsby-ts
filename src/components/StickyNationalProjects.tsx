@@ -28,41 +28,29 @@ export default function StickyNationalProjects({
   tableOfContentsRef,
 }: StickyNationalProjectsProps) {
   const controls = useAnimation();
-  const [prevScrollY, setPrevScrollY] = useState(0);
+  const [prevScrollY, setPrevScrollY] = useState(window.scrollY);
   const [shouldStickyBeVisible, setShouldStickyBeVisible] = useState(false);
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-
-    // // Log the entry values to the console
-    // console.log("Table of Contents Entry:", tableOfContentsRef.entry);
-    // console.log("Footer Entry:", footerRef.entry);
+    const sectionStartY = tableOfContentsRef.entry?.boundingClientRect.top ?? 0;
 
     if (footerRef.inView) {
       // Hide when the footer is in view
       controls.start({ opacity: 0, y: "100%" });
       setShouldStickyBeVisible(false);
-    } else if (!tableOfContentsRef.inView) {
+    } else if (!tableOfContentsRef.inView && currentScrollY > sectionStartY) {
+      // Only manage the appearance when below the section
       if (currentScrollY > prevScrollY) {
         // Show when scrolling down and the Table of Contents is out of view
         controls.start({ opacity: 1, y: 0 });
         setShouldStickyBeVisible(true);
       } else {
-        // When scrolling up, check if we're above the table of contents
-        if (
-          tableOfContentsRef.entry &&
-          currentScrollY < tableOfContentsRef.entry.boundingClientRect.top
-        ) {
-          controls.start({ opacity: 0, y: "100%" });
-          setShouldStickyBeVisible(false);
-        } else {
-          // Keep visible when scrolling up but still below the table of contents
-          controls.start({ opacity: 1, y: 0 });
-          setShouldStickyBeVisible(true);
-        }
+        controls.start({ opacity: 1, y: 0 });
+        setShouldStickyBeVisible(true);
       }
     } else {
-      // Hide when the Table of Contents is in view
+      // Hide when scrolling above the section or when Table of Contents is in view
       controls.start({ opacity: 0, y: "100%" });
       setShouldStickyBeVisible(false);
     }
@@ -71,15 +59,30 @@ export default function StickyNationalProjects({
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    // Initialize visibility state based on initial view observations
+    const sectionStartY = tableOfContentsRef.entry?.boundingClientRect.top ?? 0;
+
+    if (
+      footerRef.inView ||
+      tableOfContentsRef.inView ||
+      window.scrollY <= sectionStartY
+    ) {
+      controls.start({ opacity: 0, y: "100%" });
+      setShouldStickyBeVisible(false);
+    } else {
+      controls.start({ opacity: 1, y: 0 });
+      setShouldStickyBeVisible(true);
+    }
+
+    const onScroll = () => handleScroll();
+    window.addEventListener("scroll", onScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [
-    controls,
     footerRef.inView,
     tableOfContentsRef.inView,
-    prevScrollY,
+    controls,
     tableOfContentsRef.entry,
   ]);
 
