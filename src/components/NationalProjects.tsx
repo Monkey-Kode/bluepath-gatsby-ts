@@ -70,7 +70,7 @@ const ProjectContainer = styled.div`
 `;
 
 const ProjectColumn = styled.div`
-  --project-height: 100px;
+  --project-height: 120px;
   flex: 1;
   display: flex;
   flex-direction: column;
