@@ -28,62 +28,72 @@ export default function StickyNationalProjects({
   tableOfContentsRef,
 }: StickyNationalProjectsProps) {
   const controls = useAnimation();
-  const [prevScrollY, setPrevScrollY] = useState(window.scrollY);
+  const [prevScrollY, setPrevScrollY] = useState(0);
   const [shouldStickyBeVisible, setShouldStickyBeVisible] = useState(false);
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const sectionStartY = tableOfContentsRef.entry?.boundingClientRect.top ?? 0;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPrevScrollY(window.scrollY);
 
-    if (footerRef.inView) {
-      // Hide when the footer is in view
-      controls.start({ opacity: 0, y: "100%" });
-      setShouldStickyBeVisible(false);
-    } else if (!tableOfContentsRef.inView && currentScrollY > sectionStartY) {
-      // Only manage the appearance when below the section
-      if (currentScrollY > prevScrollY) {
-        // Show when scrolling down and the Table of Contents is out of view
-        controls.start({ opacity: 1, y: 0 });
-        setShouldStickyBeVisible(true);
+      const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        const sectionStartY =
+          tableOfContentsRef.entry?.boundingClientRect.top ?? 0;
+
+        if (footerRef.inView) {
+          // Hide when the footer is in view
+          controls.start({ opacity: 0, y: "100%" });
+          setShouldStickyBeVisible(false);
+        } else if (
+          !tableOfContentsRef.inView &&
+          currentScrollY > sectionStartY
+        ) {
+          // Only manage the appearance when below the section
+          if (currentScrollY > prevScrollY) {
+            // Show when scrolling down and the Table of Contents is out of view
+            controls.start({ opacity: 1, y: 0 });
+            setShouldStickyBeVisible(true);
+          } else {
+            controls.start({ opacity: 1, y: 0 });
+            setShouldStickyBeVisible(true);
+          }
+        } else {
+          // Hide when scrolling above the section or when Table of Contents is in view
+          controls.start({ opacity: 0, y: "100%" });
+          setShouldStickyBeVisible(false);
+        }
+
+        setPrevScrollY(currentScrollY);
+      };
+
+      // Initialize visibility state based on initial view observations
+      const sectionStartY =
+        tableOfContentsRef.entry?.boundingClientRect.top ?? 0;
+
+      if (
+        footerRef.inView ||
+        tableOfContentsRef.inView ||
+        window.scrollY <= sectionStartY
+      ) {
+        controls.start({ opacity: 0, y: "100%" });
+        setShouldStickyBeVisible(false);
       } else {
         controls.start({ opacity: 1, y: 0 });
         setShouldStickyBeVisible(true);
       }
-    } else {
-      // Hide when scrolling above the section or when Table of Contents is in view
-      controls.start({ opacity: 0, y: "100%" });
-      setShouldStickyBeVisible(false);
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
     }
-
-    setPrevScrollY(currentScrollY);
-  };
-
-  useEffect(() => {
-    // Initialize visibility state based on initial view observations
-    const sectionStartY = tableOfContentsRef.entry?.boundingClientRect.top ?? 0;
-
-    if (
-      footerRef.inView ||
-      tableOfContentsRef.inView ||
-      window.scrollY <= sectionStartY
-    ) {
-      controls.start({ opacity: 0, y: "100%" });
-      setShouldStickyBeVisible(false);
-    } else {
-      controls.start({ opacity: 1, y: 0 });
-      setShouldStickyBeVisible(true);
-    }
-
-    const onScroll = () => handleScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
   }, [
     footerRef.inView,
     tableOfContentsRef.inView,
     controls,
     tableOfContentsRef.entry,
+    prevScrollY,
   ]);
 
   return (
