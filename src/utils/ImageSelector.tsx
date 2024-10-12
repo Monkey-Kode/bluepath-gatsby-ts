@@ -1,10 +1,10 @@
 import React from "react";
 import Housing from "../images/housing.svg";
 import Industrial from "../images/industrial.svg";
-import School from "../images/school.svg";
+import School from "../images/school-flag.svg";
 import Office from "../images/office.svg";
 import University from "../images/university.svg";
-import Government from "../images/SVG/goverment.svg";
+import Government from "../images/government-flag.svg";
 import Hospital from "../images/hospital.svg";
 
 export const getImageComponent = (
