@@ -7,6 +7,7 @@ import { loader } from "../utils/loader";
 const StyledNationalProjects = styled.div`
   --color-orange: hsla(34, 85%, 53%, 1);
   --border: 2px solid var(--color-orange);
+  --bottom-margin: 1rem;
   display: flex;
   flex-direction: column;
   color: var(--blue);
@@ -18,6 +19,7 @@ const StyledNationalProjects = styled.div`
     padding-block: 0;
     padding-inline: 2rem;
     background-color: white;
+    margin-block-end: 1rem;
   }
 `;
 
@@ -34,6 +36,8 @@ const Heading = styled.h2`
   padding-block-end: 1.5rem;
   border-bottom: var(--border);
   @media (min-width: 769px) {
+    padding-block: 0;
+    margin-block: 0;
     padding-inline-end: 2rem;
     border-bottom: none;
   }
@@ -43,7 +47,7 @@ const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-block-end: 2rem;
+  margin-block-end: 0;
   a {
     padding-block-start: 0;
   }
@@ -66,6 +70,7 @@ const ProjectContainer = styled.div`
 `;
 
 const ProjectColumn = styled.div`
+  --project-height: 100px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -74,12 +79,14 @@ const ProjectColumn = styled.div`
   padding-inline: 0.5rem;
   position: relative; /* Ensure relative positioning */
   overflow: hidden;
-  height: calc(150px + 1.5rem); /* Set a fixed height to avoid collapsing */
+  height: calc(
+    var(--project-height) + 1.5rem
+  ); /* Set a fixed height to avoid collapsing */
   border-bottom: var(--border);
   @media (min-width: 769px) {
     border-left: var(--border);
     border-bottom: none;
-    height: 150px; /* Set a fixed height to avoid collapsing */
+    height: var(--project-height); /* Set a fixed height to avoid collapsing */
   }
 `;
 
@@ -87,12 +94,13 @@ const ProjectCard = styled.div`
   --font-size: 0.6rem;
   display: grid;
   grid-template-columns: 65% 35%;
-  padding-block-start: 1rem;
+  padding-block-start: 0.75rem;
   padding-block-end: 0;
   background-color: #fff;
   text-align: left;
   align-items: flex-start;
   width: 100%;
+  height: 100%;
 `;
 
 const ProjectImage = styled.figure`
