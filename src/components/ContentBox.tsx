@@ -86,6 +86,7 @@ function ContentBox({
 
   const [headerHeight, setHeaderHeight] = useState(0);
   const [contentHeight, setContentHeight] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     if (headerRef.current) {
@@ -95,6 +96,12 @@ function ContentBox({
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, []);
+
+  useEffect(() => {
+    if (inView && !hasAnimated) {
+      setHasAnimated(true);
+    }
+  }, [inView, hasAnimated]);
 
   let ctaLink = "";
   if (sectionContentCTAjumpId) {
@@ -119,15 +126,15 @@ function ContentBox({
         className={classNames("box", sectionHeading)}
         initial={{ height: headerHeight }}
         animate={{
-          height: inView ? headerHeight + contentHeight : headerHeight,
+          height: hasAnimated ? headerHeight + contentHeight : headerHeight,
         }}
-        transition={{ duration: 1, delay: 0.5 }} // Added delay here
+        transition={{ duration: 1, delay: 0.5 }}
       >
         <Header ref={headerRef}>
           {!sectionHeadingPosition && !hidetitle && (
             <motion.h2
               initial={{ opacity: 0 }}
-              animate={{ opacity: inView ? 1 : 0 }}
+              animate={{ opacity: hasAnimated ? 1 : 0 }}
               transition={{ duration: 0.5 }}
             >
               {heading}
@@ -137,7 +144,7 @@ function ContentBox({
             <motion.h2
               className="hide-for-desktop"
               initial={{ opacity: 0 }}
-              animate={{ opacity: inView ? 1 : 0 }}
+              animate={{ opacity: hasAnimated ? 1 : 0 }}
               transition={{ duration: 0.5 }}
             >
               {heading}
@@ -146,7 +153,7 @@ function ContentBox({
           {!sectionHeadingPosition && !hidetitle && (
             <motion.h3
               initial={{ opacity: 0 }}
-              animate={{ opacity: inView ? 1 : 0 }}
+              animate={{ opacity: hasAnimated ? 1 : 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               {subheading}
@@ -156,7 +163,7 @@ function ContentBox({
             <motion.h3
               className="hide-for-desktop"
               initial={{ opacity: 0 }}
-              animate={{ opacity: inView ? 1 : 0 }}
+              animate={{ opacity: hasAnimated ? 1 : 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               {subheading}
@@ -165,14 +172,14 @@ function ContentBox({
         </Header>
         <Divider
           initial={{ scaleX: 0 }}
-          animate={{ scaleX: inView ? 1 : 0 }}
+          animate={{ scaleX: hasAnimated ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 1 }}
         />
         <Content ref={contentRef}>
           <motion.div
             className="wrap"
             initial={{ opacity: 0 }}
-            animate={{ opacity: inView ? 1 : 0 }}
+            animate={{ opacity: hasAnimated ? 1 : 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
           >
             <p>{splitByNewLines(String(sectionContent))}</p>
