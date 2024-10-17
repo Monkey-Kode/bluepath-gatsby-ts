@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
 import { hardcodedSections } from "../data/tableofcontents";
 import { InViewHookResponse } from "react-intersection-observer";
+import TriangleOutline from "../images/triangle-outline.svg";
 // import logRefProperties from "../utils/logRefProperties";
 
 const StyledRoot = styled.div`
@@ -183,13 +184,15 @@ const ScrollableContent = styled.div`
 
 const DownArrow = styled.div`
   position: absolute;
-  bottom: 20%;
+  bottom: 13.5%;
   left: 50%;
-  transform: translateX(-50%);
   font-size: 1.5rem; /* Adjust the font size as needed */
   color: var(--blue);
   transition: opacity 0.3s ease; /* Smooth transition */
   opacity: 1;
+  height: 57.79px;
+  width: 67.49px;
+  transform: translateX(-50%) scale(0.5);
   &.hidden {
     opacity: 0;
   }
@@ -424,7 +427,7 @@ export default function TableOfContents({
                   <Heading>{sectionHeading}</Heading>
                   <Content>{sectionContent}</Content>
                   <DownArrow className={isArrowVisible ? "" : "hidden"}>
-                    ↓
+                    <TriangleOutline className="jump-down" />
                   </DownArrow>
                 </ScrollableContent>
               </StyledBox>
