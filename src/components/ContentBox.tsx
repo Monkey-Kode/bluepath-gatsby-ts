@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import intersectionObserverOptions from "../utils/intersectionObserverOptions";
 import splitByNewLines from "../utils/splitByNewLines";
 import classNames from "classnames";
+import useIsMobile from "../utils/useIsMobile";
 
 const Container = styled(motion.div)`
   padding-inline: 2rem;
@@ -84,6 +85,8 @@ function ContentBox({
   hidetitle: Queries.SanityPage["hidetitle"];
 }) {
   const { ref, inView } = useInView(intersectionObserverOptions);
+  const isMobile = useIsMobile();
+  console.log({ isMobile });
 
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -128,7 +131,7 @@ function ContentBox({
     >
       <Container
         className={classNames("box", sectionHeading)}
-        initial={{ height: headerHeight }}
+        initial={isMobile ? false : { height: headerHeight }}
         animate={{
           height: hasAnimated ? headerHeight + contentHeight : headerHeight,
         }}
@@ -137,7 +140,7 @@ function ContentBox({
         <Header ref={headerRef}>
           {!sectionHeadingPosition && !hidetitle && (
             <motion.h2
-              initial={{ opacity: 0 }}
+              initial={isMobile ? false : { opacity: 0 }}
               animate={{ opacity: hasAnimated ? 1 : 0 }}
               transition={{ duration: 0.5 }}
             >
@@ -147,7 +150,7 @@ function ContentBox({
           {sectionHeadingPosition && !hidetitle && (
             <motion.h2
               className="hide-for-desktop"
-              initial={{ opacity: 0 }}
+              initial={isMobile ? false : { opacity: 0 }}
               animate={{ opacity: hasAnimated ? 1 : 0 }}
               transition={{ duration: 0.5 }}
             >
@@ -156,7 +159,7 @@ function ContentBox({
           )}
           {!sectionHeadingPosition && !hidetitle && (
             <motion.h3
-              initial={{ opacity: 0 }}
+              initial={isMobile ? false : { opacity: 0 }}
               animate={{ opacity: hasAnimated ? 1 : 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
@@ -166,7 +169,7 @@ function ContentBox({
           {sectionHeadingPosition && !hidetitle && (
             <motion.h3
               className="hide-for-desktop"
-              initial={{ opacity: 0 }}
+              initial={isMobile ? false : { opacity: 0 }}
               animate={{ opacity: hasAnimated ? 1 : 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
@@ -175,14 +178,14 @@ function ContentBox({
           )}
         </Header>
         <Divider
-          initial={{ scaleX: 0 }}
+          initial={isMobile ? false : { scaleX: 0 }}
           animate={{ scaleX: hasAnimated ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 1 }}
         />
         <Content ref={contentRef}>
           <motion.div
             className="wrap"
-            initial={{ opacity: 0 }}
+            initial={isMobile ? false : { opacity: 0 }}
             animate={{ opacity: hasAnimated ? 1 : 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
           >
