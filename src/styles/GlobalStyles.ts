@@ -70,7 +70,6 @@ const GlobalStyles = createGlobalStyle`
             height: 100%;
             @media only screen and ( max-width: 800px) {
                 background-color: var(--blue);
-                max-width: calc( 100vw - 2rem);
                 margin-inline: auto;
             }
         }

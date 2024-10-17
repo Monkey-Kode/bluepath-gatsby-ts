@@ -12,6 +12,9 @@ const Container = styled(motion.div)`
   padding-inline: 2rem;
   max-width: 38.5rem;
   overflow: hidden; /* Ensure content doesn't overflow during animation */
+  @media (max-width: 768px) {
+    padding-inline: 1.5rem;
+  }
 `;
 
 const Header = styled.div`
@@ -28,6 +31,7 @@ const Header = styled.div`
 
     @media only screen and (max-width: 800px) {
       text-align: center;
+      font-size: 1.75rem;
     }
   }
 
