@@ -193,6 +193,9 @@ const DownArrow = styled.div`
   &.hidden {
     opacity: 0;
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Heading = styled.h2`
@@ -203,6 +206,9 @@ const Heading = styled.h2`
   font-weight: 300;
   padding-top: 2rem;
   padding-inline: 0.5rem;
+  @media (max-width: 768px) {
+    font-size: 1.575rem;
+  }
 `;
 
 const Content = styled.p`
