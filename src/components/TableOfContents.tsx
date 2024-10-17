@@ -207,7 +207,7 @@ const Heading = styled.h2`
   color: var(--color-blue);
   text-align: center;
   font-weight: 300;
-  padding-block-start: 1.8rem;
+  padding-block-start: 1.75rem;
   padding-inline: 0.5rem;
   @media (max-width: 768px) {
     font-size: 1.575rem;
