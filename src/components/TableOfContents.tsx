@@ -220,7 +220,7 @@ const Content = styled.p`
   margin-bottom: 20px;
   color: var(--color-blue);
   font-weight: var(--font-thin);
-  padding-block-start: 1rem;
+  padding-block-start: 1.25rem;
   @media (min-width: 769px) {
     display: block;
   }
