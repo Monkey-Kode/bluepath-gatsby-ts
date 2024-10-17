@@ -183,7 +183,7 @@ const ScrollableContent = styled.div`
 
 const DownArrow = styled.div`
   position: absolute;
-  bottom: 10px;
+  bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.5rem; /* Adjust the font size as needed */
@@ -196,12 +196,12 @@ const DownArrow = styled.div`
 `;
 
 const Heading = styled.h2`
-  font-size: 1.670625rem;
+  font-size: 1.75rem;
   margin-bottom: 20px;
   color: var(--color-blue);
   text-align: center;
   font-weight: 300;
-  padding-top: 1rem;
+  padding-top: 2rem;
   padding-inline: 0.5rem;
 `;
 
@@ -211,6 +211,7 @@ const Content = styled.p`
   margin-bottom: 20px;
   color: var(--color-blue);
   font-weight: var(--font-thin);
+  padding-block-start: 1rem;
   @media (min-width: 769px) {
     display: block;
   }
