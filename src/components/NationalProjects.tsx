@@ -42,6 +42,11 @@ const Heading = styled.h2`
     padding-inline-end: 2rem;
     border-bottom: none;
   }
+  @media (max-width: 768px) {
+    border-top: var(--border);
+    padding-block: 0.25rem;
+    margin-block-start: 1rem;
+  }
 `;
 
 const ProjectContainer = styled.div`
@@ -88,6 +93,9 @@ const ProjectColumn = styled.div`
     border-left: var(--border);
     border-bottom: none;
     height: var(--project-height); /* Set a fixed height to avoid collapsing */
+  }
+  @media (max-width: 768px) {
+    border-bottom: none;
   }
 `;
 
