@@ -184,7 +184,7 @@ const ScrollableContent = styled.div`
 
 const DownArrow = styled.div`
   position: absolute;
-  bottom: 13.5%;
+  bottom: 15%;
   left: 50%;
   font-size: 1.5rem; /* Adjust the font size as needed */
   color: var(--blue);
@@ -207,7 +207,7 @@ const Heading = styled.h2`
   color: var(--color-blue);
   text-align: center;
   font-weight: 300;
-  padding-top: 2rem;
+  padding-block-start: 1.8rem;
   padding-inline: 0.5rem;
   @media (max-width: 768px) {
     font-size: 1.575rem;
