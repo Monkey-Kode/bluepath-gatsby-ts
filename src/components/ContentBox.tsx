@@ -13,7 +13,7 @@ const Container = styled(motion.div)`
   padding-inline: 2rem;
   max-width: 38.5rem;
   overflow: hidden; /* Ensure content doesn't overflow during animation */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     padding-inline: 1.5rem;
   }
 `;

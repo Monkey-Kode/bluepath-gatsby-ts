@@ -12,7 +12,7 @@ const StyledNationalProjects = styled.div`
   display: flex;
   flex-direction: column;
   color: var(--blue);
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     display: grid;
     grid-template-columns: 1fr 10fr;
     width: 100%;
@@ -36,13 +36,13 @@ const Heading = styled.h2`
   justify-content: center;
   padding-block-end: 1.5rem;
   border-bottom: var(--border);
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     padding-block: 0;
     margin-block: 0;
     padding-inline-end: 2rem;
     border-bottom: none;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     border-top: var(--border);
     padding-block: 0.25rem;
     margin-block-start: 1rem;
@@ -58,11 +58,11 @@ const ProjectContainer = styled.div`
     padding-block-start: 0;
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     flex-direction: row;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     flex-wrap: nowrap;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -89,12 +89,12 @@ const ProjectColumn = styled.div`
     var(--project-height) + 1.5rem
   ); /* Set a fixed height to avoid collapsing */
   border-bottom: var(--border);
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     border-left: var(--border);
     border-bottom: none;
     height: var(--project-height); /* Set a fixed height to avoid collapsing */
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     border-bottom: none;
   }
 `;

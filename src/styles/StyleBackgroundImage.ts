@@ -27,7 +27,7 @@ const StyleBackgroundImage = styled(BackgroundImage)`
   display: flex;
   align-items: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     &::before,
     &::after {
       ${mobileAnimation}
