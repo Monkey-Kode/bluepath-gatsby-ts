@@ -67,6 +67,27 @@ const Divider = styled(motion.hr)`
   transform-origin: left;
 `;
 
+// Define animation variants
+const containerVariants = (headerHeight: number, contentHeight: number) => ({
+  hidden: { height: headerHeight },
+  visible: { height: headerHeight + contentHeight },
+});
+
+const headerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const dividerVariants = {
+  hidden: { scaleX: 0 },
+  visible: { scaleX: 1 },
+};
+
+const contentVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
 function ContentBox({
   sectionHeading,
   sectionContent,
@@ -125,24 +146,24 @@ function ContentBox({
     <div
       ref={ref}
       className={classNames({
-        active: isMobile ? true : inView,
-        inactive: isMobile ? false : !inView,
+        active: inView,
+        inactive: !inView,
       })}
     >
       <Container
         className={classNames("box", sectionHeading)}
-        initial={isMobile ? false : { height: headerHeight }}
-        animate={{
-          height: hasAnimated ? headerHeight + contentHeight : headerHeight,
-        }}
-        transition={{ duration: 1, delay: 0.5 }}
+        initial={isMobile ? "visible" : "hidden"}
+        animate={hasAnimated ? "visible" : "hidden"}
+        variants={containerVariants(headerHeight, contentHeight)}
+        transition={isMobile ? { duration: 0 } : { duration: 1, delay: 0.5 }}
       >
         <Header ref={headerRef}>
           {!sectionHeadingPosition && !hidetitle && (
             <motion.h2
-              initial={isMobile ? false : { opacity: 0 }}
-              animate={{ opacity: hasAnimated ? 1 : 0 }}
-              transition={{ duration: 0.5 }}
+              initial={isMobile ? "visible" : "hidden"}
+              animate={hasAnimated ? "visible" : "hidden"}
+              variants={headerVariants}
+              transition={isMobile ? { duration: 0 } : { duration: 0.5 }}
             >
               {heading}
             </motion.h2>
@@ -150,18 +171,22 @@ function ContentBox({
           {sectionHeadingPosition && !hidetitle && (
             <motion.h2
               className="hide-for-desktop"
-              initial={isMobile ? false : { opacity: 0 }}
-              animate={{ opacity: hasAnimated ? 1 : 0 }}
-              transition={{ duration: 0.5 }}
+              initial={isMobile ? "visible" : "hidden"}
+              animate={hasAnimated ? "visible" : "hidden"}
+              variants={headerVariants}
+              transition={isMobile ? { duration: 0 } : { duration: 0.5 }}
             >
               {heading}
             </motion.h2>
           )}
           {!sectionHeadingPosition && !hidetitle && (
             <motion.h3
-              initial={isMobile ? false : { opacity: 0 }}
-              animate={{ opacity: hasAnimated ? 1 : 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              initial={isMobile ? "visible" : "hidden"}
+              animate={hasAnimated ? "visible" : "hidden"}
+              variants={headerVariants}
+              transition={
+                isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.5 }
+              }
             >
               {subheading}
             </motion.h3>
@@ -169,25 +194,32 @@ function ContentBox({
           {sectionHeadingPosition && !hidetitle && (
             <motion.h3
               className="hide-for-desktop"
-              initial={isMobile ? false : { opacity: 0 }}
-              animate={{ opacity: hasAnimated ? 1 : 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              initial={isMobile ? "visible" : "hidden"}
+              animate={hasAnimated ? "visible" : "hidden"}
+              variants={headerVariants}
+              transition={
+                isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.5 }
+              }
             >
               {subheading}
             </motion.h3>
           )}
         </Header>
         <Divider
-          initial={isMobile ? false : { scaleX: 0 }}
-          animate={{ scaleX: hasAnimated ? 1 : 0 }}
-          transition={{ duration: 0.5, delay: 1 }}
+          initial={isMobile ? "visible" : "hidden"}
+          animate={hasAnimated ? "visible" : "hidden"}
+          variants={dividerVariants}
+          transition={isMobile ? { duration: 0 } : { duration: 0.5, delay: 1 }}
         />
         <Content ref={contentRef}>
           <motion.div
             className="wrap"
-            initial={isMobile ? false : { opacity: 0 }}
-            animate={{ opacity: hasAnimated ? 1 : 0 }}
-            transition={{ duration: 0.5, delay: 1.5 }}
+            initial={isMobile ? "visible" : "hidden"}
+            animate={hasAnimated ? "visible" : "hidden"}
+            variants={contentVariants}
+            transition={
+              isMobile ? { duration: 0 } : { duration: 0.5, delay: 1.5 }
+            }
           >
             <p>{splitByNewLines(String(sectionContent))}</p>
             {ctaLink && sectionContentCTAtext && sectionContentCTAjumpId && (
