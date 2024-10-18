@@ -125,8 +125,8 @@ function ContentBox({
     <div
       ref={ref}
       className={classNames({
-        active: inView,
-        inactive: !inView,
+        active: isMobile ? true : inView,
+        inactive: isMobile ? false : !inView,
       })}
     >
       <Container
