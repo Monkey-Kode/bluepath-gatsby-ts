@@ -14,7 +14,7 @@ const StyledRoot = styled.div`
   align-items: center;
   min-height: 100vh;
   padding-block-start: 2.25rem;
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     padding-block-start: 6.793125rem;
     padding-block-end: 0;
     padding-inline: 2rem;
@@ -30,7 +30,7 @@ const TopSection = styled.div`
   place-items: center;
   place-content: center;
   gap: 1rem; // Optional: adds space between rows
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     grid-template-columns: 4fr 6fr;
   }
 `;
@@ -47,7 +47,7 @@ const StyleLeftContent = styled.div`
   // Customize the scrollbar for Firefox
   scrollbar-color: var(--scrollbar-color) transparent; /* thumb and track color */
   scrollbar-width: thin; /* width of the scrollbar */
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     grid-column: 1 / 2;
     overflow-y: scroll;
     --scrollbar-color: hsla(210.9, 90.56%, 27.9% / 0.4);
@@ -107,7 +107,7 @@ const StyleOuterBox = styled.div`
     height: var(--item-size);
     transform: rotate(-90deg);
   }
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     --box-size: 18.125rem;
     max-width: var(--box-size);
   }
@@ -135,7 +135,7 @@ const StyledBox = styled.div`
     width: var(--item-size);
     height: var(--item-size);
     transform: rotate(90deg);
-    @media (min-width: 769px) {
+    @media (min-width: 1025px) {
       --item-size: 2.25rem;
     }
   }
@@ -150,7 +150,7 @@ const StyledBox = styled.div`
     height: var(--item-size);
     transform: rotate(180deg);
   }
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     max-width: 18.125rem;
   }
 `;
@@ -196,7 +196,7 @@ const DownArrow = styled.div`
   &.hidden {
     opacity: 0;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: none;
   }
 `;
@@ -209,7 +209,7 @@ const Heading = styled.h2`
   font-weight: 300;
   padding-block-start: 1.75rem;
   padding-inline: 0.5rem;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     font-size: 1.575rem;
   }
 `;
@@ -221,7 +221,7 @@ const Content = styled.p`
   color: var(--color-blue);
   font-weight: var(--font-thin);
   padding-block-start: 1.25rem;
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     display: block;
   }
 `;
@@ -229,7 +229,7 @@ const Content = styled.p`
 export const MobileContent = styled(Content)`
   display: block;
   padding-inline: 2rem;
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     display: none;
   }
 `;
@@ -249,12 +249,12 @@ const SectionList = styled.ul`
   place-items: center;
   justify-content: center;
   align-items: center;
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     grid-template-columns: 1fr; // Single column for larger screens
     grid-column: 2 / -1; // This will apply only on larger screens
     gap: 0; // Remove gap for single column layout
   }
-  @media (min-width: 467px) and (max-width: 768px) {
+  @media (min-width: 467px) and (max-width: 1024px) {
     --list-inline-padding: 3.25rem;
   }
   @media (max-width: 466px) {
@@ -284,7 +284,7 @@ const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   background-repeat: no-repeat;
   background-position: left center; /* Ensure initial position */
   cursor: pointer;
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     margin-right: 10px;
     clip-path: url("#clipPath");
   }
@@ -305,7 +305,7 @@ const SectionItem = styled.li`
       animation-play-state: running;
     }
   }
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     --square-size: 96.21px;
     grid-template-columns: var(--square-size) 3fr;
   }
@@ -315,7 +315,7 @@ const SectionItem = styled.li`
 
 const SectionLink = styled.a`
   display: none;
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
     --font-thin: 100;
     text-decoration: none;
     color: var(--color-blue);
@@ -341,7 +341,7 @@ const StyledNationalProjectsWrapper = styled.div`
     display: block; // Show on screens up to 1024px wide
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     margin-inline: 1.5rem;
   }
 `;
