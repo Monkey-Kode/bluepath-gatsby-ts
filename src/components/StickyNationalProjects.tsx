@@ -14,6 +14,9 @@ const StickWrapper = styled(motion.div)`
     right: 0;
     z-index: 10;
   }
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 interface StickyNationalProjectsProps {
