@@ -193,6 +193,7 @@ const DownArrow = styled.div`
   height: 57.79px;
   width: 67.49px;
   transform: translateX(-50%) scale(0.5);
+  pointer-events: none;
   &.hidden {
     opacity: 0;
   }
