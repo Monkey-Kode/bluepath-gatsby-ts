@@ -14,16 +14,6 @@ export const hardcodedSections = [
     },
   },
   {
-    heading: "SOLVING",
-    anchorId: "solving",
-    image: {
-      imageUrl: solvingImge,
-      alt: "Solving",
-      width: 269,
-      height: 180,
-    },
-  },
-  {
     heading: "PARTNERING",
     anchorId: "partnering",
     image: {
@@ -41,6 +31,16 @@ export const hardcodedSections = [
       alt: "Transforming",
       width: 241,
       height: 161,
+    },
+  },
+  {
+    heading: "SOLVING",
+    anchorId: "solving",
+    image: {
+      imageUrl: solvingImge,
+      alt: "Solving",
+      width: 269,
+      height: 180,
     },
   },
 ];
