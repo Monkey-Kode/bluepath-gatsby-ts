@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ArrElement } from "../types";
 import styled, { keyframes } from "styled-components";
 import NationalProjects, { CaseStudy } from "./NationalProjects";
-import { hardcodedSections } from "../data/tableofcontents";
+import { hardcodedSections } from "../data";
 import { InViewHookResponse } from "react-intersection-observer";
 import TriangleOutline from "../images/triangle-outline.svg";
 // import logRefProperties from "../utils/logRefProperties";
