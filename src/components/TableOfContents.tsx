@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ArrElement } from "../types";
 import styled, { keyframes } from "styled-components";
-import NationalProjects, { CaseStudy } from "./NationalProjects";
+import { CaseStudy } from "./NationalProjects";
 import { hardcodedSections } from "../data/tableofcontents";
 import { InViewHookResponse } from "react-intersection-observer";
 import TriangleOutline from "../images/triangle-outline.svg";
-// import logRefProperties from "../utils/logRefProperties";
 
 const StyledRoot = styled.div`
   --color-blue: #1d4483;
@@ -333,16 +332,8 @@ const SectionLink = styled.a`
   }
 `;
 
-const StyledNationalProjectsWrapper = styled.div`
-  grid-column: 1 / -1;
-  @media (max-width: 768px) {
-    margin-inline: 1.5rem;
-  }
-`;
-
 export default function TableOfContents({
   content,
-  caseStudies,
   tableOfContentsRef,
 }: {
   content: ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
@@ -445,9 +436,6 @@ export default function TableOfContents({
           </SectionList>
           <MobileContent>{sectionContent}</MobileContent>
         </TopSection>
-        <StyledNationalProjectsWrapper>
-          <NationalProjects caseStudies={caseStudies} />
-        </StyledNationalProjectsWrapper>
       </StyledRoot>
     </div>
   );
