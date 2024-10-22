@@ -1,6 +1,6 @@
-import React, { SyntheticEvent, useState } from 'react';
-import { encode } from '../utils/encode';
-import { navigate } from 'gatsby';
+import React, { SyntheticEvent, useState } from "react";
+import { encode } from "../utils/encode";
+import { navigate } from "gatsby";
 interface FormEventState {
   [`form-name`]: string;
   [`event-name`]: string;
@@ -12,13 +12,13 @@ interface FormEventState {
 }
 const FormBasic = ({ name }: { name: string | null | undefined }) => {
   const intialFormState = {
-    [`form-name`]: 'events',
-    [`event-name`]: name ?? '',
-    name: '',
-    company: '',
-    title: '',
-    email: '',
-    details: '',
+    [`form-name`]: "events",
+    [`event-name`]: name ?? "",
+    name: "",
+    company: "",
+    title: "",
+    email: "",
+    details: "",
   };
   const [state, setState] = useState<FormEventState>(intialFormState);
   const handleChange = (e: SyntheticEvent) => {
@@ -27,15 +27,14 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const form = e.target as HTMLFormElement;
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
         ...state,
       }),
-    })
-      .then(() => navigate(form.getAttribute('action') as string))
-      .catch((error) => console.log(error));
+    }).then(() => navigate(form.getAttribute("action") as string));
+    // .catch((error) => console.log(error));
   };
   return (
     <form
@@ -46,7 +45,7 @@ const FormBasic = ({ name }: { name: string | null | undefined }) => {
       data-netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
     >
-      <input type="hidden" name="event-name" value={state['event-name']} />
+      <input type="hidden" name="event-name" value={state["event-name"]} />
       <label htmlFor="name">Name:</label>
       <input
         id="name"

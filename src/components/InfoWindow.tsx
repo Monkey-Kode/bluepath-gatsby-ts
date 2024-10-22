@@ -1,77 +1,33 @@
-// @ts-nocheck
-import React from 'react';
-import Housing from '../images/housing.svg';
-import Industrial from '../images/industrial.svg';
-import School from '../images/school.svg';
-import Office from '../images/office.svg';
-import University from '../images/university.svg';
-import Government from '../images/government.svg';
-import Hospital from '../images/hospital.svg';
-import formatNumber from '../utils/formatNumber';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import React from "react";
+import formatNumber from "../utils/formatNumber";
+import { GatsbyImage } from "gatsby-plugin-image";
+import { getImageComponent } from "../utils/ImageSelector";
 
-function FeaturedImage({ image, title, entity }) {
-  if (image) {
+function FeaturedImage({
+  image,
+  title,
+  entity,
+}: {
+  image: Queries.ProjectsQuery["allSanityCasestudies"]["nodes"][number]["image"];
+  title: Queries.ProjectsQuery["allSanityCasestudies"]["nodes"][number]["title"];
+  entity: Queries.ProjectsQuery["allSanityCasestudies"]["nodes"][number]["entity"];
+}) {
+  if (image && image.asset && image.asset.gatsbyImageData) {
     return (
       <div className="image">
-        <GatsbyImage image={image.asset.gatsbyImageData?.src} alt={title} />
+        <GatsbyImage
+          image={image.asset.gatsbyImageData}
+          alt={title ?? "Featured Project"}
+        />
       </div>
     );
-  } else if (entity.length > 0) {
-    const sanitizeEntity = String(entity).toLowerCase().trim();
-    // console.log(sanitizeEntity.includes === 'residential');
-    if (sanitizeEntity.includes('residential')) {
-      return (
-        <div className="image">
-          <Housing />
-        </div>
-      );
-    } else if (sanitizeEntity.includes('commercial')) {
-      return (
-        <div className="image">
-          <Office />
-        </div>
-      );
-    } else if (
-      sanitizeEntity.includes('school') ||
-      sanitizeEntity.includes('education')
-    ) {
-      return (
-        <div className="image">
-          <School />
-        </div>
-      );
-    } else if (
-      sanitizeEntity.includes('industrial') ||
-      sanitizeEntity.includes('agricultural')
-    ) {
-      return (
-        <div className="image">
-          <Industrial />
-        </div>
-      );
-    } else if (sanitizeEntity.includes('university')) {
-      return (
-        <div className="image">
-          <University />
-        </div>
-      );
-    } else if (sanitizeEntity.includes('municipal')) {
-      return (
-        <div className="image">
-          <Government />
-        </div>
-      );
-    } else if (sanitizeEntity.includes('hospital')) {
-      return (
-        <div className="image">
-          <Hospital />
-        </div>
-      );
-    }
+  } else if (entity && entity.length > 0) {
+    const ImageComponent = getImageComponent(entity);
+    return <div className="image">{ImageComponent}</div>;
   }
   return null;
 }
+
 function InfoWindow({
   project: {
     title,
@@ -84,6 +40,8 @@ function InfoWindow({
     size,
     technologies,
   },
+}: {
+  project: Queries.ProjectsQuery["allSanityCasestudies"]["nodes"][number];
 }) {
   return (
     <div id="content">
@@ -99,11 +57,11 @@ function InfoWindow({
             </div>
             <div className="line-content">
               <h3>Financing</h3>
-              <p>{`$${formatNumber(size)}`}</p>
+              <p>{`$${size && formatNumber(size)}`}</p>
             </div>
             <div className="line-content">
               <h3>Technology</h3>
-              <p>{technologies.join(', ')}</p>
+              <p>{technologies?.join(", ")}</p>
             </div>
           </div>
         </div>

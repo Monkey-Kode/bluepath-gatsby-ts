@@ -1,11 +1,11 @@
 // @ts-nocheck
-import React, { useRef, useEffect } from 'react';
-import { MAP_SETTINGS } from '../utils/MAP_SETTINGS';
+import React, { useRef, useEffect } from "react";
+import { MAP_SETTINGS } from "../utils/MAP_SETTINGS";
 // import { graphql, useStaticQuery } from 'gatsby';
 // import icon from '../images/marker.svg';
 
-import { GoogleMap, Marker } from 'react-google-maps';
-import withGoogleMap from 'react-google-maps/lib/withGoogleMap';
+import { GoogleMap, Marker } from "react-google-maps";
+import withGoogleMap from "react-google-maps/lib/withGoogleMap";
 
 const {
   MARKER_SIZE,
@@ -19,7 +19,7 @@ const {
 const MapContainer = ({
   origins,
 }: {
-  origins: Queries.ProjectsMapQuery['allSanityCasestudies']['nodes'];
+  origins: Queries.ProjectsMapQuery["allSanityCasestudies"]["nodes"];
 }) => {
   const mapRef = useRef(null);
   const iconSize = 15;
@@ -30,7 +30,7 @@ const MapContainer = ({
       bounds.extend(new window.google.maps.LatLng(lat, lon));
     });
     mapRef.current.fitBounds(bounds);
-    console.log('origins', origins);
+    // console.log('origins', origins);
   }, [origins]);
   return (
     <GoogleMap
@@ -58,8 +58,8 @@ export default withGoogleMap(
   ({
     origins,
   }: {
-    origins: Queries.ProjectsMapQuery['allSanityCasestudies']['nodes'];
+    origins: Queries.ProjectsMapQuery["allSanityCasestudies"]["nodes"];
   }) => {
     return <MapContainer origins={origins} />;
-  }
+  },
 );

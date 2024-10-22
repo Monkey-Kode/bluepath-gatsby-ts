@@ -1,11 +1,31 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
-import sortObject from '../utils/sortObject';
-import PageContent from './PageContent';
+import React from "react";
+import sortObject from "../utils/sortObject";
+import PageContent from "./PageContent";
+import { CaseStudy } from "./NationalProjects";
+import { graphql, useStaticQuery } from "gatsby";
+import StickyNationalProjects from "./StickyNationalProjects";
+import { InViewHookResponse, useInView } from "react-intersection-observer";
 
-function HomeMain() {
+// Define the type for the footerRef prop
+export type FooterRefProp = {
+  ref: (node?: Element | null) => void;
+  inView: boolean;
+  entry: IntersectionObserverEntry | undefined;
+};
+
+// Define the props for the HomeMain component
+interface HomeMainProps {
+  footerRef: InViewHookResponse;
+}
+
+function HomeMain({ footerRef }: HomeMainProps) {
+  const tableOfContentsRef = useInView({
+    threshold: 0.25,
+  });
+
   const {
     allSanityHomesections: { nodes },
+    allSanityCasestudies: { nodes: caseStudiesNodes },
   }: Queries.HomeMainQuery = useStaticQuery(graphql`
     query HomeMain {
       allSanityHomesections {
@@ -47,19 +67,65 @@ function HomeMain() {
           sectionHeading
         }
       }
+      allSanityCasestudies {
+        nodes {
+          id
+          financing
+          entity
+          content
+          address
+          image {
+            asset {
+              gatsbyImageData(
+                width: 300
+                layout: CONSTRAINED
+                placeholder: BLURRED
+              )
+              metadata {
+                lqip
+              }
+            }
+          }
+          technologies
+          title
+          size
+          location {
+            lat
+            lng
+            alt
+            _key
+          }
+        }
+      }
     }
   `);
   const sections = sortObject(
-    nodes
-  ) as Queries.HomeMainQuery['allSanityHomesections']['nodes'];
-  //   console.log(sections);
+    nodes,
+  ) as Queries.HomeMainQuery["allSanityHomesections"]["nodes"];
+
+  const caseStudies = sortObject(caseStudiesNodes) as CaseStudy[];
+
   return (
     <main>
       {sections.map((content) => {
         return content ? (
-          <PageContent key={content.id} content={content} />
+          <PageContent
+            key={content.id}
+            content={content}
+            caseStudies={caseStudies}
+            tableOfContentsRef={
+              content?.contentType?.name === "TOF"
+                ? tableOfContentsRef
+                : undefined
+            }
+          />
         ) : null;
       })}
+      <StickyNationalProjects
+        caseStudies={caseStudies}
+        footerRef={footerRef}
+        tableOfContentsRef={tableOfContentsRef}
+      />
     </main>
   );
 }

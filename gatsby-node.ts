@@ -1,10 +1,10 @@
-import type { BuildArgs, GatsbyNode, PageProps } from 'gatsby';
+import type { BuildArgs, GatsbyNode, PageProps } from "gatsby";
 // const path = require('path');
-import { resolve } from 'path';
-import { ArrElement } from './src/types';
+import { resolve } from "path";
+import { ArrElement } from "./src/types";
 
 const getPages = async ({ graphql, actions }: BuildArgs) => {
-  const pageTemplate = resolve('./src/templates/Page.tsx');
+  const pageTemplate = resolve("./src/templates/Page.tsx");
   const { data }: any = await graphql(`
     query GetPages {
       allSanityPage {
@@ -48,7 +48,7 @@ const getPages = async ({ graphql, actions }: BuildArgs) => {
     }
   `);
   data?.allSanityPage.nodes.forEach(
-    (page: ArrElement<Queries.GetPagesQuery['allSanityPage']['nodes']>) => {
+    (page: ArrElement<Queries.GetPagesQuery["allSanityPage"]["nodes"]>) => {
       if (page?.slug?.current) {
         actions.createPage({
           path: `${page.slug.current}`,
@@ -58,12 +58,12 @@ const getPages = async ({ graphql, actions }: BuildArgs) => {
           },
         });
       }
-    }
+    },
   );
 };
 
 async function getEvents({ graphql, actions }: BuildArgs) {
-  const pageTemplate = resolve('./src/templates/Event.tsx');
+  const pageTemplate = resolve("./src/templates/Event.tsx");
   const { data }: any = await graphql(`
     query GetEvents {
       allSanityEvent {
@@ -94,9 +94,8 @@ async function getEvents({ graphql, actions }: BuildArgs) {
       }
     }
   `);
-  console.log('event', data);
   data?.allSanityEvent.nodes.forEach(
-    (event: ArrElement<Queries.GetEventsQuery['allSanityEvent']['nodes']>) => {
+    (event: ArrElement<Queries.GetEventsQuery["allSanityEvent"]["nodes"]>) => {
       if (!event?.slug?.current) {
         return null;
       }
@@ -107,9 +106,9 @@ async function getEvents({ graphql, actions }: BuildArgs) {
           slug: event.slug.current,
         },
       });
-    }
+    },
   );
 }
-export const createPages: GatsbyNode['createPages'] = async (params) => {
+export const createPages: GatsbyNode["createPages"] = async (params) => {
   await Promise.all([getPages(params), getEvents(params)]);
 };

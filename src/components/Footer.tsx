@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { forwardRef } from "react";
 // import Logo from './Logo';
-import { graphql, useStaticQuery } from 'gatsby';
-import styled from 'styled-components';
-import sortObject from '../utils/sortObject';
-import splitByNewLines from '../utils/splitByNewLines';
-import Menu from './Menu';
-import DarkLogo from '../images/dark-logo336.svg';
+import { graphql, useStaticQuery } from "gatsby";
+import styled from "styled-components";
+import sortObject from "../utils/sortObject";
+import splitByNewLines from "../utils/splitByNewLines";
+import Menu from "./Menu";
+import DarkLogo from "../images/dark-logo336.svg";
 
 const FooterStyles = styled.footer`
   /* background-color: var(--blue); */
@@ -94,7 +94,14 @@ const FooterStyles = styled.footer`
     }
   }
 `;
-function Footer({ location }: { location?: Location | null | undefined }) {
+type FooterProps = {
+  location?: Location | null | undefined;
+};
+
+const Footer = forwardRef<HTMLDivElement, FooterProps>(function Footer(
+  { location },
+  ref,
+) {
   const { allSanityAddress }: Queries.FooterQuery = useStaticQuery(graphql`
     query Footer {
       allSanityAddress {
@@ -115,12 +122,13 @@ function Footer({ location }: { location?: Location | null | undefined }) {
   `);
 
   const addressesOrdered = sortObject(
-    allSanityAddress.nodes
-  ) as Queries.FooterQuery['allSanityAddress']['nodes'];
+    allSanityAddress.nodes,
+  ) as Queries.FooterQuery["allSanityAddress"]["nodes"];
+
   return (
-    <FooterStyles>
+    <FooterStyles ref={ref}>
       <div className="footer-logo">
-        <DarkLogo css={{ maxWidth: '300px', margin: '0 auto' }} />
+        <DarkLogo style={{ maxWidth: "300px", margin: "0 auto" }} />
       </div>
       <div className="wrap">
         {addressesOrdered.map(({ name, address, id, order, details }) => {
@@ -134,6 +142,6 @@ function Footer({ location }: { location?: Location | null | undefined }) {
       <Menu open={false} location={location} siteLocation="footer" />
     </FooterStyles>
   );
-}
+});
 
 export default Footer;

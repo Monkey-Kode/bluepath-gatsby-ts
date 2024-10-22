@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 // import arrowRight from '../images/arrow-right.png';
 // import arrowLeft from '../images/arrow-left.png';
 const GlobalStyles = createGlobalStyle`
@@ -20,8 +20,9 @@ const GlobalStyles = createGlobalStyle`
         --border-bottom: 2px solid var(--orange);
         --small-content-width: 40vw;
         --mobile-header-height: 153px;
-        --big-heading-size: 3rem;
-        --big-heading-padding: .5em ;
+        --big-heading-size: 8.27rem;
+        --small-heading-size: 2.405625rem;
+        --big-heading-padding: .5rem;
         --box-width: 725px;
         --white: #fff;
     }
@@ -33,7 +34,7 @@ const GlobalStyles = createGlobalStyle`
         padding: 0;
         margin:0;
         box-sizing: border-box;
-
+        scroll-behavior: smooth;
     }
 
 
@@ -66,8 +67,10 @@ const GlobalStyles = createGlobalStyle`
         > div:not(.team-wrapper):not([class*="Contact"]):not([class*="Impact"]){
             display: flex;
             align-items:center;
+            height: 100%;
             @media only screen and ( max-width: 800px) {
                 background-color: var(--blue);
+                margin-inline: auto;
             }
         }
 
@@ -101,11 +104,6 @@ const GlobalStyles = createGlobalStyle`
                 margin-top: 135px;
             }
         }
-        ${'' /* border-left: var(--border-left); */}
-         &[class*="Carousel"] {
-            ${'' /* border-left: none; */}
-            ${'' /* border-right: var(--border-right); */}
-         }
         @media only screen and (max-width: 480px) {
            margin: 0 auto;
         }
@@ -116,9 +114,7 @@ const GlobalStyles = createGlobalStyle`
             font-size: var(--big-heading-size);
             text-align: center;
             color: white;
-            padding: .5em 0;
             margin: 0 1em;
-            border-bottom: var(--border-bottom);
             @media only screen and (max-width: 480px) {
                 font-size: 2rem;
                 padding-left: 0.5rem;
@@ -131,7 +127,7 @@ const GlobalStyles = createGlobalStyle`
             padding-left: 1.5rem;
             padding-right: 1.5rem;
             padding-bottom: 0;
-            margin:0;
+            margin: 0;
         }
     }
 
@@ -189,16 +185,10 @@ const GlobalStyles = createGlobalStyle`
         padding-top: 10px;
         text-transform: none !important;
     }
-    section {
-        a:not([class*="thumb"]) {
-            ${'' /* color: white; */}
-        }
-    }
 
     .box {
         .wrap {
-            ${'' /* background: var(--blueRGB); */}
-            padding-bottom: 1.5em;
+            padding-bottom: 2em;
         }
         p {
             text-align: justify;
@@ -213,62 +203,6 @@ const GlobalStyles = createGlobalStyle`
         a {
             font-weight: 400;
             color: white
-        }
-    }
-
-
-    .inactive, .active {
-        transition: all .5s ease-in-out;
-        h2 {
-            transition: all .5s ease-out;
-            transition-delay: 250ms;
-        }
-        .wrap {
-            transition: opacity 1s ease-in-out;
-            transition-delay: 500ms;
-        }
-        p {
-            transition: opacity 1s ease-in-out;
-            transition-delay: 1000ms;
-        }
-        a {
-            transition: opacity 1s ease-in-out;
-            transition-delay: 1250ms;
-        }
-    }
-
-    .inactive {
-        opacity: 0;
-
-        h2 {
-            opacity: 0;
-
-        }
-        .wrap {
-            opacity: 0;
-        }
-        p {
-            opacity: 0;
-        }
-        a {
-            opacity: 0;
-        }
-    }
-    .active {
-        opacity: 1;
-
-        h2 {
-            opacity: 1;
-
-        }
-        .wrap {
-            opacity: 1;
-        }
-        p {
-            opacity: 1;
-        }
-        a {
-            opacity: 1;
         }
     }
 
@@ -290,8 +224,6 @@ const GlobalStyles = createGlobalStyle`
         }
             justify-content: flex-end;
             .box {
-                ${'' /* border-left: none; */}
-                ${'' /* border-right: var(--border-right); */}
                 h2 {
                     text-align: center;
 
