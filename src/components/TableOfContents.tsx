@@ -29,7 +29,8 @@ const TopSection = styled.div`
   align-items: center;
   place-items: center;
   place-content: center;
-  gap: 1rem; // Optional: adds space between rows
+  gap: 1rem;
+  transform: translateY(-5rem);
   @media (min-width: 1025px) {
     grid-template-columns: 4fr 6fr;
   }
