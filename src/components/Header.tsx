@@ -1,8 +1,8 @@
-import React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
-import Logo from './Logo';
-import Nav from './Nav';
-import styled from 'styled-components';
+import React from "react";
+import { graphql, useStaticQuery } from "gatsby";
+import Logo from "./Logo";
+import Nav from "./Nav";
+import styled from "styled-components";
 
 const StyledHeader = styled.header`
   position: fixed;
@@ -47,6 +47,7 @@ const LogoWrap = styled.div`
     }
   }
 `;
+
 function Header({
   location = window.location,
 }: {

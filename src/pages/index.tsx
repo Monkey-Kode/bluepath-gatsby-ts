@@ -49,7 +49,7 @@ const StyledHeaderWrapper = styled.div`
     }
   }
 `;
-// markup
+
 const IndexPage = ({ location }: PageProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const footerRef = useInView({

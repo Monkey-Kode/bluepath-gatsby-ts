@@ -161,6 +161,7 @@ const ScrollableContent = styled.div`
   max-width: 80vw;
   overflow-y: scroll;
   overflow-x: hidden;
+  cursor: pointer;
 
   /* Ensure scrollbar is always visible in WebKit browsers (like Chrome) */
   &::-webkit-scrollbar {
