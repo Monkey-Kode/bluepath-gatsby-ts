@@ -47,35 +47,7 @@ const StyleLeftContent = styled.div`
   align-items: center;
   position: relative;
   margin-block-end: 0.5rem;
-
-  // Customize the scrollbar for Firefox
-  scrollbar-color: var(--scrollbar-color) transparent; /* thumb and track color */
-  scrollbar-width: thin; /* width of the scrollbar */
-  @media (min-width: 1280px) {
-    grid-column: 1 / 2;
-    overflow-y: scroll;
-    --scrollbar-color: hsla(210.9, 90.56%, 27.9% / 0.4);
-    --scrollbar-color: color(display-p3 0.1137 0.2667 0.5137 / 0.4);
-    --scrollbar-width: 0.225625rem;
-
-    // Custom scrollbar styles
-    &::-webkit-scrollbar {
-      width: var(--scrollbar-width); /* width of the entire scrollbar */
-    }
-
-    &::-webkit-scrollbar-track {
-      background: transparent; /* background of the scrollbar track */
-      border: solid var(--scrollbar-width) transparent; /* to ensure the background doesn’t bleed */
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(
-        --scrollbar-color
-      ); /* color of the scrollbar thumb */
-      border: solid var(--scrollbar-width) transparent; /* add space around thumb */
-      border-radius: 0;
-    }
-  }
+  overflow: hidden;
 `;
 
 const StyleOuterBox = styled.div`
@@ -122,7 +94,7 @@ const StyledBox = styled.div`
   min-height: var(--box-size);
   max-width: var(--box-size);
   max-height: var(--max-height);
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
   padding-inline: calc(var(--border-size) / 2);
   display: flex;
@@ -163,29 +135,30 @@ const ScrollableContent = styled.div`
   --scrollbar-width: 0.225625rem;
   max-height: var(--max-height);
   max-width: 80vw;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  overflow-x: clip;
+  overflow: hidden;
   cursor: pointer;
 
-  /* Ensure scrollbar is always visible in WebKit browsers (like Chrome) */
-  &::-webkit-scrollbar {
-    width: var(--scrollbar-width); /* Adjust width as needed */
-  }
+  @media (min-width: 1280px) {
+    overflow-y: scroll;
+    /* Ensure scrollbar is always visible in WebKit browsers (like Chrome) */
+    &::-webkit-scrollbar {
+      width: var(--scrollbar-width); /* Adjust width as needed */
+    }
 
-  &::-webkit-scrollbar-track {
-    background: transparent; /* Optional: Set track background */
-  }
+    &::-webkit-scrollbar-track {
+      background: transparent; /* Optional: Set track background */
+    }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--blue); /* Use custom color */
-    border-radius: 6px; /* Optional: Round the edges */
-    border: var(--scrollbar-width) solid transparent; /* To add some padding */
-  }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--blue); /* Use custom color */
+      border-radius: 6px; /* Optional: Round the edges */
+      border: var(--scrollbar-width) solid transparent; /* To add some padding */
+    }
 
-  /* For Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: var(--blue) transparent;
+    /* For Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--blue) transparent;
+  }
 `;
 
 const DownArrow = styled.div`
