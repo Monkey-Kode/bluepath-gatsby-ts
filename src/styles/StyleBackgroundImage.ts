@@ -6,7 +6,7 @@ const StyleBackgroundImage = styled(BackgroundImage)`
   background-attachment: fixed !important;
   display: flex;
   align-items: center;
-  background-size: contain;
+  background-size: cover;
 `;
 
 export default StyleBackgroundImage;
