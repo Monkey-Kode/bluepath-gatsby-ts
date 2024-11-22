@@ -37,6 +37,16 @@ const GlobalStyles = createGlobalStyle`
         scroll-behavior: smooth;
     }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
 
     .gatsby-image-wrapper::not(.no-pixel) img[src*=base64\\,] {
         image-rendering: -moz-crisp-edges;
