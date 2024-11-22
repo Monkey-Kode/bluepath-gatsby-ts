@@ -13,8 +13,10 @@ const StyledRoot = styled.div`
   display: grid;
   align-items: center;
   min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100%;
   padding-block-start: 2.25rem;
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     padding-block-start: 6.793125rem;
     padding-block-end: 0;
     padding-inline: 2rem;
@@ -30,9 +32,10 @@ const TopSection = styled.div`
   place-items: center;
   place-content: center;
   gap: 1rem;
-  transform: translateY(-5rem);
-  @media (min-width: 1025px) {
+  max-width: 100%;
+  @media (min-width: 1280px) {
     grid-template-columns: 4fr 6fr;
+    transform: translateY(-5rem);
   }
 `;
 
@@ -48,7 +51,7 @@ const StyleLeftContent = styled.div`
   // Customize the scrollbar for Firefox
   scrollbar-color: var(--scrollbar-color) transparent; /* thumb and track color */
   scrollbar-width: thin; /* width of the scrollbar */
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     grid-column: 1 / 2;
     overflow-y: scroll;
     --scrollbar-color: hsla(210.9, 90.56%, 27.9% / 0.4);
@@ -108,7 +111,7 @@ const StyleOuterBox = styled.div`
     height: var(--item-size);
     transform: rotate(-90deg);
   }
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     --box-size: 18.125rem;
     max-width: var(--box-size);
   }
@@ -136,7 +139,7 @@ const StyledBox = styled.div`
     width: var(--item-size);
     height: var(--item-size);
     transform: rotate(90deg);
-    @media (min-width: 1025px) {
+    @media (min-width: 1280px) {
       --item-size: 2.25rem;
     }
   }
@@ -151,7 +154,7 @@ const StyledBox = styled.div`
     height: var(--item-size);
     transform: rotate(180deg);
   }
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     max-width: 18.125rem;
   }
 `;
@@ -162,6 +165,7 @@ const ScrollableContent = styled.div`
   max-width: 80vw;
   overflow-y: scroll;
   overflow-x: hidden;
+  overflow-x: clip;
   cursor: pointer;
 
   /* Ensure scrollbar is always visible in WebKit browsers (like Chrome) */
@@ -224,7 +228,7 @@ const Content = styled.p`
   color: var(--color-blue);
   font-weight: var(--font-thin);
   padding-block-start: 1.25rem;
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     display: block;
   }
 `;
@@ -232,7 +236,7 @@ const Content = styled.p`
 export const MobileContent = styled(Content)`
   display: block;
   padding-inline: 2rem;
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     display: none;
   }
 `;
@@ -252,7 +256,7 @@ const SectionList = styled.ul`
   place-items: center;
   justify-content: center;
   align-items: center;
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     grid-template-columns: 1fr; // Single column for larger screens
     grid-column: 2 / -1; // This will apply only on larger screens
     gap: 0; // Remove gap for single column layout
@@ -262,6 +266,14 @@ const SectionList = styled.ul`
   }
   @media (max-width: 466px) {
     --list-inline-padding: 2rem;
+  }
+  @media (max-width: 320px) {
+    --list-inline-padding: 0.5rem;
+    grid-template-columns: repeat(
+      2,
+      50%
+    ); // Switch to 2 columns for very small screens
+    gap: 0.25rem;
   }
 `;
 
@@ -287,7 +299,7 @@ const StyledBackgroundFigure = styled.div<{ imageUrl: string }>`
   background-repeat: no-repeat;
   background-position: left center; /* Ensure initial position */
   cursor: pointer;
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     margin-right: 10px;
     clip-path: url("#clipPath");
   }
@@ -308,7 +320,7 @@ const SectionItem = styled.li`
       animation-play-state: running;
     }
   }
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     --square-size: 96.21px;
     grid-template-columns: var(--square-size) 3fr;
   }
@@ -318,11 +330,11 @@ const SectionItem = styled.li`
 
 const SectionLink = styled.a`
   display: none;
-  @media (min-width: 1025px) {
+  @media (min-width: 1280px) {
     --font-thin: 100;
     text-decoration: none;
     color: var(--color-blue);
-    font-size: 4.781875rem;
+    font-size: 3.781875rem;
     font-weight: var(--font-thin);
     padding-left: 2rem;
     display: inline-block;
