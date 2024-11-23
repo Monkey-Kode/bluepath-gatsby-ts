@@ -47,12 +47,14 @@ const Header = styled.div`
   h3 {
     font-size: calc(1.875rem + 0.5vw); /* Adjusts based on viewport width */
     font-style: italic;
+
     text-align: center;
     text-transform: lowercase;
     margin: 0;
     padding-block-end: 1.5rem;
     @media only screen and (max-width: 800px) {
-      line-height: 1.5;
+      line-height: 1;
+      font-size: 1.5rem;
     }
   }
 `;

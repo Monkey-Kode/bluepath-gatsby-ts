@@ -125,9 +125,9 @@ const GlobalStyles = createGlobalStyle`
             font-size: var(--big-heading-size);
             text-align: center;
             color: white;
-            margin: 0 1em;
-            @media only screen and (max-width: 480px) {
-                font-size: 2rem;
+            @media only screen and (max-width: 800px) {
+                --big-heading-size:  clamp(1rem, 7cqi + 1rem, 2.5rem);
+                line-height: 1;
                 padding-left: 0.5rem;
                 padding-right: 0.5rem;
             }
