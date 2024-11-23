@@ -272,16 +272,6 @@ const GlobalStyles = createGlobalStyle`
         }
     }
 
-    #impact-boxes {
-        > div:first-child{
-            p {
-                font-weight: 800;
-                text-align: right;
-            }
-        }
-    }
-
-
     .alignfull {
         margin: 0 calc(50% - 50vw);
         max-width: 100vw;

@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import React from 'react';
-import styled from 'styled-components';
-import { ArrElement } from '../types';
-import formatNumber from '../utils/formatNumber';
+import { motion } from "framer-motion";
+import React from "react";
+import styled from "styled-components";
+import { ArrElement } from "../types";
+import formatNumber from "../utils/formatNumber";
 const StyledContentBoxes = styled.div`
   background: var(--blue);
   padding: 1rem;
@@ -62,6 +62,16 @@ const StyledContentBoxes = styled.div`
   }
 `;
 
+const RightAlignedText = styled.p`
+  font-weight: 800 !important;
+  font-size: 0.75rem;
+  text-align: left; // Default alignment
+
+  @media (min-width: 1280px) {
+    text-align: right;
+  }
+`;
+
 function boxHeading(heading: string) {
   if (heading) {
     return <h3>{formatNumber(Number(heading))}</h3>;
@@ -73,7 +83,7 @@ function boxHeading(heading: string) {
 function ImpactContent({
   content,
 }: {
-  content: ArrElement<Queries.ImpactQuery['allSanityImpact']['nodes']>;
+  content: ArrElement<Queries.ImpactQuery["allSanityImpact"]["nodes"]>;
 }) {
   const {
     content1,
@@ -89,23 +99,23 @@ function ImpactContent({
     <motion.div
       initial={{
         opacity: 0,
-        y: '110%',
+        y: "110%",
       }}
       animate={{
         opacity: 1,
-        y: '0%',
+        y: "0%",
       }}
       exit={{
         opacity: 0,
       }}
     >
       <StyledContentBoxes id="impact-boxes">
-        <div style={{ textTransform: 'capitalize' }}>
+        <div style={{ textTransform: "capitalize" }}>
           {boxHeading(String(contentheading1))}
           {content1 && (
-            <p style={{ fontWeight: '800 !important', textAlign: 'right' }}>
-              {content1}
-            </p>
+            <>
+              <RightAlignedText>{content1}</RightAlignedText>
+            </>
           )}
         </div>
         <div>
