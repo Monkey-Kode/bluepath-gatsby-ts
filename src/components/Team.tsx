@@ -1,5 +1,11 @@
 import { graphql, useStaticQuery } from "gatsby";
-import React, { useState, useEffect, useRef, SyntheticEvent } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  SyntheticEvent,
+} from "react";
 import styled from "styled-components";
 import sortObject from "../utils/sortObject";
 import TeamCard from "./TeamCard";
@@ -48,7 +54,8 @@ const StyledTeamSection = styled(BackgroundImage)`
 
 const StyledThumbs = styled.div`
   overflow-x: auto;
-  scroll-direction: horizontal;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
   padding-block-end: 0.5rem;
 
   /* Custom scrollbar styles */
@@ -81,6 +88,7 @@ const StyledThumbs = styled.div`
     > div {
       max-width: 160px;
       margin: 0 auto;
+      scroll-snap-align: start; /* Add this */
     }
   }
   @media only screen and (max-width: 800px) {
@@ -151,6 +159,19 @@ const ArrowIcon = styled.svg`
   height: 24px;
 `;
 function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [currentSlide, setcurrentSlide] = useState("");
+  const checkScroll = useCallback(() => {
+    const container = thumbsRef.current;
+    if (container) {
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(
+        container.scrollLeft < container.scrollWidth - container.clientWidth,
+      );
+    }
+  }, []);
+
   const { name, background, backgroundColor, mobilebackground } = sanityPage;
   let sectionBg = background;
   if (typeof window !== "undefined") {
@@ -165,7 +186,6 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
   }
 
   const bgColor = backgroundColor ? backgroundColor.hex : "transparent";
-  const [currentSlide, setcurrentSlide] = useState("");
   const {
     allSanityTeam: { nodes: team },
   }: Queries.TeamQuery = useStaticQuery(graphql`
@@ -193,6 +213,16 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
   const members = sortObject(
     team,
   ) as Queries.TeamQuery["allSanityTeam"]["nodes"];
+
+  useEffect(() => {
+    const container = thumbsRef.current;
+    if (container) {
+      container.addEventListener("scroll", checkScroll);
+      // Initial check
+      checkScroll();
+      return () => container.removeEventListener("scroll", checkScroll);
+    }
+  }, [checkScroll]);
 
   useEffect(() => {
     const slider = document.getElementById("team-carousel");
@@ -248,7 +278,7 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
   };
   return (
     <StyledTeamSection
-      id={name}
+      id={name ?? undefined}
       Tag="section"
       backgroundColor={bgColor}
       onClick={(e: SyntheticEvent) => {
