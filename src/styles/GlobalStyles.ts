@@ -71,6 +71,9 @@ const GlobalStyles = createGlobalStyle`
             display: block;
             padding: 0px;
         }
+        @media only screen and ( min-width: 801px) {
+          min-height: 100vh;
+        }
         > div {
             width: 100%;
         }
