@@ -1,8 +1,8 @@
-import { GatsbyImage } from 'gatsby-plugin-image';
-import React, { Dispatch, MouseEvent, SetStateAction, useRef } from 'react';
-import styled from 'styled-components';
-import BlueBox from '../styles/BlueBox';
-import { ArrElement } from '../types';
+import { GatsbyImage } from "gatsby-plugin-image";
+import React, { Dispatch, MouseEvent, SetStateAction, useRef } from "react";
+import styled from "styled-components";
+import BlueBox from "../styles/BlueBox";
+import { ArrElement } from "../types";
 // import classNames from 'classnames';
 // import scrollTo from 'gatsby-plugin-smoothscroll';
 const StyledIcon = styled(GatsbyImage)`
@@ -30,21 +30,26 @@ function ImpactThumb({
   setFirstClick: Dispatch<SetStateAction<boolean>>;
   setActiveBtn: Dispatch<SetStateAction<string>>;
   id: string;
-  content: ArrElement<Queries.ImpactQuery['allSanityImpact']['nodes']>;
+  content: ArrElement<Queries.ImpactQuery["allSanityImpact"]["nodes"]>;
   setCurrentThumb: Dispatch<SetStateAction<string>>;
   currentThumb: string;
 }) {
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null); // Initialize with null
+
   return (
     <StyledWrap id={id} ref={ref} className={className}>
       <BlueBox
-        onClick={function (e: MouseEvent<HTMLButtonElement, MouseEvent>) {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          // Simplified type
           setActiveBtn(currentThumb);
           setCurrentThumb(idInfo);
           setFirstClick(false);
         }}
       >
-        <StyledIcon image={image?.asset?.gatsbyImageData} />
+        <StyledIcon
+          image={image?.asset?.gatsbyImageData || undefined}
+          alt={`${name} icon`} // Add alt prop if required
+        />
         <StyledH2>{name}</StyledH2>
       </BlueBox>
     </StyledWrap>
