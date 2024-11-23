@@ -1,9 +1,10 @@
-import { GatsbyImage } from 'gatsby-plugin-image';
-import React from 'react';
-import styled from 'styled-components';
-import { ArrElement } from '../types';
+import { GatsbyImage } from "gatsby-plugin-image";
+import React from "react";
+import styled from "styled-components";
+import { ArrElement } from "../types";
 const StyledEventsPreview = styled.div`
   margin-top: 2em;
+  padding-inline: 1rem;
   .card {
     display: flex;
     align-items: center;
@@ -50,7 +51,7 @@ const StyledEventsPreview = styled.div`
 const EventsPreview = ({
   sanityEvent,
 }: {
-  sanityEvent: ArrElement<Queries.AllEventsQuery['allSanityEvent']['nodes']>;
+  sanityEvent: ArrElement<Queries.AllEventsQuery["allSanityEvent"]["nodes"]>;
 }) => {
   return (
     <StyledEventsPreview>
@@ -68,12 +69,12 @@ const EventsPreview = ({
         <div className="card-content">
           <small>
             {new Date(
-              String(sanityEvent?.eventAt?.split('-'))
-            ).toLocaleDateString('en-us', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
+              String(sanityEvent?.eventAt?.split("-")),
+            ).toLocaleDateString("en-us", {
+              weekday: "long",
+              year: "numeric",
+              month: "short",
+              day: "numeric",
             })}
           </small>
           <h2>{sanityEvent?.name}</h2>

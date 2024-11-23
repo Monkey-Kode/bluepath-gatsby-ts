@@ -1,9 +1,9 @@
-import React from 'react';
-import { graphql, PageProps } from 'gatsby';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import styled from 'styled-components';
-import EventsPreview from '../components/EventsPreview';
+import React from "react";
+import { graphql, PageProps } from "gatsby";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import styled from "styled-components";
+import EventsPreview from "../components/EventsPreview";
 
 const StyledEvents = styled.div`
   background: rgb(57, 105, 170);
@@ -19,13 +19,10 @@ const StyledEvents = styled.div`
     padding: 3em 0;
     max-width: 1400px;
   }
-
-  @media (max-width: 800px) {
-    h1 {
-      padding-left: 0.5em;
-      margin-bottom: 0;
-      font-size: 2em;
-    }
+  h1 {
+    padding-left: 0.5em;
+    margin-bottom: 0;
+    font-size: 2em;
   }
 `;
 const Events = ({
