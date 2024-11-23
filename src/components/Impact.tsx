@@ -1,14 +1,14 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import StyleBackgroundImage from '../styles/StyleBackgroundImage';
-import sortObject from '../utils/sortObject';
-import ImpactContent from './ImpactContent';
-import ImpactHexagons from './ImpactHexagons';
-import ImpactThumb from './ImpactThumb';
-import classNames from 'classnames';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { convertToBgImage } from 'gbimage-bridge';
+import { graphql, useStaticQuery } from "gatsby";
+import React, { useState } from "react";
+import styled from "styled-components";
+import StyleBackgroundImage from "../styles/StyleBackgroundImage";
+import sortObject from "../utils/sortObject";
+import ImpactContent from "./ImpactContent";
+import ImpactHexagons from "./ImpactHexagons";
+import ImpactThumb from "./ImpactThumb";
+import classNames from "classnames";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { convertToBgImage } from "gbimage-bridge";
 
 const StyledImpactWrapper = styled.div`
   width: 100%;
@@ -44,6 +44,7 @@ const StyledBoxes = styled.div`
     margin-bottom: auto;
     padding-top: 0.65rem;
   }
+
   @media only screen and (min-width: 800px) {
     grid-template-columns: repeat(4, 120px);
     /* grid-auto-flow: column; */
@@ -60,6 +61,13 @@ const StyledBoxes = styled.div`
 
     h2 {
       font-size: 0.5rem;
+    }
+  }
+
+  @media only screen and (max-width: 320px) {
+    grid-template-columns: 1fr;
+    h2 {
+      font-size: 0.4rem;
     }
   }
 `;
@@ -102,6 +110,7 @@ const StyledHeading = styled.h1`
   width: 100%;
   text-align: center;
   text-shadow: 0 0 5px black;
+  padding-block-start: 1.5rem;
   @media only screen and (min-width: 800px) {
     margin-bottom: 0;
     margin-top: 10.5rem;
@@ -112,8 +121,8 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
   const { Heading, background, mobilebackground, backgroundColor, id } =
     sanityPage;
   let sectionBg = background;
-  if (typeof window !== 'undefined') {
-    let mql = window.matchMedia('(max-width: 600px)');
+  if (typeof window !== "undefined") {
+    let mql = window.matchMedia("(max-width: 600px)");
     if (!mql.matches && background) {
       sectionBg = background;
     } else if (mql.matches && mobilebackground) {
@@ -123,10 +132,10 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
     }
   }
   const [currentThumb, setCurrentThumb] = useState<string>(
-    '-99c5c5d6-76bc-5870-8067-abc53e38ca86'
+    "-99c5c5d6-76bc-5870-8067-abc53e38ca86",
   );
   const [activeBtn, setActiveBtn] = useState<string>(
-    '-99c5c5d6-76bc-5870-8067-abc53e38ca86'
+    "-99c5c5d6-76bc-5870-8067-abc53e38ca86",
   );
   const [firstClick, setFirstClick] = useState<boolean>(true);
   const {
@@ -159,10 +168,10 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
       }
     }
   `);
-  const bgColor = backgroundColor ? backgroundColor.hex : '#fff';
+  const bgColor = backgroundColor ? backgroundColor.hex : "#fff";
   const thumbs = sortObject(
-    nodes
-  ) as Queries.ImpactQuery['allSanityImpact']['nodes'];
+    nodes,
+  ) as Queries.ImpactQuery["allSanityImpact"]["nodes"];
   let index = 0;
   const image = sectionBg?.asset?.gatsbyImageData
     ? getImage(sectionBg?.asset?.gatsbyImageData)
@@ -186,9 +195,9 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
             backgroundColor={bgColor}
             className="impact"
             css={{
-              flexDirection: 'column',
-              minHeight: '150vh',
-              height: 'auto',
+              flexDirection: "column",
+              minHeight: "150vh",
+              height: "auto",
             }}
           >
             <StyledCarbonSection className="impact">
@@ -199,9 +208,9 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
             </StyledCarbonSection>
             <div
               style={{
-                flexDirection: 'column',
-                justifyContent: 'center !important',
-                marginTop: '10vh',
+                flexDirection: "column",
+                justifyContent: "center !important",
+                marginTop: "10vh",
               }}
             >
               <StyledHeading>{Heading}</StyledHeading>
@@ -212,7 +221,7 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
                     return (
                       <ImpactThumb
                         className={classNames({
-                          'btn-active': currentThumb === thumb.id,
+                          "btn-active": currentThumb === thumb.id,
                         })}
                         setActiveBtn={setActiveBtn}
                         id={`${index}_impact_thumb`}
