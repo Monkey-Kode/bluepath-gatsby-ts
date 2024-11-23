@@ -272,7 +272,6 @@ const GlobalStyles = createGlobalStyle`
         @media only screen and ( max-width: 800px) {
             width: auto;
             max-width: 100%;
-            margin: 3%;
 
             p {
                 font-size: .75rem;
