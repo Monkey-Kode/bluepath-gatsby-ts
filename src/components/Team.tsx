@@ -128,7 +128,7 @@ const ScrollButton = styled.button<{
   direction: "left" | "right";
   visible?: boolean;
 }>`
-  background: white;
+  background: transparent;
   position: absolute;
   top: 50%;
   ${(props) => (props.direction === "left" ? "left: -20px;" : "right: -20px;")};
@@ -146,11 +146,6 @@ const ScrollButton = styled.button<{
   opacity: ${(props) => (props.visible ? 1 : 0.5)};
   pointer-events: ${(props) => (props.visible ? "auto" : "none")};
   transition: opacity 0.3s ease;
-
-  &:hover {
-    background: #f8f8f8;
-  }
-
   @media only screen and (max-width: 800px) {
     display: none;
   }
@@ -196,7 +191,7 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
     }
   }
 
-  const bgColor = backgroundColor ? backgroundColor.hex : "transparent";
+  const bgColor = backgroundColor?.hex ?? "transparent";
   const {
     allSanityTeam: { nodes: team },
   }: Queries.TeamQuery = useStaticQuery(graphql`
@@ -294,7 +289,7 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
     <StyledTeamSection
       id={name ?? undefined}
       Tag="section"
-      backgroundColor={bgColor}
+      backgroundColor={bgColor ?? undefined}
       onClick={(e: SyntheticEvent) => {
         setcurrentSlide("");
       }}
