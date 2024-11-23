@@ -109,7 +109,6 @@ const GlobalStyles = createGlobalStyle`
 
     .box {
         padding: 0 0 1rem;
-        margin-left: 6vw;
         background: var(--blueRGB);
         &.Terms, &.Privacy {
             @media only screen and (min-width: 480px) {
@@ -199,9 +198,6 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .box {
-        .wrap {
-            padding-bottom: 2em;
-        }
         p {
             text-align: justify;
             line-height: 1.9;
@@ -220,6 +216,7 @@ const GlobalStyles = createGlobalStyle`
 
     .left, .right {
         display: flex;
+        flex-direction: column;
     }
 
     .left {
@@ -275,6 +272,7 @@ const GlobalStyles = createGlobalStyle`
 
             p {
                 font-size: .75rem;
+            }
         }
     }
 

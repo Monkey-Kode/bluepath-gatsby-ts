@@ -10,9 +10,10 @@ import classNames from "classnames";
 import useIsMobile from "../utils/useIsMobile";
 
 const Container = styled(motion.div)`
-  padding-inline: 2rem;
   max-width: 38.5rem;
   overflow: hidden; /* Ensure content doesn't overflow during animation */
+  padding-inline: 2rem;
+  padding-block: 1rem;
   @media (max-width: 1024px) {
     padding-inline: 1.5rem;
   }
@@ -50,6 +51,7 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
+  padding: 1rem;
   a {
     display: block;
     text-align: center;
