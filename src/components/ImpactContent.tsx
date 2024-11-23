@@ -72,13 +72,11 @@ const RightAlignedText = styled.p`
   }
 `;
 
-function boxHeading(heading: string) {
-  if (heading) {
-    return <h3>{formatNumber(Number(heading))}</h3>;
-  } else if (heading) {
-    return <h3>{heading}</h3>;
-  }
-  return null;
+function boxHeading(heading: string | number | null | undefined) {
+  if (!heading || heading === "null") return "";
+  return (
+    <h3>{isNaN(Number(heading)) ? heading : formatNumber(Number(heading))}</h3>
+  );
 }
 function ImpactContent({
   content,
