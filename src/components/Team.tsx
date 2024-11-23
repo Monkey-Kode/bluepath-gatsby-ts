@@ -124,8 +124,11 @@ const StyledInfos = styled.div`
   }
 `;
 
-const ScrollButton = styled.button<{ direction: "left" | "right" }>`
-  background: transparent;
+const ScrollButton = styled.button<{
+  direction: "left" | "right";
+  visible?: boolean;
+}>`
+  background: white;
   position: absolute;
   top: 50%;
   ${(props) => (props.direction === "left" ? "left: -20px;" : "right: -20px;")};
@@ -136,9 +139,17 @@ const ScrollButton = styled.button<{ direction: "left" | "right" }>`
   height: 40px;
   border: none;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: ${(props) => (props.visible ? 1 : 0.5)};
+  pointer-events: ${(props) => (props.visible ? "auto" : "none")};
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    background: #f8f8f8;
+  }
 
   @media only screen and (max-width: 800px) {
     display: none;
@@ -264,7 +275,10 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
   const scroll = (direction: "left" | "right") => {
     const container = thumbsRef.current;
     if (container) {
-      const scrollAmount = 200; // Adjust this value based on your needs
+      const cardWidth = 160; // This should match your card width
+      const gap = 20; // This should match your grid-gap
+      const scrollAmount = cardWidth + gap;
+
       const newScrollPosition =
         direction === "left"
           ? container.scrollLeft - scrollAmount
@@ -311,6 +325,7 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
           <ScrollButton
             direction="left"
             onClick={() => scroll("left")}
+            visible={canScrollLeft}
             aria-label="Scroll left"
           >
             ←
@@ -318,23 +333,22 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
           <ScrollButton
             direction="right"
             onClick={() => scroll("right")}
+            visible={canScrollRight}
             aria-label="Scroll right"
           >
             →
           </ScrollButton>
-          <StyledThumbs id="team-carousel">
-            {members.map(({ id, image, name, role, order }) => {
-              return (
-                <TeamThumbnail
-                  key={id}
-                  id={id}
-                  name={name}
-                  image={image}
-                  role={role}
-                  setcurrentSlide={setcurrentSlide}
-                />
-              );
-            })}
+          <StyledThumbs id="team-carousel" ref={thumbsRef}>
+            {members.map(({ id, image, name, role, order }) => (
+              <TeamThumbnail
+                key={id}
+                id={id}
+                name={name}
+                image={image}
+                role={role}
+                setcurrentSlide={setcurrentSlide}
+              />
+            ))}
           </StyledThumbs>
         </ThumbsContainer>
       </div>
