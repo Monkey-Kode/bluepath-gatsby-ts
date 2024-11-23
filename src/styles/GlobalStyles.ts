@@ -283,7 +283,7 @@ const GlobalStyles = createGlobalStyle`
 
 
     .alignfull {
-        margin: 32px calc(50% - 50vw);
+        margin: 0 calc(50% - 50vw);
         max-width: 100vw;
         width: 100vw;
     }

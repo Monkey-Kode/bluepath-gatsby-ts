@@ -12,6 +12,7 @@ const MapSection = styled.section`
   height: 100vh;
 
   @media only screen and (max-width: 800px) {
+    --mobile-header-height: 0px;
     height: calc(100vh - var(--mobile-header-height));
     min-height: 400px; // Ensure minimum height on mobile
     margin-top: var(--mobile-header-height); // Add margin to account for header
