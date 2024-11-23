@@ -62,7 +62,6 @@ const GlobalStyles = createGlobalStyle`
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        min-height:100vh;
         padding: 2vw;
         scroll-snap-align: start;
         width: 100vw;
@@ -146,13 +145,13 @@ const GlobalStyles = createGlobalStyle`
 
     .hide-for-desktop {
         display: none !important;
-        @media only screen and (max-width: 480px) {
+        @media only screen and (max-width: 800px) {
             display: block !important;
         }
     }
     .hide-for-mobile {
         display: block !important;
-        @media only screen and ( max-width: 479px) {
+        @media only screen and ( max-width: 799px) {
             display: none !important;
         }
     }
@@ -221,9 +220,6 @@ const GlobalStyles = createGlobalStyle`
 
     .left, .right {
         display: flex;
-        @media only screen and (min-width: 1025px) {
-            margin-top: 107px;
-        }
     }
 
     .left {
@@ -254,7 +250,7 @@ const GlobalStyles = createGlobalStyle`
 
 
     .page {
-        @media only screen and ( max-width: 800px) {
+        @media only screen and ( max-width: 799px) {
             section {
                 padding: var(--mobile-header-height) 5% 5%;
 
