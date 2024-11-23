@@ -11,11 +11,19 @@ import useIsMobile from "../utils/useIsMobile";
 
 const Container = styled(motion.div)`
   max-width: 38.5rem;
-  overflow: hidden; /* Ensure content doesn't overflow during animation */
-  padding-inline: 2rem;
-  padding-block: 1rem;
+  overflow: hidden;
+  padding: 0; // Remove padding from container
+
+  // Move padding to inner elements
+  .box-inner {
+    padding-inline: 2rem;
+    padding-block: 1rem;
+  }
+
   @media (max-width: 1024px) {
-    padding-inline: 1.5rem;
+    .box-inner {
+      padding-inline: 1.5rem;
+    }
   }
 `;
 
@@ -29,7 +37,6 @@ const Header = styled.div`
     padding-block-end: 0.5rem;
     line-height: 0.9;
     max-width: 100%; /* Ensures h2 does not exceed the container's width */
-    white-space: nowrap;
 
     @media only screen and (max-width: 800px) {
       text-align: center;
@@ -56,10 +63,6 @@ const Content = styled.div`
     display: block;
     text-align: center;
   }
-
-  p {
-    padding-inline: 0;
-  }
 `;
 
 const Divider = styled(motion.hr)`
@@ -72,7 +75,7 @@ const Divider = styled(motion.hr)`
 // Define animation variants
 const containerVariants = (headerHeight: number, contentHeight: number) => ({
   hidden: { height: headerHeight },
-  visible: { height: headerHeight + contentHeight },
+  visible: { height: headerHeight + contentHeight + 32 }, // Add extra padding value
 });
 
 const headerVariants = {
@@ -120,10 +123,10 @@ function ContentBox({
 
   useEffect(() => {
     if (headerRef.current) {
-      setHeaderHeight(headerRef.current.offsetHeight);
+      setHeaderHeight(headerRef.current.getBoundingClientRect().height);
     }
     if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
+      setContentHeight(contentRef.current.getBoundingClientRect().height);
     }
   }, []);
 
@@ -159,87 +162,91 @@ function ContentBox({
         variants={containerVariants(headerHeight, contentHeight)}
         transition={isMobile ? { duration: 0 } : { duration: 1, delay: 0.5 }}
       >
-        <Header ref={headerRef}>
-          {!sectionHeadingPosition && !hidetitle && (
-            <motion.h2
-              initial={isMobile ? "visible" : "hidden"}
-              animate={hasAnimated ? "visible" : "hidden"}
-              variants={headerVariants}
-              transition={isMobile ? { duration: 0 } : { duration: 0.5 }}
-            >
-              {heading}
-            </motion.h2>
-          )}
-          {sectionHeadingPosition && !hidetitle && (
-            <motion.h2
-              className="hide-for-desktop"
-              initial={isMobile ? "visible" : "hidden"}
-              animate={hasAnimated ? "visible" : "hidden"}
-              variants={headerVariants}
-              transition={isMobile ? { duration: 0 } : { duration: 0.5 }}
-            >
-              {heading}
-            </motion.h2>
-          )}
-          {!sectionHeadingPosition && !hidetitle && (
-            <motion.h3
-              initial={isMobile ? "visible" : "hidden"}
-              animate={hasAnimated ? "visible" : "hidden"}
-              variants={headerVariants}
-              transition={
-                isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.5 }
-              }
-            >
-              {subheading}
-            </motion.h3>
-          )}
-          {sectionHeadingPosition && !hidetitle && (
-            <motion.h3
-              className="hide-for-desktop"
-              initial={isMobile ? "visible" : "hidden"}
-              animate={hasAnimated ? "visible" : "hidden"}
-              variants={headerVariants}
-              transition={
-                isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.5 }
-              }
-            >
-              {subheading}
-            </motion.h3>
-          )}
-        </Header>
-        <Divider
-          initial={isMobile ? "visible" : "hidden"}
-          animate={hasAnimated ? "visible" : "hidden"}
-          variants={dividerVariants}
-          transition={isMobile ? { duration: 0 } : { duration: 0.5, delay: 1 }}
-        />
-        <Content ref={contentRef}>
-          <motion.div
-            className="wrap"
+        <div className="box-inner">
+          <Header ref={headerRef}>
+            {!sectionHeadingPosition && !hidetitle && (
+              <motion.h2
+                initial={isMobile ? "visible" : "hidden"}
+                animate={hasAnimated ? "visible" : "hidden"}
+                variants={headerVariants}
+                transition={isMobile ? { duration: 0 } : { duration: 0.5 }}
+              >
+                {heading}
+              </motion.h2>
+            )}
+            {sectionHeadingPosition && !hidetitle && (
+              <motion.h2
+                className="hide-for-desktop"
+                initial={isMobile ? "visible" : "hidden"}
+                animate={hasAnimated ? "visible" : "hidden"}
+                variants={headerVariants}
+                transition={isMobile ? { duration: 0 } : { duration: 0.5 }}
+              >
+                {heading}
+              </motion.h2>
+            )}
+            {!sectionHeadingPosition && !hidetitle && (
+              <motion.h3
+                initial={isMobile ? "visible" : "hidden"}
+                animate={hasAnimated ? "visible" : "hidden"}
+                variants={headerVariants}
+                transition={
+                  isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.5 }
+                }
+              >
+                {subheading}
+              </motion.h3>
+            )}
+            {sectionHeadingPosition && !hidetitle && (
+              <motion.h3
+                className="hide-for-desktop"
+                initial={isMobile ? "visible" : "hidden"}
+                animate={hasAnimated ? "visible" : "hidden"}
+                variants={headerVariants}
+                transition={
+                  isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.5 }
+                }
+              >
+                {subheading}
+              </motion.h3>
+            )}
+          </Header>
+          <Divider
             initial={isMobile ? "visible" : "hidden"}
             animate={hasAnimated ? "visible" : "hidden"}
-            variants={contentVariants}
+            variants={dividerVariants}
             transition={
-              isMobile ? { duration: 0 } : { duration: 0.5, delay: 1.5 }
+              isMobile ? { duration: 0 } : { duration: 0.5, delay: 1 }
             }
-          >
-            <p>{splitByNewLines(String(sectionContent))}</p>
-            {ctaLink && sectionContentCTAtext && sectionContentCTAjumpId && (
-              <a
-                href={ctaLink}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollTo(ctaLink);
-                }}
-              >
-                {sectionContentCTAtext}
-              </a>
-            )}
-            {ctaLink && sectionContentCTAtext && !sectionContentCTAjumpId && (
-              <Link to={ctaLink}>{sectionContentCTAtext}</Link>
-            )}
-          </motion.div>
-        </Content>
+          />
+          <Content ref={contentRef}>
+            <motion.div
+              className="wrap"
+              initial={isMobile ? "visible" : "hidden"}
+              animate={hasAnimated ? "visible" : "hidden"}
+              variants={contentVariants}
+              transition={
+                isMobile ? { duration: 0 } : { duration: 0.5, delay: 1.5 }
+              }
+            >
+              <p>{splitByNewLines(String(sectionContent))}</p>
+              {ctaLink && sectionContentCTAtext && sectionContentCTAjumpId && (
+                <a
+                  href={ctaLink}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollTo(ctaLink);
+                  }}
+                >
+                  {sectionContentCTAtext}
+                </a>
+              )}
+              {ctaLink && sectionContentCTAtext && !sectionContentCTAjumpId && (
+                <Link to={ctaLink}>{sectionContentCTAtext}</Link>
+              )}
+            </motion.div>
+          </Content>
+        </div>
       </Container>
     </div>
   );

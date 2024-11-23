@@ -134,10 +134,6 @@ const GlobalStyles = createGlobalStyle`
         }
         p {
             color:white;
-            padding-top: 1.5rem;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-            padding-bottom: 0;
             margin: 0;
         }
     }
