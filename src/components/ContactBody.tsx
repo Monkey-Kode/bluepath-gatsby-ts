@@ -1,12 +1,12 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import React, { useState, useEffect } from 'react';
-import sortObject from '../utils/sortObject';
-import classNames from 'classnames';
-import styled from 'styled-components';
-import { loader } from '../utils/loader';
-import splitByNewLines from '../utils/splitByNewLines';
+import { graphql, useStaticQuery } from "gatsby";
+import React, { useState, useEffect } from "react";
+import sortObject from "../utils/sortObject";
+import classNames from "classnames";
+import styled from "styled-components";
+import { loader } from "../utils/loader";
+import splitByNewLines from "../utils/splitByNewLines";
 // import BlockContent from '@sanity/block-content-to-react';
-import emailLink from '../images/bluepath-email-link.png';
+import emailLink from "../images/bluepath-email-link.png";
 const StyledContentArea = styled.div`
   display: grid !important;
   grid-template-columns: 90vw;
@@ -116,10 +116,10 @@ export const ContactBody = ({
   name,
   richcontent,
 }: {
-  id: Queries.SanityPage['id'];
-  Heading: Queries.SanityPage['Heading'];
-  name: Queries.SanityPage['name'];
-  richcontent: Queries.SanityPage['richcontent'];
+  id: Queries.SanityPage["id"];
+  Heading: Queries.SanityPage["Heading"];
+  name: Queries.SanityPage["name"];
+  richcontent: Queries.SanityPage["richcontent"];
 }) => {
   const {
     allSanityAddress: { nodes },
@@ -141,8 +141,8 @@ export const ContactBody = ({
     }
   `);
   const addresses = sortObject(
-    nodes
-  ) as Queries.ContactBodyQuery['allSanityAddress']['nodes'];
+    nodes,
+  ) as Queries.ContactBodyQuery["allSanityAddress"]["nodes"];
   const [showInfo, setShowInfo] = useState(false);
   // const { data } = remoteContent;
   // console.log('rich content graphql', richcontent);
@@ -160,7 +160,7 @@ export const ContactBody = ({
             {
               center: center as any,
               zoom: 12,
-            }
+            },
           ));
         } else {
           return null;
@@ -170,23 +170,23 @@ export const ContactBody = ({
   }, [addresses]);
   return (
     <StyledContentArea>
-      <div style={{ minWidth: '255px' }}>
+      <div style={{ minWidth: "255px" }}>
         {/* {data && generateRichContent(data, Heading, name)} */}
         <h1>{Heading || name}</h1>
         {richcontent?.map((content) =>
-          content?.children?.map((c) => <p key={id}>{c?.text}</p>)
+          content?.children?.map((c) => <p key={id}>{c?.text}</p>),
         )}
 
         <button
           onClick={(e) => {
             e.preventDefault();
-            window.open('mailto:info@bluepathfinance.com');
+            window.open("mailto:info@bluepathfinance.com");
           }}
           style={{
-            transform: 'translate(-13px, -30px)',
-            cursor: 'pointer',
-            padding: '0',
-            background: 'none',
+            transform: "translate(-13px, -30px)",
+            cursor: "pointer",
+            padding: "0",
+            background: "none",
           }}
         >
           <img src={emailLink} alt="Bluepath contact email" />
@@ -201,9 +201,9 @@ export const ContactBody = ({
             onMouseLeave={() => setShowInfo(false)}
           >
             <h3>{splitByNewLines(String(address))}</h3>
-            <StyledMap id={_id}></StyledMap>
+            <StyledMap id={_id ?? undefined}></StyledMap>
             <div
-              className={classNames('details', {
+              className={classNames("details", {
                 active: showInfo === Boolean(_id),
               })}
             >

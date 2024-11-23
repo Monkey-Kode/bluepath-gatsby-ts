@@ -353,7 +353,7 @@ function ImpactHexagons() {
                     return (
                       <StyledHexItem key={hexagon?._key ?? tab.id}>
                         <StyledHexContent
-                          style={bgColor && { background: bgColor }}
+                          style={bgColor ? { background: bgColor } : {}}
                         >
                           {getHexagonContent(hexagon)}
                         </StyledHexContent>
