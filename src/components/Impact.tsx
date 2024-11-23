@@ -9,6 +9,14 @@ import ImpactThumb from "./ImpactThumb";
 import classNames from "classnames";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { convertToBgImage } from "gbimage-bridge";
+import { IBackgroundImageProps } from "gatsby-background-image"; // or wherever your types are from
+
+interface StyleBackgroundImageProps extends IBackgroundImageProps {
+  Tag?: "div" | "section";
+  backgroundColor?: string;
+  className?: string;
+  css?: any; // Replace with your specific CSS type if available
+}
 
 const StyledImpactWrapper = styled.div`
   width: 100%;
@@ -189,10 +197,12 @@ function Impact({ sanityPage }: { sanityPage: Queries.SanityPage }) {
         )}
         {sectionBg ? (
           <StyleBackgroundImage
-            id={id}
+            id={id as string | undefined} // Type assertion approach
+            // OR
+            id={typeof id === "string" ? id : undefined} // Type guard approach
             Tag="section"
-            {...bgImage}
-            backgroundColor={bgColor}
+            {...(bgImage as IBackgroundImageProps)} // Type assertion for spread props
+            backgroundColor={bgColor as string}
             className="impact"
             css={{
               flexDirection: "column",
