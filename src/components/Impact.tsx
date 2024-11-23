@@ -39,6 +39,7 @@ const StyledBoxes = styled.div`
   grid-template-columns: repeat(4, calc(25% - 6px));
   grid-gap: 6px;
   margin: 0 auto;
+  padding-inline: 0.75rem;
   h2 {
     font-size: 0.7rem;
     margin-bottom: auto;
