@@ -1,13 +1,13 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { graphql, useStaticQuery } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
 // import GatsbyImage from 'gatsby-plugin-image';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { hexagonGridItem } from '../styles/mixins';
-import { ArrElement } from '../types';
-import formatNumber from '../utils/formatNumber';
-import isNumeric from '../utils/isNumber';
-import sortObject from '../utils/sortObject';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { hexagonGridItem } from "../styles/mixins";
+import { ArrElement } from "../types";
+import formatNumber from "../utils/formatNumber";
+import isNumeric from "../utils/isNumber";
+import sortObject from "../utils/sortObject";
 
 const StyledHexagonsGrid = styled.div`
   display: flex;
@@ -123,7 +123,7 @@ const StyledHexContent = styled.div`
   @media only screen and (min-width: 800px) and (max-width: 1199px) {
     transform: scale(1.12);
   }
-  &[style*=' rgb(0, 65, 129)'] {
+  &[style*=" rgb(0, 65, 129)"] {
     @media only screen and (max-width: 1600px) {
       padding: 2rem 12%;
     }
@@ -177,7 +177,7 @@ const StyledHexContent = styled.div`
       font-size: 1.4rem;
     }
     @media only screen and (max-width: 484px) {
-      font-size: 0.55rem;
+      font-size: 0.45rem;
       line-height: 1.3;
     }
   }
@@ -239,9 +239,9 @@ const StyledTabs = styled.ul`
 function getHexagonContent(
   hexagon: ArrElement<
     ArrElement<
-      Queries.ImpactHexagonsQuery['allSanityCarbonoffsets']['nodes']
-    >['hexagons']
-  >
+      Queries.ImpactHexagonsQuery["allSanityCarbonoffsets"]["nodes"]
+    >["hexagons"]
+  >,
 ) {
   if (hexagon?.icon) {
     return (
@@ -249,7 +249,7 @@ function getHexagonContent(
         <figure>
           <GatsbyImage
             image={hexagon.icon.asset.gatsbyImageData}
-            alt={hexagon.heading || 'carbon offset'}
+            alt={hexagon.heading || "carbon offset"}
           />
         </figure>
       )
@@ -258,9 +258,9 @@ function getHexagonContent(
     return (
       <div
         style={{
-          display: 'flex',
-          flexFlow: 'column nowrap',
-          justifyContent: 'center',
+          display: "flex",
+          flexFlow: "column nowrap",
+          justifyContent: "center",
         }}
       >
         <h3>
@@ -275,7 +275,7 @@ function getHexagonContent(
 }
 function ImpactHexagons() {
   const [currentTab, setcurrentTab] = useState(
-    '-6d3e02d6-0741-51cd-8588-f975c6e94978'
+    "-6d3e02d6-0741-51cd-8588-f975c6e94978",
   );
   const { allSanityCarbonoffsets }: Queries.ImpactHexagonsQuery =
     useStaticQuery(graphql`
@@ -311,8 +311,8 @@ function ImpactHexagons() {
       }
     `);
   const tabs = sortObject(
-    allSanityCarbonoffsets.nodes
-  ) as Queries.ImpactHexagonsQuery['allSanityCarbonoffsets']['nodes'];
+    allSanityCarbonoffsets.nodes,
+  ) as Queries.ImpactHexagonsQuery["allSanityCarbonoffsets"]["nodes"];
 
   return (
     <div>
@@ -321,7 +321,7 @@ function ImpactHexagons() {
           {tabs.map((tab) => (
             <li key={tab.id}>
               <button
-                className={currentTab === tab.id ? 'active' : ''}
+                className={currentTab === tab.id ? "active" : ""}
                 onClick={() => setcurrentTab(tab.id)}
               >
                 {tab.name}
@@ -335,21 +335,21 @@ function ImpactHexagons() {
           .filter((t) => t.id === currentTab)
           .map((tab) => {
             const hexagons = sortObject(tab.hexagons) as ArrElement<
-              Queries.ImpactHexagonsQuery['allSanityCarbonoffsets']['nodes']
-            >['hexagons'];
+              Queries.ImpactHexagonsQuery["allSanityCarbonoffsets"]["nodes"]
+            >["hexagons"];
             return (
               <StyledHexWrapper key={tab.id}>
                 {hexagons?.map(
                   (
                     hexagon: ArrElement<
                       ArrElement<
-                        Queries.ImpactHexagonsQuery['allSanityCarbonoffsets']['nodes']
-                      >['hexagons']
-                    >
+                        Queries.ImpactHexagonsQuery["allSanityCarbonoffsets"]["nodes"]
+                      >["hexagons"]
+                    >,
                   ) => {
                     const bgColor = hexagon?.backgroundColor
                       ? hexagon?.backgroundColor.hex
-                      : '#ffffff';
+                      : "#ffffff";
                     return (
                       <StyledHexItem key={hexagon?._key ?? tab.id}>
                         <StyledHexContent
@@ -359,7 +359,7 @@ function ImpactHexagons() {
                         </StyledHexContent>
                       </StyledHexItem>
                     );
-                  }
+                  },
                 )}
               </StyledHexWrapper>
             );
