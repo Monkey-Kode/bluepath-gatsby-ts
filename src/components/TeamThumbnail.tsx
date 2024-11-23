@@ -15,6 +15,7 @@ const StyledThumb = styled.a`
   max-width: 160px;
   /* max-height: 148px; */
   width: 160px;
+  overflow: hidden;
   align-self: stretch;
   .gatsby-image-wrapper {
     /* min-height: 300px; */

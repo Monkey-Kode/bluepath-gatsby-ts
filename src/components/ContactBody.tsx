@@ -42,7 +42,6 @@ const StyledColumns = styled.div`
   /* display: flex;
   flex-flow: column wrap; */
   max-width: 430px;
-  max-height: 330px;
   margin: 0;
 
   @media only screen and (max-width: 600px) {

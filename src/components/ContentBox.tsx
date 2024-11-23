@@ -30,7 +30,7 @@ const Container = styled(motion.div)`
 const Header = styled.div`
   /* Container Query Example: Fallback for non-supported browsers simulating container-based font sizing */
   h2 {
-    --big-heading-size: 3.75rem;
+    --big-heading-size: 3.65rem;
     border: none !important;
     margin: 0;
     padding-block-start: 1.5rem;
