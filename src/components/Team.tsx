@@ -139,7 +139,6 @@ const ScrollButton = styled.button<{
   height: 40px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
