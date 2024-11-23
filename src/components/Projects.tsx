@@ -1,17 +1,29 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import React, { useRef, useEffect } from 'react';
-import mapMarker from '../images/marker.png';
-import InfoWindow from './InfoWindow';
-import { renderToString } from 'react-dom/server';
-import { loader } from '../utils/loader';
-import { ArrElement } from '../types';
+import { graphql, useStaticQuery } from "gatsby";
+import React, { useRef, useEffect } from "react";
+import mapMarker from "../images/marker.png";
+import InfoWindow from "./InfoWindow";
+import { renderToString } from "react-dom/server";
+import { loader } from "../utils/loader";
+import { ArrElement } from "../types";
+import styled from "styled-components";
+
+const MapSection = styled.section`
+  width: 100%;
+  height: 100vh;
+
+  @media only screen and (max-width: 800px) {
+    height: calc(100vh - var(--mobile-header-height));
+    min-height: 400px; // Ensure minimum height on mobile
+    margin-top: var(--mobile-header-height); // Add margin to account for header
+  }
+`;
 
 function Projects({
   sanityPage,
 }: {
   sanityPage:
     | Queries.SanityPage
-    | ArrElement<Queries.HomeMainQuery['allSanityHomesections']['nodes']>;
+    | ArrElement<Queries.HomeMainQuery["allSanityHomesections"]["nodes"]>;
 }) {
   const { id } = sanityPage;
   const {
@@ -53,14 +65,14 @@ function Projects({
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const mql = window.matchMedia('(max-width: 600px)');
+    const mql = window.matchMedia("(max-width: 600px)");
     const mapOptions = {
       center: {
         lat: 39.8283,
         lng: -98.5795,
       },
       zoom: 5,
-      mapId: 'f909f5ad32968c2a',
+      mapId: "f909f5ad32968c2a",
     };
 
     if (mql.matches) {
@@ -107,18 +119,18 @@ function Projects({
         myoverlay.draw = function (this: google.maps.OverlayView) {
           const panes = this.getPanes();
           if (panes) {
-            panes.markerLayer.id = 'markerLayer';
+            panes.markerLayer.id = "markerLayer";
           }
         };
         myoverlay.setMap(map);
 
-        marker.addListener('click', function (this: google.maps.MarkerOptions) {
+        marker.addListener("click", function (this: google.maps.MarkerOptions) {
           const thisTitle = Number(this.title);
           const index = thisTitle + 2;
           // currentMark = this;
           document.querySelectorAll(`#markerLayer div img`).forEach((img) => {
-            img.classList.remove('grow');
-            img.classList.remove('shrink');
+            img.classList.remove("grow");
+            img.classList.remove("shrink");
           });
 
           if (activeInfoWindow) {
@@ -128,13 +140,13 @@ function Projects({
           activeInfoWindow = infowindow;
 
           const markerElement = document.querySelector(
-            `#markerLayer div:nth-child(${index}) img`
+            `#markerLayer div:nth-child(${index}) img`,
           ) as HTMLElement;
-          markerElement.classList.add('grow');
+          markerElement.classList.add("grow");
         });
 
         marker.addListener(
-          'mouseover',
+          "mouseover",
           function (this: google.maps.MarkerOptions) {
             const thisTitle = Number(this.title);
             const index = thisTitle + 2;
@@ -146,38 +158,38 @@ function Projects({
             // console.log('activeInfoWindow', activeInfoWindow);
             if (!activeInfoWindow) {
               const image = document.querySelector(
-                `#markerLayer div:nth-child(${index}) img`
+                `#markerLayer div:nth-child(${index}) img`,
               );
 
-              image?.classList.remove('shrink');
-              image?.classList.add('grow');
+              image?.classList.remove("shrink");
+              image?.classList.add("grow");
             }
-          }
+          },
         );
 
         marker.addListener(
-          'mouseout',
+          "mouseout",
           function (this: google.maps.MarkerOptions) {
             const thisTitle = Number(this.title);
             const index = thisTitle + 2;
             if (!activeInfoWindow) {
               const image = document.querySelector(
-                `#markerLayer div:nth-child(${index}) img`
+                `#markerLayer div:nth-child(${index}) img`,
               );
-              image?.classList.remove('grow');
-              image?.classList.add('shrink');
-              image?.classList.remove('shrink');
+              image?.classList.remove("grow");
+              image?.classList.add("shrink");
+              image?.classList.remove("shrink");
             }
-          }
+          },
         );
 
-        infowindow.addListener('closeclick', function () {
+        infowindow.addListener("closeclick", function () {
           // console.log(currentMark.title);
           // const thisTitle = Number(currentMark.title);
           // const index = thisTitle + 2;
           document.querySelectorAll(`#markerLayer div img`).forEach((img) => {
-            img.classList.remove('grow');
-            img.classList.remove('shrink');
+            img.classList.remove("grow");
+            img.classList.remove("shrink");
           });
           activeInfoWindow = null;
         });
@@ -188,7 +200,7 @@ function Projects({
     });
   }, [projects]);
 
-  return <section id={id} ref={ref}></section>;
+  return <MapSection id={id} ref={ref}></MapSection>;
 }
 
 export default Projects;
