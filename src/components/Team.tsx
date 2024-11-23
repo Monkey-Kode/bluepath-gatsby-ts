@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
-import React, { useState, useEffect, SyntheticEvent } from "react";
+import React, { useState, useEffect, useRef, SyntheticEvent } from "react";
 import styled from "styled-components";
 import sortObject from "../utils/sortObject";
 import TeamCard from "./TeamCard";
@@ -115,6 +115,41 @@ const StyledInfos = styled.div`
     margin-bottom: 0;
   }
 `;
+
+const ScrollButton = styled.button<{ direction: "left" | "right" }>`
+  background: transparent;
+  position: absolute;
+  top: 50%;
+  ${(props) => (props.direction === "left" ? "left: -20px;" : "right: -20px;")};
+  transform: translateY(-50%);
+  z-index: 10;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: 800px) {
+    display: none;
+  }
+`;
+
+const ThumbsContainer = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 0 30px;
+
+  @media only screen and (max-width: 800px) {
+    padding: 0;
+  }
+`;
+const ArrowIcon = styled.svg`
+  width: 24px;
+  height: 24px;
+`;
 function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
   const { name, background, backgroundColor, mobilebackground } = sanityPage;
   let sectionBg = background;
@@ -193,6 +228,24 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
     ? getImage(sectionBg?.asset?.gatsbyImageData)
     : null;
   const bgImage = image ? convertToBgImage(image) : null;
+
+  const thumbsRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    const container = thumbsRef.current;
+    if (container) {
+      const scrollAmount = 200; // Adjust this value based on your needs
+      const newScrollPosition =
+        direction === "left"
+          ? container.scrollLeft - scrollAmount
+          : container.scrollLeft + scrollAmount;
+
+      container.scrollTo({
+        left: newScrollPosition,
+        behavior: "smooth",
+      });
+    }
+  };
   return (
     <StyledTeamSection
       id={name}
@@ -224,20 +277,36 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
             }
           })}
         </StyledInfos>
-        <StyledThumbs id="team-carousel">
-          {members.map(({ id, image, name, role, order }) => {
-            return (
-              <TeamThumbnail
-                key={id}
-                id={id}
-                name={name}
-                image={image}
-                role={role}
-                setcurrentSlide={setcurrentSlide}
-              />
-            );
-          })}
-        </StyledThumbs>
+        <ThumbsContainer>
+          <ScrollButton
+            direction="left"
+            onClick={() => scroll("left")}
+            aria-label="Scroll left"
+          >
+            ←
+          </ScrollButton>
+          <ScrollButton
+            direction="right"
+            onClick={() => scroll("right")}
+            aria-label="Scroll right"
+          >
+            →
+          </ScrollButton>
+          <StyledThumbs id="team-carousel">
+            {members.map(({ id, image, name, role, order }) => {
+              return (
+                <TeamThumbnail
+                  key={id}
+                  id={id}
+                  name={name}
+                  image={image}
+                  role={role}
+                  setcurrentSlide={setcurrentSlide}
+                />
+              );
+            })}
+          </StyledThumbs>
+        </ThumbsContainer>
       </div>
     </StyledTeamSection>
   );
