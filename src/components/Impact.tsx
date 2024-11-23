@@ -90,7 +90,6 @@ const StyledCarbonSection = styled.div`
   background: transparent;
 
   @media (min-width: 800px) {
-    margin-top: 20vh;
     transform: scale(0.8);
   }
 

@@ -243,11 +243,11 @@ const GlobalStyles = createGlobalStyle`
 
 
     .page {
-        @media only screen and ( max-width: 799px) {
-            section {
-                padding: var(--mobile-header-height) 5% 5%;
+        section {
+            padding: calc( var(--mobile-header-height) + 2rem) 5% 5%;
 
-            }
+        }
+        @media only screen and ( max-width: 799px) {
             .hide-for-desktop.image-atop + section {
                 padding-top: 10%;
             }
