@@ -187,7 +187,7 @@ const DownArrow = styled.div`
 
 const Heading = styled.h2`
   font-size: 1.75rem;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   color: var(--color-blue);
   text-align: center;
   font-weight: 300;
@@ -195,6 +195,7 @@ const Heading = styled.h2`
   padding-inline: 0.5rem;
   @media (max-width: 1200px) {
     font-size: 1.5rem;
+    padding-block-start: 0.25rem;
   }
   @media (max-width: 1024px) {
     font-size: 1.575rem;
