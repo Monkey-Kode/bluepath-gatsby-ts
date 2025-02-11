@@ -189,6 +189,9 @@ const Heading = styled.h2`
   font-weight: 300;
   padding-block-start: 1.75rem;
   padding-inline: 0.5rem;
+  @media (max-width: 1200px) {
+    font-size: 1.5rem;
+  }
   @media (max-width: 1024px) {
     font-size: 1.575rem;
   }
