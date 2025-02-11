@@ -176,6 +176,10 @@ const DownArrow = styled.div`
   &.hidden {
     opacity: 0;
   }
+  @media (max-width: 1200px) {
+    transform: translateX(-50%) scale(0.3);
+    bottom: 0%;
+  }
   @media (max-width: 1024px) {
     display: none;
   }
