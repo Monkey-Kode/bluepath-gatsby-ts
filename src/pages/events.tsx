@@ -1,9 +1,9 @@
+import { graphql, type PageProps } from "gatsby";
 import React from "react";
-import { graphql, PageProps } from "gatsby";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import styled from "styled-components";
 import EventsPreview from "../components/EventsPreview";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const StyledEvents = styled.div`
   background: rgb(57, 105, 170);
@@ -26,33 +26,33 @@ const StyledEvents = styled.div`
   }
 `;
 const Events = ({
-  data: {
-    allSanityEvent: { nodes },
-  },
-  location,
+	data: {
+		allSanityEvent: { nodes },
+	},
+	location,
 }: PageProps<Queries.AllEventsQuery>) => {
-  //   console.log('data', data);
-  // need to sort nodes by eventAt date
-  const sortedEvents = nodes.sort((a, b) => {
-    const aDate = new Date(a.eventAt);
-    const bDate = new Date(b.eventAt);
-    return bDate.getTime() - aDate.getTime();
-  });
-  return (
-    <div>
-      <Header location={location} />
-      <StyledEvents>
-        <div className="wrap">
-          <h1>Events</h1>
-          {sortedEvents.map((sanityEvent) => {
-            const { id } = sanityEvent;
-            return <EventsPreview sanityEvent={sanityEvent} key={id} />;
-          })}
-        </div>
-      </StyledEvents>
-      <Footer location={location} />
-    </div>
-  );
+	//   console.log('data', data);
+	// need to sort nodes by eventAt date
+	const sortedEvents = nodes.sort((a, b) => {
+		const aDate = new Date(a.eventAt);
+		const bDate = new Date(b.eventAt);
+		return bDate.getTime() - aDate.getTime();
+	});
+	return (
+		<div>
+			<Header location={location} />
+			<StyledEvents>
+				<div className="wrap">
+					<h1>News & Events</h1>
+					{sortedEvents.map((sanityEvent) => {
+						const { id } = sanityEvent;
+						return <EventsPreview sanityEvent={sanityEvent} key={id} />;
+					})}
+				</div>
+			</StyledEvents>
+			<Footer location={location} />
+		</div>
+	);
 };
 export const query = graphql`
   query AllEvents {
