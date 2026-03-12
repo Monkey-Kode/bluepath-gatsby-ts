@@ -87,6 +87,18 @@
     "prettier": "^3.3.3",
     "typescript": "^5.6.2"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "gatsby",
+      "gatsby-cli",
+      "lmdb",
+      "msgpackr-extract",
+      "sharp",
+      "unix-dgram"
+    ]
+  },
   "volta": {
     "node": "18.20.4",
     "yarn": "1.22.22"
