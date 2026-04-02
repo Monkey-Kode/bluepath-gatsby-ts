@@ -89,6 +89,7 @@ function HomeMain({ footerRef }: HomeMainProps) {
           technologies
           title
           size
+          state
           location {
             lat
             lng

@@ -243,9 +243,10 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                       <div>
                         <ProjectTitle>
                           {(() => {
-                            const state = extractState(
-                              projectSet[currentIndices[columnIndex]].address,
-                            );
+                            const project =
+                              projectSet[currentIndices[columnIndex]];
+                            const state =
+                              project.state || extractState(project.address);
                             return state ? `${state}: ` : "";
                           })()}
                           {projectSet[currentIndices[columnIndex]].entity}
