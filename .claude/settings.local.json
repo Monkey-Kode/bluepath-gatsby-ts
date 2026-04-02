@@ -1,0 +1,51 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/jullweber/Sites/bluepath/bluepath-gatsby-ts/.eslintrc* /Users/jullweber/Sites/bluepath/bluepath-gatsby-ts/.eslintrc.json /Users/jullweber/Sites/bluepath/bluepath-gatsby-ts/eslint.config* 2>/dev/null || echo \"no eslint config found\")",
+      "Bash(pnpm start:*)",
+      "Bash(pnpm rebuild:*)",
+      "Bash(cd /Users/jullweber/Sites/bluepath/bluepath-gatsby-ts/node_modules/.pnpm/sharp@0.32.6/node_modules/sharp && node install/check.js 2>&1 || node install/libvips.js 2>&1 && node install/dll-copy.js 2>&1)",
+      "Bash(pnpm approve-builds:*)",
+      "Bash(pnpm install:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(npx netlify:*)",
+      "Bash(netlify deploy:list 2>&1 | head -20)",
+      "Bash(netlify status:*)",
+      "WebFetch(domain:bluepathfinance.com)",
+      "WebFetch(domain:maps.googleapis.com)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(curl:*)",
+      "Bash(git commit:*)",
+      "Bash(tmux-bridge read:*)",
+      "Read(//Users/jullweber/.sanity/**)",
+      "Read(//Users/jullweber/**)",
+      "mcp__Sanity__query_documents",
+      "Bash(npx tsc:*)",
+      "Bash(npx sanity:*)",
+      "Bash(pnpm sanity:*)",
+      "Bash(node_modules/.bin/sanity exec:*)",
+      "Bash(ls:*)",
+      "Bash(SANITY_TOKEN=\"sk56cmihSIv0LfTtXlOudwJVC0MxUmTWs9pLSDXACiMyO0fGOc9pHSfXY6GYJ73NbyF4apm9UjPgl8V5nGQClMAAlaDwJNdtvamWfnr7F4ra473EXrXYmrZN7gDthYpK7L0fBnwT40I3kJmtBvzThrkJbSe8uwEpzdMJXEqUDqNKqUSIZ1IG\" node:*)",
+      "Bash(node:*)",
+      "Bash(SANITY_TOKEN=\"skW3Qov3IJWlse5U6gE5nUKdJ9sU9vcUrXgZtNm9vsejiZYDW1XsIlWGXDc6rzbMaqVV2OhNFbpmVCmNXtDXov6etRSK1hkXSXAQF6BFHqRKLZF8XPrzRylKa1XLgX7td96EH6b98Iz5BPZ4Ak5NoAqVb02fbgXOhkZLzmrkzCnUmwyNpaP6\" node:*)",
+      "mcp__Sanity__patch_document_from_json",
+      "Bash(volta list:*)",
+      "Bash(pnpm:*)",
+      "Bash(./node_modules/.bin/sanity deploy:*)",
+      "Bash(./node_modules/.bin/sanity graphql:*)",
+      "mcp__netlify__netlify-deploy-services-reader",
+      "Bash(netlify api:*)",
+      "Bash(python3 -c ':*)",
+      "Bash(netlify deploy:*)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "context7",
+    "Sanity",
+    "netlify"
+  ]
+}
