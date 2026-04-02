@@ -8,24 +8,24 @@ import { ArrElement } from "../types";
 const StyledThumb = styled.a`
   background: var(--blue);
   display: grid;
-  grid-template-rows: 150px repeat(2, 0.1fr);
+  grid-template-rows: auto auto auto;
   height: 100%;
   padding-top: 0;
   margin: 0 auto;
-  max-width: 160px;
-  /* max-height: 148px; */
-  width: 160px;
+  max-width: 200px;
+  width: 200px;
+  @media only screen and (max-width: 1023px) {
+    width: auto;
+    max-width: none;
+  }
   overflow: hidden;
   align-self: stretch;
   .gatsby-image-wrapper {
-    /* min-height: 300px; */
-
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
     border-bottom: var(--border-bottom);
     img {
       object-position: top center !important;
-    }
-    @media only screen and (max-width: 800px) {
-      /* min-height: 500px; */
     }
   }
   h3 {
@@ -50,7 +50,7 @@ const StyledThumb = styled.a`
   }
   .content {
     height: 100%;
-    padding: 1rem 0.5rem 0;
+    padding: 1rem 0.5rem 1.5rem;
     display: flex;
     align-items: center;
     flex-direction: column;

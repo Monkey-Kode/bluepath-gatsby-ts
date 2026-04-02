@@ -77,39 +77,32 @@ const StyledThumbs = styled.div`
     background: #555;
   }
 
-  @media only screen and (min-width: 801px) {
-    display: grid;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 16px;
+  align-items: start;
+
+  @media only screen and (min-width: 769px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media only screen and (min-width: 1024px) {
     grid-auto-flow: column;
     grid-template-columns: auto;
     grid-gap: 20px;
-    align-items: flex-start;
     align-items: center;
     margin: 0 auto;
     > div {
-      max-width: 160px;
+      max-width: 200px;
       margin: 0 auto;
-      scroll-snap-align: start; /* Add this */
-    }
-  }
-  @media only screen and (max-width: 800px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-flow: row wrap;
-    > div {
-      flex: 1 50%;
+      scroll-snap-align: start;
     }
   }
 
-  @media only screen and (max-width: 800px) {
-    > div {
-      flex: 1 100%;
-    }
-  }
   > div {
     height: 100%;
-    @media only screen and (max-width: 800px) {
-      padding: 10% 5%;
+    @media only screen and (max-width: 1023px) {
+      padding: 0;
       margin: 0 auto;
     }
   }
@@ -145,7 +138,7 @@ const ScrollButton = styled.button<{
   opacity: ${(props) => (props.visible ? 1 : 0.5)};
   pointer-events: ${(props) => (props.visible ? "auto" : "none")};
   transition: opacity 0.3s ease;
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 1023px) {
     display: none;
   }
 `;
@@ -155,7 +148,7 @@ const ThumbsContainer = styled.div`
   width: 100%;
   padding: 0 30px;
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 1023px) {
     padding: 0;
   }
 `;
@@ -269,7 +262,7 @@ function Team({ sanityPage }: { sanityPage: Queries.SanityPage }) {
   const scroll = (direction: "left" | "right") => {
     const container = thumbsRef.current;
     if (container) {
-      const cardWidth = 160; // This should match your card width
+      const cardWidth = 200; // This should match your card width
       const gap = 20; // This should match your grid-gap
       const scrollAmount = cardWidth + gap;
 
