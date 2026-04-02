@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "gatsby"; // Import Link from gatsby
+import { Link } from "gatsby";
 import { getImageComponent } from "../utils/ImageSelector";
-import { loader } from "../utils/loader";
+import { extractState } from "../utils/extractState";
 const StyledNationalProjects = styled.div`
   --color-orange: hsla(34, 85%, 53%, 1);
   --border: 2px solid var(--color-orange);
@@ -188,13 +188,6 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
     chunkProjects(caseStudies, 4),
   );
   const [currentIndices, setCurrentIndices] = useState([0, 0, 0, 0]);
-  const [stateNames, setStateNames] = useState<(string | null)[]>([
-    null,
-    null,
-    null,
-    null,
-  ]);
-  const geocodeCache = useRef<{ [projectId: string]: string }>({});
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -207,74 +200,6 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
 
     return () => clearInterval(interval);
   }, [projectSets]);
-
-  useEffect(() => {
-    loader.load().then(() => {
-      const geocoder = new window.google.maps.Geocoder();
-
-      currentIndices.forEach((currentIndex, columnIndex) => {
-        const project = projectSets[columnIndex][currentIndex];
-        const projectId = project.id;
-
-        if (
-          geocodeCache.current &&
-          typeof projectId === "string" &&
-          geocodeCache.current[projectId]
-        ) {
-          // Use cached state name
-          setStateNames((prevStateNames) => {
-            const newStateNames = [...prevStateNames];
-            newStateNames[columnIndex] = geocodeCache.current[projectId];
-            return newStateNames;
-          });
-        } else {
-          const location = project.location;
-
-          if (
-            location &&
-            typeof location.lat === "number" &&
-            typeof location.lng === "number"
-          ) {
-            const latlng = { lat: location.lat, lng: location.lng };
-
-            geocoder.geocode({ location: latlng }, (results, status) => {
-              if (status === "OK" && results && results[0]) {
-                const addressComponents = results[0].address_components;
-                const stateComponent = addressComponents.find((component) =>
-                  component.types.includes("administrative_area_level_1"),
-                );
-                const stateName = stateComponent?.long_name || null;
-
-                if (stateName !== null) {
-                  geocodeCache.current[projectId] = stateName;
-                }
-
-                setStateNames((prevStateNames) => {
-                  const newStateNames = [...prevStateNames];
-                  newStateNames[columnIndex] = stateName;
-                  return newStateNames;
-                });
-              } else {
-                console.error("Geocoder failed due to: " + status);
-                setStateNames((prevStateNames) => {
-                  const newStateNames = [...prevStateNames];
-                  newStateNames[columnIndex] = null;
-                  return newStateNames;
-                });
-              }
-            });
-          } else {
-            console.error("Invalid location data for project:", projectId);
-            setStateNames((prevStateNames) => {
-              const newStateNames = [...prevStateNames];
-              newStateNames[columnIndex] = null;
-              return newStateNames;
-            });
-          }
-        }
-      });
-    });
-  }, [currentIndices, projectSets]);
 
   return (
     <StyledNationalProjects>
@@ -317,10 +242,13 @@ function NationalProjects({ caseStudies }: NationalProjectsProps) {
                     <ProjectCard>
                       <div>
                         <ProjectTitle>
-                          {stateNames[columnIndex]
-                            ? stateNames[columnIndex]
-                            : "Loading..."}
-                          : {projectSet[currentIndices[columnIndex]].entity}
+                          {(() => {
+                            const state = extractState(
+                              projectSet[currentIndices[columnIndex]].address,
+                            );
+                            return state ? `${state}: ` : "";
+                          })()}
+                          {projectSet[currentIndices[columnIndex]].entity}
                         </ProjectTitle>
                         <ProjectDetails>
                           <div>
