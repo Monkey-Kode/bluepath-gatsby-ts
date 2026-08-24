@@ -42,6 +42,11 @@ export default function NewsArticleView({
                 alt={article.title ?? 'Article hero image'}
                 width={1440}
               />
+              {article.heroImage.caption && (
+                <figcaption className="mt-2 font-sans text-sm text-[var(--color-gray-2)]">
+                  {article.heroImage.caption}
+                </figcaption>
+              )}
             </figure>
           </ViewTransition>
         )}
